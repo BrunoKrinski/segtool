@@ -1,0 +1,17 @@
+general:
+  mode: train # train or eval
+  num_workers: 1
+
+model:
+  encoder: resnet50
+  decoder: unet
+  batch_size: 8
+  num_epochs: 200
+  learning_rate: 0.00001
+  height: 256
+  width: 256
+
+dataset:
+  train: datasets/gbn_patched/train/train_ids0.txt
+  valid: datasets/gbn_patched/train/valid_ids0.txt
+  labels: datasets/gbn_patched/labels.txt
