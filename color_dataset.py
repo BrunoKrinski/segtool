@@ -74,7 +74,7 @@ if __name__ == '__main__':
             colored_gt = np.zeros((height, width, 3))
             colored_gt[:,:,0] = mask
             colored_gt[:,:,1] = mask
-            colored_gt[:,:,1] = mask
+            colored_gt[:,:,2] = mask
 
             for i, unique_value in enumerate(np.unique(mask)):
                 colored_gt = np.where(colored_gt == [unique_value, unique_value, unique_value], colors[unique_value], colored_gt)
@@ -82,7 +82,7 @@ if __name__ == '__main__':
             image = image.astype('float32')
             colored_gt = colored_gt.astype('float32')
 
-            colored_gt = cv2.addWeighted(image, 0.9, colored_gt, 0.8, 0.0)
+            colored_gt = cv2.addWeighted(image, 0.9, colored_gt, 0.9, 0.0)
             
             cv2.imwrite(colored_gt_path, colored_gt)
 

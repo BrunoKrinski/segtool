@@ -50,13 +50,13 @@ if __name__ == '__main__':
             print(np.unique(mask))
         
             height, width = mask.shape
-            patch_file.write('{} {}'.format(height, width))
+            patch_file.write('{} {}\n'.format(height, width))
         
             patched_height = round(height/20)
             patched_width = round(width/20)
 
             for h in range(0, height, patched_height):
-                patch_file.write('begin_line\n')
+                #patch_file.write('begin_line\n')
                 for w in range(0, width, patched_width):
                     patched_image = image[h:h+patched_height, w:w+patched_width]
                     patched_mask = mask[h:h+patched_height, w:w+patched_width]

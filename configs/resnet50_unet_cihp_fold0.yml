@@ -12,6 +12,6 @@ model:
   width: 256
 
 dataset:
-  train: datasets/covid20cases/train/train_ids0.txt
-  valid: datasets/covid20cases/train/valid_ids0.txt
-  labels: datasets/covid20cases/labels.txt
+  train: datasets/cihp/train/train_ids0.txt
+  valid: datasets/cihp/train/valid_ids0.txt
+  labels: datasets/cihp/labels.txt

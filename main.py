@@ -1,9 +1,10 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
 import cv2
 import yaml
 import json
+import time
 import torch
 import shutil
 import random
@@ -79,7 +80,7 @@ def get_training_augmentation(height=256, width=256):
     train_transform = [
         #albu.Resize(height, width, interpolation=cv2.INTER_NEAREST, p=1),
         albu.LongestMaxSize(max_size, interpolation=cv2.INTER_NEAREST, p=1),
-        albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_REFLECT),
+        albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0),
         
         #albu.HorizontalFlip(p=0.5),
 
@@ -127,7 +128,7 @@ def get_validation_augmentation(height=256, width=256):
 
     test_transform = [
         albu.LongestMaxSize(max_size, interpolation=cv2.INTER_NEAREST, p=1),
-        albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_REFLECT),
+        albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0),
     ]
     return albu.Compose(test_transform)
 
@@ -226,9 +227,20 @@ if __name__ == '__main__':
         max_score = 0
         for i in range(num_epochs):
             print('\nEpoch: {}'.format(i))
+            train_init = time.time()
             train_logs, individual_train_logs = train_epoch.run(train_loader)
+            train_end = time.time()
+            train_time = (train_end - train_init) / 60
+
+            valid_init = time.time()
             valid_logs, individual_valid_logs = valid_epoch.run(valid_loader)
+            valid_end = time.time()
+            valid_time = (valid_end - valid_init) / 60
             
+            individual_train_logs['epoch'] = i
+            individual_valid_logs['epoch'] = i
+            individual_train_logs['time'] = train_time
+            individual_valid_logs['time'] = valid_time
             logs['train'].append(individual_train_logs)
             logs['valid'].append(individual_valid_logs)
 
@@ -242,9 +254,9 @@ if __name__ == '__main__':
             with open(out_dir + '/train_logs.json', 'w') as log_file:
                 json.dump(logs, log_file, indent=4)
         
-            #if i % 10 == 0:
-            #    print('Learning rate decreased!')
-            #    optimizer.param_groups[0]['lr'] = learning_rate / 10
+            if i > 0 and (i % 10 == 0):
+                print('Learning rate decreased!')
+                optimizer.param_groups[0]['lr'] = learning_rate / 10
         
     #============================== EVAL ==============================#
     elif configs['general']['mode'] == 'eval':
@@ -290,16 +302,15 @@ if __name__ == '__main__':
         #        colors.append([0, 0, 0])
         #    else:
         #        colors.append([random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)])
-        colors.append([0, 0, 0])
-        colors.append([0, 50, 0])
-        colors.append([0, 100, 0])
-        colors.append([200, 0, 0])
-        '''
+        #colors.append([0, 0, 0])
+        #colors.append([0, 50, 0])
+        #colors.append([0, 100, 0])
+        #colors.append([200, 0, 0])
         colors_path = 'colors.txt'
         with open(colors_path, 'r') as colors_file:
             colors = colors_file.read().splitlines()
 
-        colors_str = colors[0:args.num_classes]
+        colors_str = colors[0:num_classes]
     
         colors = []
         for c in colors_str:
@@ -308,7 +319,6 @@ if __name__ == '__main__':
             for item in c:
                 color.append(int(item))
             colors.append(color)
-        '''
 
         test_dataset = Dataset(configs['dataset']['test'], num_classes,
                                augmentation=get_validation_augmentation(resize_height, resize_width),
@@ -362,7 +372,7 @@ if __name__ == '__main__':
             final_mask = np.zeros((mask_height, mask_width, 3))
             final_mask[:,:,0] = pr_masks
             final_mask[:,:,1] = pr_masks
-            final_mask[:,:,1] = pr_masks
+            final_mask[:,:,2] = pr_masks
             
             for i, unique_value in enumerate(np.unique(pr_masks)):
                 final_mask = np.where(final_mask == [unique_value, unique_value, unique_value], colors[unique_value], final_mask)
@@ -370,7 +380,7 @@ if __name__ == '__main__':
             image = original_image.astype('float32')
             final_mask = final_mask.astype('float32')
 
-            pred_image = cv2.addWeighted(image, 0.4, final_mask, 0.9, 0.0)
+            pred_image = cv2.addWeighted(image, 0.9, final_mask, 0.8, 0.0)
 
             image_path = images_path + '/{}.jpg'.format(idx)
             mask_path = masks_path + '/{}.png'.format(idx)
