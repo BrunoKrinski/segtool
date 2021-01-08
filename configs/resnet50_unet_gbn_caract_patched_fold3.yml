@@ -12,6 +12,6 @@ model:
   width: 256
 
 dataset:
-  train: datasets/gbn_caract_patched/train/train_ids0.txt
-  valid: datasets/gbn_caract_patched/train/valid_ids0.txt
+  train: datasets/gbn_caract_patched/train/train_ids3.txt
+  valid: datasets/gbn_caract_patched/train/valid_ids3.txt
   labels: datasets/gbn_caract_patched/labels.txt

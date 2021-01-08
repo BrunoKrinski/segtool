@@ -1,6 +1,6 @@
 #!/bin/sh
 #SBATCH -t 7-00:00:00
-#SBATCH -c 1
+#SBATCH -c 8
 #SBATCH -o /home/bakrinski/segtool/cihp_log.out
 #SBATCH --job-name=segtool_train
 #SBATCH -n 1 #NUM_DE_PROCESSOS
