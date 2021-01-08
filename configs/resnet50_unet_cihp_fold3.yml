@@ -12,6 +12,6 @@ model:
   width: 256
 
 dataset:
-  train: datasets/cihp/train/train_ids0.txt
-  valid: datasets/cihp/train/valid_ids0.txt
+  train: datasets/cihp/train/train_ids3.txt
+  valid: datasets/cihp/train/valid_ids3.txt
   labels: datasets/cihp/labels.txt
