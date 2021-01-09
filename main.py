@@ -76,13 +76,13 @@ def get_training_augmentation(height=256, width=256):
         max_size = height
     else:
         max_size = width
-
+    print('aumento')
     train_transform = [
         #albu.Resize(height, width, interpolation=cv2.INTER_NEAREST, p=1),
         albu.LongestMaxSize(max_size, interpolation=cv2.INTER_NEAREST, p=1),
         albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0),
         
-        #albu.HorizontalFlip(p=0.5),
+        albu.HorizontalFlip(p=0.5),
 
         #albu.ShiftScaleRotate(scale_limit=0.5, rotate_limit=0, shift_limit=0.1, p=1, border_mode=0),
 
