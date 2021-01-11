@@ -182,10 +182,10 @@ if __name__ == '__main__':
         runs_dir = 'RUNS/'
         os.makedirs(runs_dir, exist_ok='True')
 
-        runs_dir += experiment
+        runs_dir += '/' + experiment
         os.makedirs(runs_dir, exist_ok='True')
 
-        runs_dir += dataset
+        runs_dir += '/' + dataset
         os.makedirs(runs_dir, exist_ok='True')
         
         out_dir = args.configs.replace('.yml','').split('/')[-1]
