@@ -189,7 +189,7 @@ if __name__ == '__main__':
         os.makedirs(runs_dir, exist_ok='True')
         
         out_dir = args.configs.replace('.yml','').split('/')[-1]
-        out_dir = runs_dir + out_dir
+        out_dir = runs_dir + '/' + out_dir
         
         date = str(datetime.now()).replace(' ', '_')
 
