@@ -2,7 +2,7 @@ general:
   mode: train # train or eval
   num_workers: 8
   experiment: baseline_vgg16unet
-  dataset: camvid
+  dataset: covid20cases
 
 model:
   encoder: vgg16
@@ -14,6 +14,6 @@ model:
   width: 256
 
 dataset:
-  train: datasets/camvid/train/train_ids2.txt
-  valid: datasets/camvid/train/valid_ids2.txt
-  labels: datasets/camvid/labels.txt
+  train: datasets/covid20cases/train/train_ids3.txt
+  valid: datasets/covid20cases/train/valid_ids3.txt
+  labels: datasets/covid20cases/labels.txt
