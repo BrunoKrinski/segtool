@@ -1,11 +1,11 @@
 general:
   mode: train # train or eval
   num_workers: 8
-  experiment: baseline_resnet50unet
+  experiment: baseline_vgg16unet
   dataset: cihp
 
 model:
-  encoder: resnet50
+  encoder: vgg16
   decoder: unet
   batch_size: 8
   num_epochs: 50
