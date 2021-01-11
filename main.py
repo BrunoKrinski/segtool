@@ -43,7 +43,7 @@ class Dataset(BaseDataset):
         
         image_path = self.images[i]
         mask_path = self.masks[i]
-        print(image_path)
+        #print(image_path)
         image = cv2.imread(image_path)
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         mask = cv2.imread(mask_path, 0)
@@ -240,12 +240,12 @@ if __name__ == '__main__':
             train_init = time.time()
             train_logs, individual_train_logs = train_epoch.run(train_loader)
             train_end = time.time()
-            train_time = (train_end - train_init) / 60
+            train_time = (train_end - train_init)
 
             valid_init = time.time()
             valid_logs, individual_valid_logs = valid_epoch.run(valid_loader)
             valid_end = time.time()
-            valid_time = (valid_end - valid_init) / 60
+            valid_time = (valid_end - valid_init)
             
             individual_train_logs['Epoch'] = i
             individual_valid_logs['Epoch'] = i
