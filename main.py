@@ -157,10 +157,13 @@ if __name__ == '__main__':
 
     device = 'cuda'
     num_classes = len(classes)
-        
-    batch_size = configs['model']['batch_size']
-    resize_height = configs['model']['height']
+    
     resize_width = configs['model']['width']
+    resize_height = configs['model']['height']
+    batch_size = configs['model']['batch_size']
+    
+    dataset = configs['general']['dataset']
+    experiment = configs['general']['experiment']
     num_workers = configs['general']['num_workers']
     
     encoder = configs['model']['encoder']
@@ -177,6 +180,12 @@ if __name__ == '__main__':
         learning_rate = configs['model']['learning_rate']
 
         runs_dir = 'RUNS/'
+        os.makedirs(runs_dir, exist_ok='True')
+
+        runs_dir += experiment
+        os.makedirs(runs_dir, exist_ok='True')
+
+        runs_dir += dataset
         os.makedirs(runs_dir, exist_ok='True')
         
         out_dir = args.configs.replace('.yml','').split('/')[-1]
@@ -238,10 +247,10 @@ if __name__ == '__main__':
             valid_end = time.time()
             valid_time = (valid_end - valid_init) / 60
             
-            individual_train_logs['epoch'] = i
-            individual_valid_logs['epoch'] = i
-            individual_train_logs['time'] = train_time
-            individual_valid_logs['time'] = valid_time
+            individual_train_logs['Epoch'] = i
+            individual_valid_logs['Epoch'] = i
+            individual_train_logs['Time'] = train_time
+            individual_valid_logs['Time'] = valid_time
             logs['train'].append(individual_train_logs)
             logs['valid'].append(individual_valid_logs)
 

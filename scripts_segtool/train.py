@@ -73,8 +73,8 @@ class Epoch:
                         lv = label_value.cpu().detach().numpy()
                         label_meters[label].add(lv)
 
-                metrics_logs = {k: v.mean for k, v in metrics_meters.items()}
-                label_logs = {k: v.mean for k, v in label_meters.items()}
+                metrics_logs = {k.capitalize(): v.mean for k, v in metrics_meters.items()}
+                label_logs = {k.capitalize(): v.mean for k, v in label_meters.items()}
 
                 logs.update(metrics_logs)
                 individual_logs.update(metrics_logs)

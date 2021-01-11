@@ -1,6 +1,8 @@
 general:
   mode: train # train or eval
   num_workers: 8
+  experiment: baseline
+  dataset: camvid
 
 model:
   encoder: resnet50
