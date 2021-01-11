@@ -257,8 +257,8 @@ if __name__ == '__main__':
             #torch.save(model, '{}/epoch{}.pth'.format(checkpoints, i))
             torch.save(model, '{}/last.pth'.format(checkpoints))
     
-            if max_score < valid_logs['fscore']:
-                max_score = valid_logs['fscore']
+            if max_score < valid_logs['Fscore']:
+                max_score = valid_logs['Fscore']
                 torch.save(model, '{}/best.pth'.format(checkpoints))
 
             with open(out_dir + '/train_logs.json', 'w') as log_file:
