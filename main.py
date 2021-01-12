@@ -1,5 +1,5 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+#os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 import cv2
 import yaml
@@ -266,7 +266,7 @@ if __name__ == '__main__':
         
             if i > 0 and (i % 10 == 0):
                 print('Learning rate decreased!')
-                optimizer.param_groups[0]['lr'] = learning_rate / 10
+                optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] / 10
         
     #============================== EVAL ==============================#
     elif configs['general']['mode'] == 'eval':
