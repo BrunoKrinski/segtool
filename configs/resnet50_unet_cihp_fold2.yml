@@ -8,7 +8,7 @@ model:
   encoder: resnet50
   decoder: unet
   batch_size: 8
-  num_epochs: 50
+  num_epochs: 30
   learning_rate: 0.001
   height: 256
   width: 256
