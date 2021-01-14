@@ -237,6 +237,7 @@ if __name__ == '__main__':
         max_score = 0
         for i in range(num_epochs):
             print('\nEpoch: {}'.format(i))
+            print('\nLearning Rate: {}'.format(optimizer.param_groups[0]['lr']))
             train_init = time.time()
             train_logs, individual_train_logs = train_epoch.run(train_loader)
             train_end = time.time()
@@ -264,9 +265,9 @@ if __name__ == '__main__':
             with open(out_dir + '/train_logs.json', 'w') as log_file:
                 json.dump(logs, log_file, indent=4)
         
-            if i > 0 and (i % 10 == 0):
-                print('Learning rate decreased!')
-                optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] / 10
+            #if i > 0 and (i % 10 == 0):
+            #    print('Learning rate decreased!')
+            #    optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] / 10
         
     #============================== EVAL ==============================#
     elif configs['general']['mode'] == 'eval':
