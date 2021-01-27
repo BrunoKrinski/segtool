@@ -81,7 +81,7 @@ def get_training_augmentation(height=256, width=256):
         #albu.Resize(height, width, interpolation=cv2.INTER_NEAREST, p=1),
         albu.LongestMaxSize(max_size, interpolation=cv2.INTER_NEAREST, p=1),
         albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0),
-        albu.Equalize(p=0.5),
+        albu.CoarseDropout(p=0.5, max_holes=100),
         #albu.CLAHE(p=0.5),
         #albu.HorizontalFlip(p=0.5),
 
