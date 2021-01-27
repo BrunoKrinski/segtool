@@ -1,7 +1,7 @@
 general:
   mode: train # train or eval
   num_workers: 8
-  experiment: clahe_resnet50unet
+  experiment: equalize_resnet50unet
   dataset: camvid
 
 model:
