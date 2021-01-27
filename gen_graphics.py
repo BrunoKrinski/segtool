@@ -7,8 +7,9 @@ import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
 
-    experiments = ['baseline/']
+    experiments = ['baseline_resnet50unet/']
     datasets = ['camvid/', 'cihp/', 'covid20cases/', 'gbn_caract_patched/', 'gbn_region_patched/']
+    #datasets = ['covid20cases/']
     runs_path = 'RUNS/'
 
     for experiment in experiments:
@@ -43,13 +44,13 @@ if __name__ == '__main__':
                     epoch_0 = train_logs['train'][0]
                     for key, value in epoch_0.items():
                         labels.append(key)
-                    num_classes = len(labels) - 2
+                    num_classes = len(labels) - 3
 
                 train_results = train_logs['train']
                 valid_results = train_logs['valid']
-                
+                #print(labels)
                 for label in labels:
-                    if label != 'time' and label != 'epoch':
+                    if label != 'Time' and label != 'Epoch' and label != 'Dice_loss':
                         print(label)
                         x1 = []
                         x2 = []
@@ -65,7 +66,7 @@ if __name__ == '__main__':
                         
                         y = list(range(len(x1)))
                         yticks = [p/10 for p in range(0, 11)]
-                        xticks = [p for p in range(0, len(x1), 5)]
+                        xticks = [p for p in range(0, len(x1)+5, 5)]
                         plt.plot(y, x1, label='train')
                         plt.plot(y, x2, label='valid')
                         plt.xticks(xticks)
@@ -80,7 +81,7 @@ if __name__ == '__main__':
             for i in range(num_classes):
                 mean_train = []
                 mean_valid = []
-                print(labels[i])
+                print(labels[i+1])
                 for j in range(0+i, len(all_train), num_classes):
                     mean_train.append(all_train[j])
                     mean_valid.append(all_valid[j])
@@ -89,12 +90,12 @@ if __name__ == '__main__':
                 mean_valid = list(map(lambda x: sum(x)/len(x), zip(*mean_valid)))
                 y = list(range(len(mean_train)))
                 yticks = [p/10 for p in range(0, 11)]
-                xticks = [p for p in range(0, len(mean_train), 5)]
+                xticks = [p for p in range(0, len(mean_train)+5, 5)]
                 plt.plot(y, mean_train, label='train')
                 plt.plot(y, mean_valid, label='valid')
                 plt.xticks(xticks)
                 plt.yticks(yticks)
-                plt.title(dataset + ' ' + labels[i])
+                plt.title(dataset + ' ' + labels[i+1])
                 plt.legend()
-                plt.savefig(mean_results_path + '/' + labels[i].lower() + '.png')
+                plt.savefig(mean_results_path + '/' + labels[i+1].lower() + '.png')
                 plt.clf()
