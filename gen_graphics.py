@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
 
-    experiments = ['rcrop_resnet50unet/']
+    experiments = ['rbc_resnet50unet/']
     datasets = ['camvid/', 'cihp/', 'covid20cases/', 'gbn_caract_patched/', 'gbn_region_patched/']
     datasets = ['covid20cases/', 'camvid/']
     runs_path = 'RUNS/'

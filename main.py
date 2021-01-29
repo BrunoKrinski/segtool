@@ -82,7 +82,7 @@ def get_training_augmentation(height=256, width=256):
         #albu.RandomCrop(p=0.5, height=200, width=200),
         albu.LongestMaxSize(max_size, interpolation=cv2.INTER_NEAREST, p=1),
         albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0),
-        albu.RandomBrightnessContrast(p=0.5),
+        #albu.RandomBrightnessContrast(p=0.5),
         #albu.CoarseDropout(p=0.5, max_holes=100),
         #albu.CLAHE(p=0.5),
         #albu.HorizontalFlip(p=0.5),
@@ -267,9 +267,9 @@ if __name__ == '__main__':
             with open(out_dir + '/train_logs.json', 'w') as log_file:
                 json.dump(logs, log_file, indent=4)
         
-            #if i > 0 and (i % 10 == 0):
-            #    print('Learning rate decreased!')
-            #    optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] / 10
+            if i > 0 and (i % 10 == 0):
+                print('Learning rate decreased!')
+                optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] / 10
         
     #============================== EVAL ==============================#
     elif configs['general']['mode'] == 'eval':
