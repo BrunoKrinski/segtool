@@ -1,7 +1,7 @@
 general:
   mode: train # train or eval
   num_workers: 8
-  experiment: rcrop_resnet50unet
+  experiment: rbc_resnet50unet
   dataset: camvid
 
 model:
