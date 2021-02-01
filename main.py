@@ -172,8 +172,8 @@ if __name__ == '__main__':
     preprocessing_fn = smp.encoders.get_preprocessing_fn(encoder, 'imagenet')
     
     loss = smp.utils.losses.DiceLoss()
-    metrics = [smp.utils.metrics.Fscore(threshold=0.9)] 
-    individual_metrics = [smp.utils.metrics.Fscore(threshold=0.9, num_classes=num_classes)] 
+    metrics = [smp.utils.metrics.Fscore(threshold=0.5)] 
+    individual_metrics = [smp.utils.metrics.Fscore(threshold=0.5, num_classes=num_classes)] 
     
     #============================== TRAIN ==============================#
     if configs['general']['mode'] == 'train':

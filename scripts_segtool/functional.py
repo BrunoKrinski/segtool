@@ -30,11 +30,6 @@ def iou(pr, gt, eps=1e-7, threshold=None, ignore_channels=None, num_classes=None
 
     pr = _threshold(pr, threshold=threshold)
     pr, gt = _take_channels(pr, gt, ignore_channels=ignore_channels)
-    '''
-    intersection = torch.sum(gt * pr)
-    union = torch.sum(gt) + torch.sum(pr) - intersection + eps
-    return (intersection + eps) / union
-    '''
     if num_classes == None:
         ious = []
         for prs, gts in zip(pr, gt):
@@ -73,15 +68,7 @@ def f_score(pr, gt, beta=1, eps=1e-7, threshold=None, ignore_channels=None, num_
 
     pr = _threshold(pr, threshold=threshold)
     pr, gt = _take_channels(pr, gt, ignore_channels=ignore_channels)
-    '''
-    tp = torch.sum(gt * pr)
-    fp = torch.sum(pr) - tp
-    fn = torch.sum(gt) - tp
-
-    score = ((1 + beta ** 2) * tp + eps) \
-            / ((1 + beta ** 2) * tp + beta ** 2 * fn + fp + eps)
-
-    return score'''
+    
     if num_classes == None:
         scores = []
         for prs, gts in zip(pr, gt):
@@ -89,35 +76,19 @@ def f_score(pr, gt, beta=1, eps=1e-7, threshold=None, ignore_channels=None, num_
                 tp = torch.sum(gt * pr)
                 fp = torch.sum(pr) - tp
                 fn = torch.sum(gt) - tp
-                #score = ((1 + beta ** 2) * tp + eps) / ((1 + beta ** 2) * tp + beta ** 2 * fn + fp + eps)
-                #precision = tp / (tp + fp + eps)
-                #recall = tp / (tp + fn + eps) 
                 score = tp / (tp + (fp + fn) / 2 + eps) 
-                #score = 2 * (precision * recall) / (precision + recall + eps)
                 scores.append(score)
         return sum(scores) / len(scores)
     else:
         scores = [0.0] * num_classes
         batch_size = len(pr)
         for prs, gts in zip(pr, gt):
-            #print('--------------------')
             for i, pr, gt in zip(range(num_classes), prs, gts):
                 tp = torch.sum(gt * pr)
-                #print('tp:' + str(tp))
                 fp = torch.sum(pr) - tp
-                #print('fp:' + str(fp))
                 fn = torch.sum(gt) - tp
-                #print('fn:' + str(fn))
-                #score = ((1 + beta ** 2) * tp + eps) / ((1 + beta ** 2) * tp + beta ** 2 * fn + fp + eps)
-                #precision = tp / (tp + fp + eps)
-                #recall = tp / (tp + fn + eps) 
                 score = tp / (tp + (fp + fn) / 2 + eps)
-                #score = 2 * (precision * recall) / (precision + recall + eps) 
-                #print((1 + beta ** 2) * tp + eps)
-                #print((1 + beta ** 2) * tp + beta ** 2 * fn + fp + eps)
-                #print('score:' + str(score))
                 scores[i] += score / batch_size
-            #print('--------------------')
         return scores
 
 
