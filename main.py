@@ -84,7 +84,7 @@ def get_training_augmentation(height=256, width=256):
         albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0),
         #albu.RandomBrightnessContrast(p=0.5),
         #albu.CoarseDropout(p=0.5, max_holes=100),
-        #albu.CLAHE(p=0.5),
+        albu.CLAHE(p=0.5, tile_grid_size=(64, 64)),
         #albu.HorizontalFlip(p=0.5),
 
         #albu.ShiftScaleRotate(scale_limit=0.5, rotate_limit=0, shift_limit=0.1, p=1, border_mode=0),
