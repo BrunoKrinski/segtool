@@ -83,7 +83,7 @@ def get_training_augmentation(height=256, width=256):
         albu.LongestMaxSize(max_size, interpolation=cv2.INTER_NEAREST, p=1),
         albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0),
         #albu.RandomBrightnessContrast(p=0.5),
-        albu.CoarseDropout(p=0.5, max_holes=100),
+        #albu.CoarseDropout(p=0.5, max_holes=100),
         #albu.CLAHE(p=0.5, tile_grid_size=(64, 64)),
         #albu.HorizontalFlip(p=0.5),
 
@@ -171,10 +171,17 @@ if __name__ == '__main__':
     encoder = configs['model']['encoder']
     preprocessing_fn = smp.encoders.get_preprocessing_fn(encoder, 'imagenet')
     
-    loss = smp.utils.losses.DiceLoss()
-    #loss = smp.utils.losses.JaccardLoss()
-    metrics = [smp.utils.metrics.Fscore(threshold=0.5)] 
-    individual_metrics = [smp.utils.metrics.Fscore(threshold=0.5, num_classes=num_classes)] 
+    #loss = smp.utils.losses.DiceLoss()
+    #metrics = [smp.utils.metrics.Fscore(threshold=0.5)] 
+    #individual_metrics = [smp.utils.metrics.Fscore(threshold=0.5, num_classes=num_classes)] 
+    
+    loss1 = smp.utils.losses.DiceLoss()
+    loss2 = smp.utils.losses.JaccardLoss()
+    loss = smp.utils.base.WeightedMeanOfLosses(loss1, loss2, 1, 1)
+
+    metrics = [smp.utils.metrics.Fscore(threshold=0.5), smp.utils.metrics.IoU(threshold=0.5)] 
+    individual_metrics = [smp.utils.metrics.Fscore(threshold=0.5, num_classes=num_classes),
+                          smp.utils.metrics.IoU(threshold=0.5, num_classes=num_classes)] 
     
     #============================== TRAIN ==============================#
     if configs['general']['mode'] == 'train':
@@ -263,7 +270,11 @@ if __name__ == '__main__':
             #print(logs['valid'])
             if max_score < valid_logs['Fscore']:
                 max_score = valid_logs['Fscore']
-                torch.save(model, '{}/best.pth'.format(checkpoints))
+                torch.save(model, '{}/best_fscore.pth'.format(checkpoints))
+
+            if max_score < valid_logs['Iou']:
+                max_score = valid_logs['Iou']
+                torch.save(model, '{}/best_iou.pth'.format(checkpoints))
 
             with open(out_dir + '/train_logs.json', 'w') as log_file:
                 json.dump(logs, log_file, indent=4)

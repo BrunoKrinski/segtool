@@ -4,7 +4,7 @@ from .base import Activation
 
 
 class IoU(base.Metric):
-    __name__ = 'iou'
+    __name__ = 'Iou'
 
     def __init__(self, eps=1e-7, threshold=0.5, activation=None, ignore_channels=None, num_classes=None, **kwargs):
         super().__init__(**kwargs)
@@ -26,7 +26,7 @@ class IoU(base.Metric):
 
 
 class Fscore(base.Metric):
-    __name__ = 'fscore'
+    __name__ = 'Fscore'
 
     def __init__(self, beta=1, eps=1e-7, threshold=0.5, activation=None, ignore_channels=None, num_classes=None, **kwargs):
         super().__init__(**kwargs)

@@ -49,7 +49,7 @@ class Epoch:
         label_meters = {}
         for metric in self.individual_metrics:
             for label in self.labels:
-                label_meters[label] = AverageValueMeter()
+                label_meters[label + '_' + metric.__name__] = AverageValueMeter()
 
         with tqdm(dataloader, desc=self.stage_name, file=sys.stdout, disable=not (self.verbose)) as iterator:
             for x, y in iterator:
@@ -71,7 +71,7 @@ class Epoch:
                     label_values = metric_fn(y_pred, y)
                     for label, label_value in zip(self.labels, label_values):
                         lv = label_value.cpu().detach().numpy()
-                        label_meters[label].add(lv)
+                        label_meters[label+'_'+metric_fn.__name__].add(lv)
 
                 metrics_logs = {k.capitalize(): v.mean for k, v in metrics_meters.items()}
                 label_logs = {k.capitalize(): v.mean for k, v in label_meters.items()}

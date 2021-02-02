@@ -35,8 +35,8 @@ def iou(pr, gt, eps=1e-7, threshold=None, ignore_channels=None, num_classes=None
         for prs, gts in zip(pr, gt):
             for pr, gt in zip(prs, gts):
                 intersection = torch.sum(gt * pr)
-                union = torch.sum(gt) + torch.sum(pr) - intersection + eps
-                iou_score = (intersection + eps) / union
+                union = torch.sum(gt) + torch.sum(pr) - intersection
+                iou_score = intersection / (union + eps)
                 ious.append(iou_score)
         return sum(ious) / len(ious)
     else:
@@ -45,8 +45,8 @@ def iou(pr, gt, eps=1e-7, threshold=None, ignore_channels=None, num_classes=None
         for prs, gts in zip(pr, gt):
             for i, pr, gt in zip(range(num_classes), prs, gts):
                 intersection = torch.sum(gt * pr)
-                union = torch.sum(gt) + torch.sum(pr) - intersection + eps
-                iou_score = (intersection + eps) / union
+                union = torch.sum(gt) + torch.sum(pr) - intersection
+                iou_score = intersection / (union + eps)
                 ious[i] += iou_score / batch_size
         return ious
 
@@ -76,18 +76,18 @@ def f_score(pr, gt, beta=1, eps=1e-7, threshold=None, ignore_channels=None, num_
                 tp = torch.sum(gt * pr)
                 fp = torch.sum(pr) - tp
                 fn = torch.sum(gt) - tp
-                score = tp / (tp + (fp + fn) / 2 + eps) 
+                score = tp / ((tp + ((fp + fn) / 2)) + eps)
                 scores.append(score)
         return sum(scores) / len(scores)
     else:
         scores = [0.0] * num_classes
         batch_size = len(pr)
         for prs, gts in zip(pr, gt):
-            for i, pr, gt in zip(range(num_classes), prs, gts):
+            for i, pr, gt in zip(range(num_classes), prs, gts):     
                 tp = torch.sum(gt * pr)
                 fp = torch.sum(pr) - tp
                 fn = torch.sum(gt) - tp
-                score = tp / (tp + (fp + fn) / 2 + eps)
+                score = tp / ((tp + ((fp + fn) / 2)) + eps)
                 scores[i] += score / batch_size
         return scores
 

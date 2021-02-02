@@ -73,6 +73,19 @@ class SumOfLosses(Loss):
     def __call__(self, *inputs):
         return self.l1.forward(*inputs) + self.l2.forward(*inputs)
 
+class WeightedMeanOfLosses(Loss):
+
+    def __init__(self, l1, l2, w1, w2):
+        name = 'Weighted Mean of: {} and {})'.format(l1.__name__, l2.__name__)
+        super().__init__(name=name)
+        self.l1 = l1
+        self.l2 = l2
+        self.w1 = w1
+        self.w2 = w2
+
+    def __call__(self, *inputs):
+        return (self.w1 * self.l1.forward(*inputs) + self.w2 * self.l2.forward(*inputs)) / 2
+
 
 class MultipliedLoss(Loss):
 

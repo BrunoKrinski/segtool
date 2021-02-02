@@ -3,13 +3,37 @@ import cv2
 import glob
 import json
 import numpy as np
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
+
+def getminmax(x1, x2):
+    aux1 = sorted(x1)
+    aux2 = sorted(x2)
+
+    if aux1[0] > aux2[0]:
+        p = aux1[0]
+    else:
+        p = aux2[0]
+    
+    p = p * 10
+    
+    if p < 0:
+        p = 0
+    if aux1[len(aux1)-1] > aux2[len(aux2)-1]:
+        e = aux1[len(aux1)-1]
+    else:
+        e = aux2[len(aux2)-1]
+    
+    e = e * 10 + 1
+    if e > 10:
+        e = 10
+
+    return int(p)*10, int(e)*10+1
 
 if __name__ == '__main__':
 
-    experiments = ['cdropout_resnet50unet/']
+    experiments = ['baseline_resnet50unet/', 'cdropout_resnet50unet/']
     datasets = ['camvid/', 'cihp/', 'covid20cases/', 'gbn_caract_patched/', 'gbn_region_patched/']
-    datasets = ['covid20cases/', 'camvid/']
+    datasets = ['camvid/']
     runs_path = 'RUNS/'
 
     for experiment in experiments:
@@ -50,7 +74,7 @@ if __name__ == '__main__':
                 valid_results = train_logs['valid']
                 #print(labels)
                 for label in labels:
-                    if label != 'Time' and label != 'Epoch' and label != 'Dice_loss':
+                    if label != 'Time' and label != 'Epoch' and label != 'Jaccard_loss':
                         print(label)
                         x1 = []
                         x2 = []
@@ -65,7 +89,11 @@ if __name__ == '__main__':
                         all_valid.append(x2)
                         
                         y = list(range(len(x1)))
-                        yticks = [p/10 for p in range(0, 11)]
+                        
+                        p, e = getminmax(x1, x2)
+                        #print(int(p)*10)
+                        #print(int(e)*10+1)
+                        yticks = [p/100 for p in range(p, e, 1)]
                         xticks = [p for p in range(0, len(x1)+5, 5)]
                         plt.plot(y, x1, label='train')
                         plt.plot(y, x2, label='valid')
@@ -73,6 +101,7 @@ if __name__ == '__main__':
                         plt.yticks(yticks)
                         plt.title(label)
                         plt.legend()
+                        plt.grid(True)
                         plt.savefig(results_path + '/' + label.lower() + '.png')
                         plt.clf()
             print("--------------------------------------------------")
@@ -88,14 +117,18 @@ if __name__ == '__main__':
 
                 mean_train = list(map(lambda x: sum(x)/len(x), zip(*mean_train)))
                 mean_valid = list(map(lambda x: sum(x)/len(x), zip(*mean_valid)))
+
+                p, e = getminmax(mean_train, mean_valid)
+
                 y = list(range(len(mean_train)))
-                yticks = [p/10 for p in range(0, 11)]
+                yticks = [p/100 for p in range(p, e, 1)]
                 xticks = [p for p in range(0, len(mean_train)+5, 5)]
                 plt.plot(y, mean_train, label='train')
                 plt.plot(y, mean_valid, label='valid')
                 plt.xticks(xticks)
                 plt.yticks(yticks)
-                plt.title(dataset + ' ' + labels[i+1])
+                plt.title(dataset + experiment.split('_')[0] + '/' + labels[i+1])
                 plt.legend()
+                plt.grid(True)
                 plt.savefig(mean_results_path + '/' + labels[i+1].lower() + '.png')
                 plt.clf()
