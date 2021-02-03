@@ -1,7 +1,7 @@
 general:
   mode: train # train or eval
   num_workers: 8
-  experiment: gaussblur_resnet50fpn
+  experiment: baseline_resnet50fpn
   dataset: covid20cases
 
 model:
