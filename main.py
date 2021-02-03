@@ -208,7 +208,7 @@ if __name__ == '__main__':
         os.mkdir(out_dir) 
 
         os.system('cp {} {}'.format(args.configs, out_dir))
-        os.system('cp {} {}'.format(main.py, out_dir))
+        os.system('cp {} {}'.format('main.py', out_dir))
                 
         activation = 'softmax2d'
         
