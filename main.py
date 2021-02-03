@@ -1,5 +1,5 @@
 import os
-#os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 import cv2
 import yaml
@@ -82,6 +82,7 @@ def get_training_augmentation(height=256, width=256):
         #albu.RandomCrop(p=0.5, height=200, width=200),
         albu.LongestMaxSize(max_size, interpolation=cv2.INTER_NEAREST, p=1),
         albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0),
+        albu.GaussianBlur(p=0.3)
         #albu.RandomBrightnessContrast(p=0.5),
         #albu.CoarseDropout(p=0.5, max_holes=100),
         #albu.CLAHE(p=0.5, tile_grid_size=(64, 64)),

@@ -1,7 +1,7 @@
 general:
   mode: train # train or eval
   num_workers: 8
-  experiment: baseline_resnet50fpn
+  experiment: gaussblur_resnet50fpn
   dataset: camvid
 
 model:

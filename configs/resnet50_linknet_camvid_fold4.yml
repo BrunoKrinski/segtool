@@ -1,12 +1,12 @@
 general:
   mode: train # train or eval
   num_workers: 8
-  experiment: gaussblur_resnet50fpn
+  experiment: baseline_resnet50linknet
   dataset: camvid
 
 model:
   encoder: resnet50
-  decoder: fpn
+  decoder: linknet
   batch_size: 8
   num_epochs: 50
   learning_rate: 0.001
@@ -14,6 +14,6 @@ model:
   width: 256
 
 dataset:
-  train: datasets/camvid/train/train_ids2.txt
-  valid: datasets/camvid/train/valid_ids2.txt
+  train: datasets/camvid/train/train_ids4.txt
+  valid: datasets/camvid/train/valid_ids4.txt
   labels: datasets/camvid/labels.txt
