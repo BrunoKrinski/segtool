@@ -27,13 +27,13 @@ def getminmax(x1, x2):
     if e > 10:
         e = 10
 
-    return int(p)*10, int(e)*10+1
+    return int(p)*10, int(round(e,0))*10+1
 
 if __name__ == '__main__':
 
-    experiments = ['baseline_resnet50unet/', 'cdropout_resnet50unet/']
-    datasets = ['camvid/', 'cihp/', 'covid20cases/', 'gbn_caract_patched/', 'gbn_region_patched/']
-    datasets = ['camvid/']
+    experiments = ['baseline/']
+    
+    datasets = ['covid20cases/', 'covid19china/', 'ricord1a/']
     runs_path = 'RUNS/'
 
     for experiment in experiments:
@@ -74,7 +74,7 @@ if __name__ == '__main__':
                 valid_results = train_logs['valid']
                 #print(labels)
                 for label in labels:
-                    if label != 'Time' and label != 'Epoch' and label != 'Jaccard_loss':
+                    if label != 'Time' and label != 'Epoch' and label != 'Weighted mean of: dice_loss and jaccard_loss)':
                         print(label)
                         x1 = []
                         x2 = []

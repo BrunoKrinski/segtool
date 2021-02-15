@@ -170,6 +170,7 @@ if __name__ == '__main__':
     num_workers = configs['general']['num_workers']
     
     encoder = configs['model']['encoder']
+    decoder = configs['model']['decoder']
     preprocessing_fn = smp.encoders.get_preprocessing_fn(encoder, 'imagenet')
     
     #loss = smp.utils.losses.DiceLoss()
@@ -198,6 +199,12 @@ if __name__ == '__main__':
 
         runs_dir += '/' + dataset
         os.makedirs(runs_dir, exist_ok='True')
+
+        runs_dir += '/' + decoder
+        os.makedirs(runs_dir, exist_ok='True')
+
+        runs_dir += '/' + encoder
+        os.makedirs(runs_dir, exist_ok='True')
         
         out_dir = args.configs.replace('.yml','').split('/')[-1]
         out_dir = runs_dir + '/' + out_dir
@@ -212,13 +219,13 @@ if __name__ == '__main__':
                 
         activation = 'softmax2d'
         
-        if configs['model']['decoder'] == 'fpn':
+        if decoder == 'fpn':
             model = smp.FPN(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
-        elif configs['model']['decoder'] == 'unet':
+        elif decoder == 'unet':
             model = smp.Unet(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
-        elif configs['model']['decoder'] == 'linknet':
+        elif decoder == 'linknet':
             model = smp.Linknet(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
-        elif configs['model']['decoder'] == 'pspnet':
+        elif decoder == 'pspnet':
             model = smp.PSPNet(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
         
         train_dataset = Dataset(configs['dataset']['train'], num_classes,

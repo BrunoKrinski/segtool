@@ -71,5 +71,3 @@ if __name__ == '__main__':
                 test_file.write('{} {}'.format(image_path, mask_path))    
             else:
                 test_file.write('{} {}\n'.format(image_path, mask_path))
-
-

@@ -11,7 +11,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     sets = ['train', 'valid']
-
+    #sets = ['train']
     colors_path = 'colors.txt'
     with open(colors_path, 'r') as colors_file:
         colors = colors_file.read().splitlines()
@@ -85,6 +85,3 @@ if __name__ == '__main__':
             colored_gt = cv2.addWeighted(image, 0.9, colored_gt, 0.9, 0.0)
             
             cv2.imwrite(colored_gt_path, colored_gt)
-
-
-
