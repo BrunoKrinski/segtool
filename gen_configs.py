@@ -37,14 +37,15 @@ for dataset in datasets:
     node_count += 1
     print(nodes[node_num])
 
-    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 8\n#SBATCH -o /home/bakrinski/segtool/logs/camvid_resnet50fpn_log.out\n\
+    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 8\n#SBATCH -o /home/bakrinski/segtool/logs/{}_log.out\n\
 #SBATCH --job-name=segtool_train\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
-#SBATCH --nodelist={}\n#SBATCH --gres=gpu:1\n#SBATCH -e /home/bakrinski/segtool/logs/camvid_resnet50fpn_error.out\n\n\
-export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(nodes[node_num])
+#SBATCH --nodelist={}\n#SBATCH --gres=gpu:1\n#SBATCH -e /home/bakrinski/segtool/logs/{}_error.out\n\n\
+export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, nodes[node_num], dataset)
 
     for fold in range(num_folds):
         for encoder in encoders:
             for decoder in decoders:
+                
                 configs = {
                     "general": {"mode": mode, 
                                 "num_workers": num_workers,
