@@ -13,7 +13,7 @@ mode = 'train'
 experiment = 'baseline'
 
 encoders = ['resnet50']
-nodes = ['vti1-ib', 'vti2-ib', 'pti']
+nodes = ['vti1-ib', 'pti', 'vti2-ib']
 decoders = ['unet','fpn','pspnet','linknet']
 datasets = ['covid20cases', 'covid19china', 'mosmed', 'ricord1a']
 
