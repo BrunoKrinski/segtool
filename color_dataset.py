@@ -56,18 +56,22 @@ if __name__ == '__main__':
         with open(dataset_ids, 'r') as txt_file:
             ids = txt_file.read().splitlines()
 
-
+        num_classes = 0
         for idx in ids:
-            print(idx)
+            #print(idx)
             image_path, mask_path = idx.split(' ')
             colored_gt_path = image_path.replace('/images/','/colored_gt/')
             image_name = image_path.split('/')[-1].split('.')[0]
-            print(image_name)
+            #print(image_name)
         
             image = cv2.imread(image_path)
             mask = cv2.imread(mask_path,0)
 
-            print(np.unique(mask))
+            #print(np.unique(mask))
+            if len(np.unique(mask)) > num_classes:
+                num_classes += 1
+                print(num_classes)
+                print(np.unique(mask))
         
             height, width = mask.shape
 
