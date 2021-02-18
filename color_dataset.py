@@ -58,7 +58,7 @@ if __name__ == '__main__':
 
         num_classes = 0
         for idx in ids:
-            #print(idx)
+            print(idx)
             image_path, mask_path = idx.split(' ')
             colored_gt_path = image_path.replace('/images/','/colored_gt/')
             image_name = image_path.split('/')[-1].split('.')[0]

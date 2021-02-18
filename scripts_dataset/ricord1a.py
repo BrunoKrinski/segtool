@@ -1,3 +1,4 @@
+import os
 import cv2
 import png
 import json
@@ -65,7 +66,10 @@ results = mdai.common_utils.json_to_dataframe(json_path)
 df = results['annotations']
 
 images = glob.glob('**/*.dcm', recursive=True)
-#images = ['1-001.dcm']
+
+os.mkdir('all/')
+os.mkdir('all/images/')
+os.mkdir('all/masks/')
 
 i = 0
 ids = []
@@ -76,14 +80,12 @@ for image in images:
     anns = df.loc[df['SOPInstanceUID'] == idx]
     if len(anns) > 0:
         print(i)
-        #print(image)
-        #print(anns)
         
         #Output_Image, Instance_Number = Dicom_to_Image(image)
         image_2d = ds.pixel_array.astype(float)
         image_2d_scaled = (np.maximum(image_2d,0) / image_2d.max()) * 255.0
         Output_Image = np.uint8(image_2d_scaled)
-        cv2.imwrite('train/images/' + str(i).zfill(6) + '.jpg', Output_Image)
+        cv2.imwrite('all/images/' + str(i).zfill(6) + '.jpg', Output_Image)
 
         shape = ds.pixel_array.shape
         mask = np.zeros((shape[0], shape[1]), dtype=np.uint8)
@@ -93,90 +95,5 @@ for image in images:
             if row[1]["data"] is not None:
                 mask = toMask(row[1], mask)
 
-        cv2.imwrite('train/masks/' + str(i).zfill(6) + '.png', mask)
+        cv2.imwrite('all/masks/' + str(i).zfill(6) + '.png', mask)
         i += 1
-        #exit()    
-    #
-    #
-    
-    #windowed = apply_voi_lut(ds.pixel_array, ds)
-    #image_2d_scaled = np.uint8(windowed)
-    #
-    #print(wl, ww)
-    #img = convert_ct_dicom_to_8bit(ds, windows = [[ww,wl]], imsize=(512.,512.), should_remove_padding = True)
-    #image_2d = ds.pixel_array.astype(float)
-    #image_2d_scaled = (np.maximum(image_2d,0) / image_2d.max()) * 255.0
-    #image_2d_scaled = np.uint8(image_2d_scaled)
-    #cv2.imwrite('images/{}.jpg'.format(i), image_2d_scaled)
-    #with open('images/{}.png'.format(i), 'wb') as png_file:
-    #    w = png.Writer(shape[1], shape[0], greyscale=True)
-    #    w.write(png_file, image_2d_scaled)
-    #img = Image.fromarray(img)
-    #img.save('images/{}.jpg'.format(i))
-    #
-    #break
-
-    #
-    #
-    #
-    #
-    #    print(anns)
-    
-    #ids.append(ds.SOPInstanceUID)
-
-
-
-
-
-
-#with open(json_path) as json_file:
-#    data = json.load(json_file)
-#
-#anns = data["datasets"][0]["annotations"]
-
-#c = 0
-#for ann in anns:
-#    print(ann['SOPInstanceUID'])
-#    print(ann)
-#    print('--------------------------------------------------------------------------------')
-#    c += 1
-#    if c == 20:
-#        break
-
-#ids = []
-#c = 0
-#for row in df.iterrows():
-#   #print(row[0])
-#   #break
-#   x = row[1]['SOPInstanceUID']
-#   if type(x) == type('a'):
-#        print(x)
-#        ids.append(x)
-#
-#print(len(ids))    
-#ids = list(set(ids))
-##
-#print(len(ids))
-
-
-
-'''
-images = glob.glob('**/*.dcm', recursive=True)
-
-for image in images:
-    fs = image.split('/')
-    home = fs[0]
-    name = fs[-1]
-    
-    print(name)
-    new_path = home + '/' + fs[1].split('.')[-1] + '_' + fs[2].split('.')[-1] + '_' + name
-    
-    ds = dcmread(image)
-    img = ds.pixel_array.astype(float)
-
-    img = (np.maximum(img,0) / img.max()) * 255.0
-    img = np.uint8(image_2d_scaled)
-
-    jpg_path = new_path.replace('.dcm','.jpg')
-    cv2.imwrite(jpg_path, img)
-'''

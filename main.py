@@ -165,12 +165,9 @@ if __name__ == '__main__':
     resize_height = configs['model']['height']
     batch_size = configs['model']['batch_size']
     
-    dataset = configs['general']['dataset']
-    experiment = configs['general']['experiment']
     num_workers = configs['general']['num_workers']
     
     encoder = configs['model']['encoder']
-    decoder = configs['model']['decoder']
     preprocessing_fn = smp.encoders.get_preprocessing_fn(encoder, 'imagenet')
     
     #loss = smp.utils.losses.DiceLoss()
@@ -187,6 +184,10 @@ if __name__ == '__main__':
     
     #============================== TRAIN ==============================#
     if configs['general']['mode'] == 'train':
+        
+        decoder = configs['model']['decoder']
+        dataset = configs['general']['dataset']
+        experiment = configs['general']['experiment']
 
         num_epochs = configs['model']['num_epochs']
         learning_rate = configs['model']['learning_rate']
@@ -253,7 +254,8 @@ if __name__ == '__main__':
         logs['train'] = []
         logs['valid'] = []
         
-        max_score = 0
+        max_fscore = 0
+        max_iscore = 0
         for i in range(num_epochs):
             print('\nEpoch: {}'.format(i))
             print('\nLearning Rate: {}'.format(optimizer.param_groups[0]['lr']))
@@ -277,12 +279,12 @@ if __name__ == '__main__':
             #torch.save(model, '{}/epoch{}.pth'.format(checkpoints, i))
             torch.save(model, '{}/last.pth'.format(checkpoints))
             #print(logs['valid'])
-            if max_score < valid_logs['Fscore']:
-                max_score = valid_logs['Fscore']
+            if max_fscore < valid_logs['Fscore']:
+                max_fscore = valid_logs['Fscore']
                 torch.save(model, '{}/best_fscore.pth'.format(checkpoints))
 
-            if max_score < valid_logs['Iou']:
-                max_score = valid_logs['Iou']
+            if max_iscore < valid_logs['Iou']:
+                max_iscore = valid_logs['Iou']
                 torch.save(model, '{}/best_iou.pth'.format(checkpoints))
 
             with open(out_dir + '/train_logs.json', 'w') as log_file:
