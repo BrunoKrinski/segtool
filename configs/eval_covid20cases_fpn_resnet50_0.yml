@@ -1,0 +1,13 @@
+dataset:
+  labels: datasets/covid20cases/labels.txt
+  test: datasets/covid20cases/valid/test_ids.txt
+general:
+  mode: eval
+  num_workers: 8
+  path: RUNS/baseline/covid20cases/fpn/resnet50/train_covid20cases_fpn_resnet50_fold3_2021-02-20_01:59:59.129993
+model:
+  batch_size: 8
+  encoder: resnet50
+  height: 512
+  type: best_fscore
+  width: 512

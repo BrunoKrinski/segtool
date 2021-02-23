@@ -1,0 +1,13 @@
+dataset:
+  labels: datasets/medseg/labels.txt
+  test: datasets/medseg/valid/test_ids.txt
+general:
+  mode: eval
+  num_workers: 8
+  path: RUNS/baseline/medseg/pspnet/resnet50/train_medseg_pspnet_resnet50_fold3_2021-02-19_01:46:33.934558
+model:
+  batch_size: 8
+  encoder: resnet50
+  height: 512
+  type: best_fscore
+  width: 512

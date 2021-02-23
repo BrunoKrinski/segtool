@@ -224,10 +224,20 @@ if __name__ == '__main__':
             model = smp.FPN(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
         elif decoder == 'unet':
             model = smp.Unet(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
+        elif decoder == 'unetplusplus':
+            model = smp.UnetPlusPlus(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
         elif decoder == 'linknet':
             model = smp.Linknet(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
         elif decoder == 'pspnet':
             model = smp.PSPNet(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
+        elif decoder == 'pan':
+            model = smp.PAN(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
+        elif decoder == 'manet':
+            model = smp.MAnet(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
+        elif decoder == 'deeplabv3':
+            model = smp.DeepLabV3(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
+        elif decoder == 'deeplabv3plus':
+            model = smp.DeepLabV3Plus(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
         
         train_dataset = Dataset(configs['dataset']['train'], num_classes,
                                 augmentation=get_training_augmentation(resize_height, resize_width),
@@ -298,6 +308,7 @@ if __name__ == '__main__':
     elif configs['general']['mode'] == 'eval':
 
         project_path = configs['general']['path']
+        print(project_path)
 
         masks_path = project_path + '/predicted_masks'
         images_path = project_path + '/segmented_images'

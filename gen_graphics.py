@@ -31,7 +31,7 @@ def getminmax(x1, x2):
     if e > 10:
         e = 10
     #print(math.floor(p)*10, int(round(e,0))*10+1)
-    return math.floor(p)*10, int(round(e,0))*10+1
+    return math.floor(p)*10, int(round(e,0))*10+5
 
 if __name__ == '__main__':
 
@@ -40,8 +40,8 @@ if __name__ == '__main__':
     encoders = ['resnet50/']
     decoders = ['unet/','fpn/','pspnet/','linknet/']
     #decoders = ['unet/']
-    datasets = ['covid19china/', 'covid20cases/', 'mosmed/', 'ricord1a/']
-    #datasets = ['covid19china/']
+    #datasets = ['covid19china/', 'covid20cases/', 'mosmed/', 'ricord1a/']
+    datasets = ['ricord1a/']
     runs_path = 'RUNS/'
 
     for experiment in experiments:
@@ -103,7 +103,7 @@ if __name__ == '__main__':
                                 p, e = getminmax(x1, x2)
                                 #print(int(p)*10)
                                 #print(int(e)*10+1)
-                                yticks = [p/100 for p in range(p, e, 1)]
+                                yticks = [p/100 for p in range(p, e, 5)]
                                 xticks = [p for p in range(0, len(x1)+5, 5)]
                                 plt.plot(y, x1, label='train')
                                 plt.plot(y, x2, label='valid')
@@ -131,7 +131,7 @@ if __name__ == '__main__':
                         p, e = getminmax(mean_train, mean_valid)
 
                         y = list(range(len(mean_train)))
-                        yticks = [p/100 for p in range(p, e, 1)]
+                        yticks = [p/100 for p in range(p, e, 5)]
                         xticks = [p for p in range(0, len(mean_train)+5, 5)]
                         plt.plot(y, mean_train, label='train')
                         plt.plot(y, mean_valid, label='valid')

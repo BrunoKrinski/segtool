@@ -14,7 +14,7 @@ experiment = 'baseline'
 encoders = ['resnet50']
 nodes = ['vti1-ib', 'pti', 'vti2-ib']
 decoders = ['unet','fpn','pspnet','linknet']
-datasets = ['covid20cases', 'covid19china', 'mosmed', 'ricord1a']
+datasets = ['covid20cases', 'covid19china', 'medseg', 'mosmed', 'ricord1a']
 
 node_num = 0
 node_count = 0
@@ -45,6 +45,7 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/
         for encoder in encoders:
             path = 'RUNS/' + experiment + '/' + dataset + '/' + decoder + '/' + encoder + '/'
             runs = glob.glob(path + '*')
+            r = 0
             for run in runs:
                 if 'graphics' not in run:
                     configs = {
@@ -60,7 +61,8 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/
                                     "labels": "datasets/{}/labels.txt".format(dataset)}
                     }
                     
-                    configs_name = 'configs/eval_' + dataset + '_' + decoder + '_' + encoder + '.yml'
+                    configs_name = 'configs/eval_' + dataset + '_' + decoder + '_' + encoder + '_' + str(r) + '.yml'
+                    r += 1
                     with open(configs_name, 'w') as config_file:
                         yaml.dump(configs, config_file)
                     py_cmds.append("python main.py --configs {}".format(configs_name))

@@ -14,23 +14,23 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"
 
 module load libraries/cuda/10.1
 
-srun python main.py --configs configs/eval_covid19china_resnet50_unet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_unet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_unet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_unet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_unet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_fpn.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_fpn.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_fpn.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_fpn.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_fpn.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_pspnet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_pspnet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_pspnet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_pspnet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_pspnet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_linknet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_linknet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_linknet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_linknet.yml
-srun python main.py --configs configs/eval_covid19china_resnet50_linknet.yml
+srun python main.py --configs configs/eval_covid19china_unet_resnet50_0.yml
+srun python main.py --configs configs/eval_covid19china_unet_resnet50_1.yml
+srun python main.py --configs configs/eval_covid19china_unet_resnet50_2.yml
+srun python main.py --configs configs/eval_covid19china_unet_resnet50_3.yml
+srun python main.py --configs configs/eval_covid19china_unet_resnet50_4.yml
+srun python main.py --configs configs/eval_covid19china_fpn_resnet50_0.yml
+srun python main.py --configs configs/eval_covid19china_fpn_resnet50_1.yml
+srun python main.py --configs configs/eval_covid19china_fpn_resnet50_2.yml
+srun python main.py --configs configs/eval_covid19china_fpn_resnet50_3.yml
+srun python main.py --configs configs/eval_covid19china_fpn_resnet50_4.yml
+srun python main.py --configs configs/eval_covid19china_pspnet_resnet50_0.yml
+srun python main.py --configs configs/eval_covid19china_pspnet_resnet50_1.yml
+srun python main.py --configs configs/eval_covid19china_pspnet_resnet50_2.yml
+srun python main.py --configs configs/eval_covid19china_pspnet_resnet50_3.yml
+srun python main.py --configs configs/eval_covid19china_pspnet_resnet50_4.yml
+srun python main.py --configs configs/eval_covid19china_linknet_resnet50_0.yml
+srun python main.py --configs configs/eval_covid19china_linknet_resnet50_1.yml
+srun python main.py --configs configs/eval_covid19china_linknet_resnet50_2.yml
+srun python main.py --configs configs/eval_covid19china_linknet_resnet50_3.yml
+srun python main.py --configs configs/eval_covid19china_linknet_resnet50_4.yml

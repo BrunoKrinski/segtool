@@ -1,0 +1,13 @@
+dataset:
+  labels: datasets/mosmed/labels.txt
+  test: datasets/mosmed/valid/test_ids.txt
+general:
+  mode: eval
+  num_workers: 8
+  path: RUNS/baseline/mosmed/unet/resnet50/train_mosmed_unet_resnet50_fold1_2021-02-18_20:13:17.759458
+model:
+  batch_size: 8
+  encoder: resnet50
+  height: 512
+  type: best_fscore
+  width: 512

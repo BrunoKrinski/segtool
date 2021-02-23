@@ -1,0 +1,13 @@
+dataset:
+  labels: datasets/ricord1a/labels.txt
+  test: datasets/ricord1a/valid/test_ids.txt
+general:
+  mode: eval
+  num_workers: 8
+  path: RUNS/baseline/ricord1a/linknet/resnet50/train_ricord1a_linknet_resnet50_fold3_2021-02-22_23:10:26.825897
+model:
+  batch_size: 8
+  encoder: resnet50
+  height: 512
+  type: best_fscore
+  width: 512

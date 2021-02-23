@@ -14,7 +14,8 @@ experiment = 'baseline'
 
 encoders = ['resnet50']
 nodes = ['pti', 'vti1-ib', 'vti2-ib']
-decoders = ['unet','fpn','pspnet','linknet']
+#decoders = ['unet','fpn','pspnet','linknet']
+decoders = ['unetplusplus', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 datasets = ['ricord1a', 'covid20cases', 'covid19china', 'medseg', 'mosmed']
 
 node_num = 0
