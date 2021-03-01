@@ -178,9 +178,9 @@ if __name__ == '__main__':
     loss2 = smp.utils.losses.JaccardLoss()
     loss = smp.utils.base.WeightedMeanOfLosses(loss1, loss2, 1, 1)
 
-    metrics = [smp.utils.metrics.Fscore(threshold=0.5), smp.utils.metrics.IoU(threshold=0.5)] 
-    individual_metrics = [smp.utils.metrics.Fscore(threshold=0.5, num_classes=num_classes),
-                          smp.utils.metrics.IoU(threshold=0.5, num_classes=num_classes)] 
+    metrics = [smp.utils.metrics.Fscore(threshold=0.9), smp.utils.metrics.IoU(threshold=0.5)] 
+    individual_metrics = [smp.utils.metrics.Fscore(threshold=0.9, num_classes=num_classes),
+                          smp.utils.metrics.IoU(threshold=0.9, num_classes=num_classes)] 
     
     #============================== TRAIN ==============================#
     if configs['general']['mode'] == 'train':
@@ -286,9 +286,8 @@ if __name__ == '__main__':
             logs['train'].append(individual_train_logs)
             logs['valid'].append(individual_valid_logs)
 
-            #torch.save(model, '{}/epoch{}.pth'.format(checkpoints, i))
             torch.save(model, '{}/last.pth'.format(checkpoints))
-            #print(logs['valid'])
+
             if max_fscore < valid_logs['Fscore']:
                 max_fscore = valid_logs['Fscore']
                 torch.save(model, '{}/best_fscore.pth'.format(checkpoints))
@@ -303,6 +302,7 @@ if __name__ == '__main__':
             if i > 0 and (i % 10 == 0):
                 print('Learning rate decreased!')
                 optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] / 10
+                torch.save(model, '{}/epoch{}.pth'.format(checkpoints, i))
         
     #============================== EVAL ==============================#
     elif configs['general']['mode'] == 'eval':

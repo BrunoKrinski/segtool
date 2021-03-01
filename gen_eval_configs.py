@@ -2,8 +2,8 @@ import os
 import yaml
 import glob
 
-width = 512
-height = 512
+width = 256
+height = 256
 batch_size = 8
 num_workers = 8
 

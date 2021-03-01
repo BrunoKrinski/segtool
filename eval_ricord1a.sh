@@ -14,23 +14,3 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"
 
 module load libraries/cuda/10.1
 
-srun python main.py --configs configs/eval_ricord1a_unet_resnet50_0.yml
-srun python main.py --configs configs/eval_ricord1a_unet_resnet50_1.yml
-srun python main.py --configs configs/eval_ricord1a_unet_resnet50_2.yml
-srun python main.py --configs configs/eval_ricord1a_unet_resnet50_3.yml
-srun python main.py --configs configs/eval_ricord1a_unet_resnet50_4.yml
-srun python main.py --configs configs/eval_ricord1a_fpn_resnet50_0.yml
-srun python main.py --configs configs/eval_ricord1a_fpn_resnet50_1.yml
-srun python main.py --configs configs/eval_ricord1a_fpn_resnet50_2.yml
-srun python main.py --configs configs/eval_ricord1a_fpn_resnet50_3.yml
-srun python main.py --configs configs/eval_ricord1a_fpn_resnet50_4.yml
-srun python main.py --configs configs/eval_ricord1a_pspnet_resnet50_0.yml
-srun python main.py --configs configs/eval_ricord1a_pspnet_resnet50_1.yml
-srun python main.py --configs configs/eval_ricord1a_pspnet_resnet50_2.yml
-srun python main.py --configs configs/eval_ricord1a_pspnet_resnet50_3.yml
-srun python main.py --configs configs/eval_ricord1a_pspnet_resnet50_4.yml
-srun python main.py --configs configs/eval_ricord1a_linknet_resnet50_0.yml
-srun python main.py --configs configs/eval_ricord1a_linknet_resnet50_1.yml
-srun python main.py --configs configs/eval_ricord1a_linknet_resnet50_2.yml
-srun python main.py --configs configs/eval_ricord1a_linknet_resnet50_3.yml
-srun python main.py --configs configs/eval_ricord1a_linknet_resnet50_4.yml

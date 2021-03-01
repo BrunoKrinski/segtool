@@ -41,7 +41,7 @@ if __name__ == '__main__':
     decoders = ['unet/','fpn/','pspnet/','linknet/']
     #decoders = ['unet/']
     #datasets = ['covid19china/', 'covid20cases/', 'mosmed/', 'ricord1a/']
-    datasets = ['ricord1a/']
+    datasets = ['covid20cases/']
     runs_path = 'RUNS/'
 
     for experiment in experiments:
