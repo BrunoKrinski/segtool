@@ -7,7 +7,7 @@
 #SBATCH -p 7d
 #SBATCH -N 1 #NUM_NODOS_NECESSARIOS
 #SBATCH --nodelist=pti
-#SBATCH --gres=gpu:4
+#SBATCH --gres=gpu:2
 #SBATCH -e /home/bakrinski/segtool/logs/covid19china_error.out
 
 export PATH="/home/bakrinski/anaconda3/bin:$PATH"
