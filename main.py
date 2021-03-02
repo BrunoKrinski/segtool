@@ -178,7 +178,7 @@ if __name__ == '__main__':
     loss2 = smp.utils.losses.JaccardLoss()
     loss = smp.utils.base.WeightedMeanOfLosses(loss1, loss2, 1, 1)
 
-    metrics = [smp.utils.metrics.Fscore(threshold=0.9), smp.utils.metrics.IoU(threshold=0.5)] 
+    metrics = [smp.utils.metrics.Fscore(threshold=0.9), smp.utils.metrics.IoU(threshold=0.9)] 
     individual_metrics = [smp.utils.metrics.Fscore(threshold=0.9, num_classes=num_classes),
                           smp.utils.metrics.IoU(threshold=0.9, num_classes=num_classes)] 
     
