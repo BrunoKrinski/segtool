@@ -38,7 +38,7 @@ if __name__ == '__main__':
     experiments = ['baseline/']
     
     encoders = ['resnet50/']
-    decoders = ['unet/','fpn/','pspnet/','linknet/']
+    decoders = ['unet/','fpn/']#,'pspnet/','linknet/']
     #decoders = ['unet/']
     #datasets = ['covid19china/', 'covid20cases/', 'mosmed/', 'ricord1a/']
     datasets = ['covid20cases/']
