@@ -115,7 +115,7 @@ encoders = ['resnet18',
 
 encoders = ['resnet50']
 
-nodes = ['pti', 'vti1-ib', 'vti2-ib']
+nodes = ['vti1-ib', 'vti2-ib', 'pti']
 decoders = ['unet','fpn','pspnet','linknet', 'unetplusplus', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 datasets = ['ricord1a', 'medseg', 'covid20cases', 'mosmed', 'covid19china']
 
@@ -141,7 +141,7 @@ for dataset in datasets:
 
     sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 8\n#SBATCH -o /home/bakrinski/segtool/logs/{}_log.out\n\
 #SBATCH --job-name={}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
-#SBATCH --nodelist={}\n#SBATCH --gres=gpu:2\n#SBATCH -e /home/bakrinski/segtool/logs/{}_error.out\n\n\
+#SBATCH --nodelist={}\n#SBATCH --gres=gpu:1\n#SBATCH -e /home/bakrinski/segtool/logs/{}_error.out\n\n\
 export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, dataset, nodes[node_num], dataset)
 
     for decoder in decoders:
