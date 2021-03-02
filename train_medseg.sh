@@ -7,7 +7,7 @@
 #SBATCH -p 7d
 #SBATCH -N 1 #NUM_NODOS_NECESSARIOS
 #SBATCH --nodelist=vti1-ib
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:4
 #SBATCH -e /home/bakrinski/segtool/logs/medseg_error.out
 
 export PATH="/home/bakrinski/anaconda3/bin:$PATH"
