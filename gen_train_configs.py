@@ -140,10 +140,10 @@ for dataset in datasets:
     node_count += 1
     print(nodes[node_num])
 
-    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 8\n#SBATCH -o /home/bakrinski/segtool/logs/{}_log.out\n\
-#SBATCH --job-name={}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
-#SBATCH --nodelist={}\n#SBATCH --gres=gpu:2\n#SBATCH -e /home/bakrinski/segtool/logs/{}_error.out\n\n\
-export CUDA_VISIBLE_DEVICES={}\nexport PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, dataset, nodes[node_num], dataset, gpu)
+    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 8\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_log.out\n\
+#SBATCH --job-name={}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
+#SBATCH --nodelist={}\n#SBATCH --gres=gpu:2\n#SBATCH -e /home/bakrinski/segtool/logs/{}_{}_error.out\n\n\
+export CUDA_VISIBLE_DEVICES={}\nexport PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, encoders[0], dataset, encoders[0], nodes[node_num], dataset, encoders[0], gpu)
     gpu += 1
     if gpu == 2:
         gpu = 0
@@ -179,7 +179,7 @@ export CUDA_VISIBLE_DEVICES={}\nexport PATH="/home/bakrinski/anaconda3/bin:$PATH
     for sh_cmd in sh_cmds:
         sh += sh_cmd + '\n'
 
-    sh_file = 'train_' + dataset + '.sh'
+    sh_file = 'train_' + dataset + '_' + encoders[0] + '.sh'
     with open(sh_file,'w') as shf:
         shf.write(sh)
     
@@ -188,6 +188,6 @@ export CUDA_VISIBLE_DEVICES={}\nexport PATH="/home/bakrinski/anaconda3/bin:$PATH
         py += '"' + py_cmd + '",\n'
     py += ']\n\nfor l in ls:\n  os.system(l)'
 
-    py_file = 'train_' + dataset + '.py'
+    py_file = 'train_' + dataset + '_' + encoders[0] + '.py'
     with open(py_file,'w') as pyf:
         pyf.write(py)

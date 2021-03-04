@@ -302,7 +302,7 @@ if __name__ == '__main__':
             if i > 0 and (i % 10 == 0):
                 print('Learning rate decreased!')
                 optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] / 10
-                torch.save(model, '{}/epoch{}.pth'.format(checkpoints, i))
+                #torch.save(model, '{}/epoch{}.pth'.format(checkpoints, i))
         
     #============================== EVAL ==============================#
     elif configs['general']['mode'] == 'eval':
