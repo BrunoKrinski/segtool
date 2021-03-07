@@ -13,5 +13,5 @@ model:
   encoder: resnet101
   height: 512
   learning_rate: 0.001
-  num_epochs: 5
+  num_epochs: 50
   width: 512

@@ -1,0 +1,17 @@
+dataset:
+  labels: datasets/covid20cases/labels.txt
+  train: datasets/covid20cases/train/train_ids4.txt
+  valid: datasets/covid20cases/train/valid_ids4.txt
+general:
+  dataset: covid20cases
+  experiment: baseline
+  mode: train
+  num_workers: 8
+model:
+  batch_size: 8
+  decoder: deeplabv3
+  encoder: resnet101
+  height: 512
+  learning_rate: 0.001
+  num_epochs: 50
+  width: 512

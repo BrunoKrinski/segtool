@@ -1,0 +1,17 @@
+dataset:
+  labels: datasets/mosmed/labels.txt
+  train: datasets/mosmed/train/train_ids0.txt
+  valid: datasets/mosmed/train/valid_ids0.txt
+general:
+  dataset: mosmed
+  experiment: baseline
+  mode: train
+  num_workers: 8
+model:
+  batch_size: 8
+  decoder: unetplusplus
+  encoder: resnet101
+  height: 512
+  learning_rate: 0.001
+  num_epochs: 50
+  width: 512
