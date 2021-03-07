@@ -1,0 +1,17 @@
+dataset:
+  labels: datasets/medseg/labels.txt
+  train: datasets/medseg/train/train_ids2.txt
+  valid: datasets/medseg/train/valid_ids2.txt
+general:
+  dataset: medseg
+  experiment: baseline
+  mode: train
+  num_workers: 8
+model:
+  batch_size: 8
+  decoder: linknet
+  encoder: resnet101
+  height: 512
+  learning_rate: 0.001
+  num_epochs: 10
+  width: 512

@@ -5,7 +5,7 @@ width = 512
 height = 512
 num_folds = 5
 batch_size = 8
-num_epochs = 50
+num_epochs = 10
 num_workers = 8
 learning_rate = 0.001
 
@@ -113,11 +113,12 @@ encoders = ['resnet18',
             'vgg19', 
             'vgg19_bn']
 
-encoders = ['resnet50']
+encoders = ['resnet101']
 
 nodes = ['vti1-ib', 'vti2-ib', 'pti']
 decoders = ['unet','fpn','pspnet','linknet', 'unetplusplus', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
-datasets = ['ricord1a', 'medseg', 'covid20cases', 'mosmed', 'covid19china']
+#datasets = ['ricord1a', 'medseg', 'covid20cases', 'mosmed', 'covid19china']
+datasets = ['medseg']
 
 gpu = 0
 node_num = 0
@@ -175,6 +176,13 @@ export CUDA_VISIBLE_DEVICES={}\nexport PATH="/home/bakrinski/anaconda3/bin:$PATH
 
                 py_cmds.append("python main.py --configs {}".format(configs_name))
                 sh_cmds.append("srun python main.py --configs {}".format(configs_name))
+
+            pt_origin = 'RUNS/{}/{}/{}'.format(experiment,dataset, decoder)
+            pt_destin = '200.17.202.14:/home/bakrinski/nobackup/segtool/RUNS/{}/{}'.format(experiment, dataset)
+            cp_cmd = 'srun scp -r {} {}'.format(pt_origin, pt_destin)
+            rm_cmd = 'srun rm -rf {}'.format(pt_origin)
+            sh_cmds.append(cp_cmd)
+            sh_cmds.append(rm_cmd)
 
     for sh_cmd in sh_cmds:
         sh += sh_cmd + '\n'
