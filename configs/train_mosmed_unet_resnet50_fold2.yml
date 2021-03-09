@@ -5,6 +5,7 @@ dataset:
 general:
   dataset: mosmed
   experiment: baseline
+  gpu: 0
   mode: train
   num_workers: 4
 model:

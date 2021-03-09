@@ -5,6 +5,7 @@ dataset:
 general:
   dataset: medseg
   experiment: baseline
+  gpu: 1
   mode: train
   num_workers: 4
 model:

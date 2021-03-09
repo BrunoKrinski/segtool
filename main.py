@@ -1,5 +1,5 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+#os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 import cv2
 import yaml
@@ -165,6 +165,7 @@ if __name__ == '__main__':
     resize_height = configs['model']['height']
     batch_size = configs['model']['batch_size']
     
+    gpu = configs['general']['gpu']
     num_workers = configs['general']['num_workers']
     
     encoder = configs['model']['encoder']
@@ -173,7 +174,7 @@ if __name__ == '__main__':
     #loss = smp.utils.losses.DiceLoss()
     #metrics = [smp.utils.metrics.Fscore(threshold=0.5)] 
     #individual_metrics = [smp.utils.metrics.Fscore(threshold=0.5, num_classes=num_classes)] 
-    #gpus = [0, 1]
+    #gpus = [1]
 
     loss1 = smp.utils.losses.DiceLoss()
     loss2 = smp.utils.losses.JaccardLoss()
@@ -183,6 +184,7 @@ if __name__ == '__main__':
     individual_metrics = [smp.utils.metrics.Fscore(threshold=0.9, num_classes=num_classes),
                           smp.utils.metrics.IoU(threshold=0.9, num_classes=num_classes)] 
     
+    torch.cuda.set_device(gpu)
     #============================== TRAIN ==============================#
     if configs['general']['mode'] == 'train':
         

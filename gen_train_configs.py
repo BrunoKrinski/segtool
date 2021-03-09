@@ -145,9 +145,6 @@ for dataset in datasets:
 #SBATCH --job-name={}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
 #SBATCH --nodelist={}\n#SBATCH --gres=gpu:1\n#SBATCH -e /home/bakrinski/segtool/logs/{}_{}_error.out\n\n\
 export CUDA_VISIBLE_DEVICES={}\nexport PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, encoders[0], dataset, encoders[0], nodes[node_num], dataset, encoders[0], gpu)
-    gpu += 1
-    if gpu == 2:
-        gpu = 0
 
     for decoder in decoders:
         for encoder in encoders:    
@@ -156,7 +153,8 @@ export CUDA_VISIBLE_DEVICES={}\nexport PATH="/home/bakrinski/anaconda3/bin:$PATH
                     "general": {"mode": mode, 
                                 "num_workers": num_workers,
                                 "experiment": experiment, 
-                                "dataset": dataset},
+                                "dataset": dataset,
+                                "gpu": gpu},
                     
                     "model": {"encoder": encoder, 
                               "decoder": decoder, 
@@ -183,6 +181,9 @@ export CUDA_VISIBLE_DEVICES={}\nexport PATH="/home/bakrinski/anaconda3/bin:$PATH
             #rm_cmd = 'srun rm -rf {}'.format(pt_origin)
             #sh_cmds.append(cp_cmd)
             #sh_cmds.append(rm_cmd)
+    gpu += 1
+    if gpu == 2:
+        gpu = 0
 
     for sh_cmd in sh_cmds:
         sh += sh_cmd + '\n'
