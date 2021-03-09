@@ -15,6 +15,11 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"
 
 module load libraries/cuda/10.1
 
+srun python main.py --configs configs/train_medseg_unetplusplus_resnet50_fold0.yml
+srun python main.py --configs configs/train_medseg_unetplusplus_resnet50_fold1.yml
+srun python main.py --configs configs/train_medseg_unetplusplus_resnet50_fold2.yml
+srun python main.py --configs configs/train_medseg_unetplusplus_resnet50_fold3.yml
+srun python main.py --configs configs/train_medseg_unetplusplus_resnet50_fold4.yml
 srun python main.py --configs configs/train_medseg_unet_resnet50_fold0.yml
 srun python main.py --configs configs/train_medseg_unet_resnet50_fold1.yml
 srun python main.py --configs configs/train_medseg_unet_resnet50_fold2.yml
@@ -35,11 +40,6 @@ srun python main.py --configs configs/train_medseg_linknet_resnet50_fold1.yml
 srun python main.py --configs configs/train_medseg_linknet_resnet50_fold2.yml
 srun python main.py --configs configs/train_medseg_linknet_resnet50_fold3.yml
 srun python main.py --configs configs/train_medseg_linknet_resnet50_fold4.yml
-srun python main.py --configs configs/train_medseg_unetplusplus_resnet50_fold0.yml
-srun python main.py --configs configs/train_medseg_unetplusplus_resnet50_fold1.yml
-srun python main.py --configs configs/train_medseg_unetplusplus_resnet50_fold2.yml
-srun python main.py --configs configs/train_medseg_unetplusplus_resnet50_fold3.yml
-srun python main.py --configs configs/train_medseg_unetplusplus_resnet50_fold4.yml
 srun python main.py --configs configs/train_medseg_pan_resnet50_fold0.yml
 srun python main.py --configs configs/train_medseg_pan_resnet50_fold1.yml
 srun python main.py --configs configs/train_medseg_pan_resnet50_fold2.yml

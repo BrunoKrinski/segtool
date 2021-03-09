@@ -116,7 +116,7 @@ encoders = ['resnet18',
 encoders = ['resnet50']
 
 nodes = ['vti1-ib', 'vti2-ib', 'pti']
-decoders = ['unet','fpn','pspnet','linknet', 'unetplusplus', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
+decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 datasets = ['ricord1a', 'medseg', 'covid20cases', 'covid19china', 'mosmed']
 #datasets = ['medseg']
 
