@@ -7,7 +7,7 @@
 #SBATCH -p 7d
 #SBATCH -N 1 #NUM_NODOS_NECESSARIOS
 #SBATCH --nodelist=vti1-ib
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:2
 #SBATCH -e /home/bakrinski/segtool/logs/medseg_resnet50_error.out
 
 export CUDA_VISIBLE_DEVICES=1
