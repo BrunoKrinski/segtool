@@ -6,12 +6,12 @@ general:
   dataset: mosmed
   experiment: baseline
   mode: train
-  num_workers: 8
+  num_workers: 4
 model:
   batch_size: 8
   decoder: pan
   encoder: resnet50
-  height: 512
+  height: 256
   learning_rate: 0.001
   num_epochs: 50
-  width: 512
+  width: 256

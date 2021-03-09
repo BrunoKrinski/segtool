@@ -1,5 +1,5 @@
 import os
-#os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+#os.environ['CUDA_VISIBLE_DEVICES'] = '0,1'
 
 import cv2
 import yaml
@@ -173,7 +173,8 @@ if __name__ == '__main__':
     #loss = smp.utils.losses.DiceLoss()
     #metrics = [smp.utils.metrics.Fscore(threshold=0.5)] 
     #individual_metrics = [smp.utils.metrics.Fscore(threshold=0.5, num_classes=num_classes)] 
-    
+    #gpus = [0, 1]
+
     loss1 = smp.utils.losses.DiceLoss()
     loss2 = smp.utils.losses.JaccardLoss()
     loss = smp.utils.base.WeightedMeanOfLosses(loss1, loss2, 1, 1)
@@ -238,6 +239,8 @@ if __name__ == '__main__':
             model = smp.DeepLabV3(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
         elif decoder == 'deeplabv3plus':
             model = smp.DeepLabV3Plus(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
+        
+        #model = torch.nn.DataParallel(model, device_ids=gpus, dim=0)
         
         train_dataset = Dataset(configs['dataset']['train'], num_classes,
                                 augmentation=get_training_augmentation(resize_height, resize_width),
@@ -340,19 +343,10 @@ if __name__ == '__main__':
         logs = {}
         logs['test'] = [test_logs]
 
-        with open(project_path + '/test_logs.json', 'w') as log_file:
+        with open(project_path + '/test_logs_' + configs['model']['type'] + '.json', 'w') as log_file:
             json.dump(logs, log_file, indent=4)
             
         colors = []
-        #for i in range(num_classes):
-        #    if i == 0:
-        #        colors.append([0, 0, 0])
-        #    else:
-        #        colors.append([random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)])
-        #colors.append([0, 0, 0])
-        #colors.append([0, 50, 0])
-        #colors.append([0, 100, 0])
-        #colors.append([200, 0, 0])
         colors_path = 'colors.txt'
         with open(colors_path, 'r') as colors_file:
             colors = colors_file.read().splitlines()

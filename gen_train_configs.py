@@ -1,12 +1,12 @@
 import os
 import yaml
 
-width = 512
-height = 512
+width = 256
+height = 256
 num_folds = 5
 batch_size = 8
 num_epochs = 50
-num_workers = 8
+num_workers = 4
 learning_rate = 0.001
 
 mode = 'train'
@@ -113,11 +113,11 @@ encoders = ['resnet18',
             'vgg19', 
             'vgg19_bn']
 
-encoders = ['resnet101']
+encoders = ['resnet50']
 
 nodes = ['vti1-ib', 'vti2-ib', 'pti']
 decoders = ['unet','fpn','pspnet','linknet', 'unetplusplus', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
-datasets = ['ricord1a', 'medseg', 'covid20cases', 'mosmed', 'covid19china']
+datasets = ['ricord1a', 'medseg', 'covid20cases', 'covid19china', 'mosmed']
 #datasets = ['medseg']
 
 gpu = 0
@@ -141,9 +141,9 @@ for dataset in datasets:
     node_count += 1
     print(nodes[node_num])
 
-    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 8\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_log.out\n\
+    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 4\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_log.out\n\
 #SBATCH --job-name={}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
-#SBATCH --nodelist={}\n#SBATCH --gres=gpu:2\n#SBATCH -e /home/bakrinski/segtool/logs/{}_{}_error.out\n\n\
+#SBATCH --nodelist={}\n#SBATCH --gres=gpu:1\n#SBATCH -e /home/bakrinski/segtool/logs/{}_{}_error.out\n\n\
 export CUDA_VISIBLE_DEVICES={}\nexport PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, encoders[0], dataset, encoders[0], nodes[node_num], dataset, encoders[0], gpu)
     gpu += 1
     if gpu == 2:
