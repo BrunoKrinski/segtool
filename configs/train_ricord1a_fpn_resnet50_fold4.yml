@@ -1,0 +1,17 @@
+dataset:
+  labels: datasets/ricord1a/labels.txt
+  train: datasets/ricord1a/train/train_ids4.txt
+  valid: datasets/ricord1a/train/valid_ids4.txt
+general:
+  dataset: ricord1a
+  experiment: baseline
+  mode: train
+  num_workers: 4
+model:
+  batch_size: 8
+  decoder: fpn
+  encoder: resnet50
+  height: 256
+  learning_rate: 0.001
+  num_epochs: 50
+  width: 256
