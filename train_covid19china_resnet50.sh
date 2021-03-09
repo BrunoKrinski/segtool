@@ -10,7 +10,6 @@
 #SBATCH --gres=gpu:2
 #SBATCH -e /home/bakrinski/segtool/logs/covid19china_resnet50_error.out
 
-export CUDA_VISIBLE_DEVICES=1
 export PATH="/home/bakrinski/anaconda3/bin:$PATH"
 
 module load libraries/cuda/10.1
