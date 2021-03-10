@@ -113,11 +113,11 @@ encoders = ['resnet18',
             'vgg19', 
             'vgg19_bn']
 
-encoders = ['resnet50']
+encoders = ['resnet101']
 
 nodes = ['vti1-ib', 'vti2-ib', 'pti']
 decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
-datasets = ['ricord1a', 'medseg', 'covid20cases', 'covid19china', 'mosmed']
+datasets = ['ricord1a', 'covid20cases', 'medseg', 'covid19china', 'mosmed']
 #datasets = ['medseg']
 
 gpu = 0
