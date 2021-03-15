@@ -113,7 +113,7 @@ encoders = ['resnet18',
             'vgg19', 
             'vgg19_bn']
 
-encoders = ['resnext50_32x4d']
+encoders = ['resnext101_32x8d']
 
 nodes = ['vti1-ib', 'vti2-ib', 'pti']
 decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']

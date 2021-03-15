@@ -9,8 +9,8 @@ num_workers = 4
 
 mode = 'eval'
 #type = 'last'
-#type = 'best_iou'
-type = 'best_fscore'
+type = 'best_iou'
+#type = 'best_fscore'
 experiment = 'baseline'
 
 encoders = ['resnet18', 
@@ -114,11 +114,11 @@ encoders = ['resnet18',
             'vgg19', 
             'vgg19_bn']
 
-encoders = ['resnet101']
+encoders = ['resnet50']
 nodes = ['vti1-ib', 'pti', 'vti2-ib']
 decoders = ['unetplusplus','unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 #datasets = ['ricord1a', 'medseg', 'covid20cases', 'mosmed', 'covid19china']
-datasets = ['medseg', 'covid19china']
+datasets = ['mosmed']
 
 gpu = 0
 node_num = 0

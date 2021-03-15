@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/mosmed/labels.txt
+  test: datasets/mosmed/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/mosmed/unetplusplus/resnet101/train_mosmed_unetplusplus_resnet101_fold3_2021-03-13_05:34:47.618923
+model:
+  batch_size: 8
+  encoder: resnet101
+  height: 256
+  type: best_iou
+  width: 256
