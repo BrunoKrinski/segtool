@@ -113,9 +113,9 @@ encoders = ['resnet18',
             'vgg19', 
             'vgg19_bn']
 
-encoders = ['resnext101_32x8d']
+encoders = ['resnext50_32x4d']
 
-nodes = ['vti1-ib', 'vti2-ib', 'pti']
+nodes = ['vti2-ib', 'pti', 'vti1-ib']
 decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 datasets = ['ricord1a', 'medseg', 'covid20cases', 'covid19china', 'mosmed']
 #datasets = ['medseg']

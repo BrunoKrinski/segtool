@@ -6,7 +6,7 @@
 #SBATCH -n 1 #NUM_DE_PROCESSOS
 #SBATCH -p 7d
 #SBATCH -N 1 #NUM_NODOS_NECESSARIOS
-#SBATCH --nodelist=pti
+#SBATCH --nodelist=vti1-ib
 #SBATCH --gres=gpu:2
 #SBATCH -e /home/bakrinski/segtool/logs/mosmed_resnext101_32x8d_error.out
 

@@ -6,7 +6,7 @@
 #SBATCH -n 1 #NUM_DE_PROCESSOS
 #SBATCH -p 7d
 #SBATCH -N 1 #NUM_NODOS_NECESSARIOS
-#SBATCH --nodelist=vti2-ib
+#SBATCH --nodelist=pti
 #SBATCH --gres=gpu:2
 #SBATCH -e /home/bakrinski/segtool/logs/covid19china_resnext50_32x4d_error.out
 
