@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid19china/labels.txt
+  test: datasets/covid19china/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid19china/fpn/resnet50/train_covid19china_fpn_resnet50_fold3_2021-03-09_21:51:44.195311
+model:
+  batch_size: 8
+  encoder: resnet50
+  height: 256
+  type: best_fscore
+  width: 256

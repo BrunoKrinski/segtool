@@ -2,10 +2,10 @@ import os
 import yaml
 import glob
 
-width = 512
-height = 512
+width = 256
+height = 256
 batch_size = 8
-num_workers = 8
+num_workers = 4
 
 mode = 'eval'
 #type = 'last'
@@ -114,12 +114,13 @@ encoders = ['resnet18',
             'vgg19', 
             'vgg19_bn']
 
-encoders = ['resnet50']
+encoders = ['resnet101']
 nodes = ['vti1-ib', 'pti', 'vti2-ib']
 decoders = ['unetplusplus','unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 #datasets = ['ricord1a', 'medseg', 'covid20cases', 'mosmed', 'covid19china']
-datasets = ['medseg', 'mosmed', 'covid19china']
+datasets = ['medseg', 'covid19china']
 
+gpu = 0
 node_num = 0
 node_count = 0
 node_usage = 2
@@ -140,10 +141,10 @@ for dataset in datasets:
     node_count += 1
     print(nodes[node_num])
 
-    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 8\n#SBATCH -o /home/bakrinski/segtool/logs/{}_log.out\n\
-#SBATCH --job-name={}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
-#SBATCH --nodelist={}\n#SBATCH --gres=gpu:1\n#SBATCH -e /home/bakrinski/segtool/logs/{}_error.out\n\n\
-export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, dataset, nodes[node_num], dataset)
+    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 4\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_log.out\n\
+#SBATCH --job-name={}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
+#SBATCH --nodelist={}\n#SBATCH --gres=gpu:2\n#SBATCH -e /home/bakrinski/segtool/logs/{}_{}_error.out\n\n\
+export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, encoders[0], dataset, encoders[0], nodes[node_num], dataset, encoders[0])
 
     for decoder in decoders:
         for encoder in encoders:
@@ -155,7 +156,8 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/
                     configs = {
                         "general": {"mode": mode, 
                                     "num_workers": num_workers,
-                                    "path": run},
+                                    "path": run,
+                                    "gpu": gpu},
                         "model": {"encoder": encoder, 
                                 "batch_size": batch_size,
                                 "height": height, 
@@ -171,6 +173,9 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/
                         yaml.dump(configs, config_file)
                     py_cmds.append("python main.py --configs {}".format(configs_name))
                     sh_cmds.append("srun python main.py --configs {}".format(configs_name))
+    gpu += 1
+    if gpu == 2:
+        gpu = 0
     
     for sh_cmd in sh_cmds:
         sh += sh_cmd + '\n'

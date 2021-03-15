@@ -113,11 +113,11 @@ encoders = ['resnet18',
             'vgg19', 
             'vgg19_bn']
 
-encoders = ['resnet101']
+encoders = ['resnext50_32x4d']
 
 nodes = ['vti1-ib', 'vti2-ib', 'pti']
 decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
-datasets = ['ricord1a', 'covid20cases', 'medseg', 'covid19china', 'mosmed']
+datasets = ['ricord1a', 'medseg', 'covid20cases', 'covid19china', 'mosmed']
 #datasets = ['medseg']
 
 gpu = 0
@@ -144,7 +144,7 @@ for dataset in datasets:
     sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 4\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_log.out\n\
 #SBATCH --job-name={}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
 #SBATCH --nodelist={}\n#SBATCH --gres=gpu:2\n#SBATCH -e /home/bakrinski/segtool/logs/{}_{}_error.out\n\n\
-export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, encoders[0], dataset, encoders[0], nodes[node_num], dataset, encoders[0], gpu)
+export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, encoders[0], dataset, encoders[0], nodes[node_num], dataset, encoders[0])
 
     for decoder in decoders:
         for encoder in encoders:    
@@ -175,12 +175,6 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/
                 py_cmds.append("python main.py --configs {}".format(configs_name))
                 sh_cmds.append("srun python main.py --configs {}".format(configs_name))
 
-            #pt_origin = 'RUNS/{}/{}/{}'.format(experiment,dataset, decoder)
-            #pt_destin = '200.17.212.40:/home/bakrinski/nobackup/segtool/RUNS/{}/{}'.format(experiment, dataset)
-            #cp_cmd = 'srun scp -r {} {}'.format(pt_origin, pt_destin)
-            #rm_cmd = 'srun rm -rf {}'.format(pt_origin)
-            #sh_cmds.append(cp_cmd)
-            #sh_cmds.append(rm_cmd)
     gpu += 1
     if gpu == 2:
         gpu = 0

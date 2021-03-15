@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid19china/labels.txt
+  test: datasets/covid19china/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid19china/deeplabv3plus/resnet101/train_covid19china_deeplabv3plus_resnet101_fold3_2021-03-11_01:46:41.442432
+model:
+  batch_size: 8
+  encoder: resnet101
+  height: 256
+  type: best_fscore
+  width: 256
