@@ -14,41 +14,8 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"
 
 module load libraries/cuda/10.1
 
-srun python main.py --configs configs/train_ricord1a_unetplusplus_resnet101_fold0.yml
-srun python main.py --configs configs/train_ricord1a_unetplusplus_resnet101_fold1.yml
-srun python main.py --configs configs/train_ricord1a_unetplusplus_resnet101_fold2.yml
-srun python main.py --configs configs/train_ricord1a_unetplusplus_resnet101_fold3.yml
-srun python main.py --configs configs/train_ricord1a_unetplusplus_resnet101_fold4.yml
-srun python main.py --configs configs/train_ricord1a_unet_resnet101_fold0.yml
-srun python main.py --configs configs/train_ricord1a_unet_resnet101_fold1.yml
-srun python main.py --configs configs/train_ricord1a_unet_resnet101_fold2.yml
-srun python main.py --configs configs/train_ricord1a_unet_resnet101_fold3.yml
-srun python main.py --configs configs/train_ricord1a_unet_resnet101_fold4.yml
-srun python main.py --configs configs/train_ricord1a_fpn_resnet101_fold0.yml
-srun python main.py --configs configs/train_ricord1a_fpn_resnet101_fold1.yml
-srun python main.py --configs configs/train_ricord1a_fpn_resnet101_fold2.yml
-srun python main.py --configs configs/train_ricord1a_fpn_resnet101_fold3.yml
-srun python main.py --configs configs/train_ricord1a_fpn_resnet101_fold4.yml
-srun python main.py --configs configs/train_ricord1a_pspnet_resnet101_fold0.yml
-srun python main.py --configs configs/train_ricord1a_pspnet_resnet101_fold1.yml
-srun python main.py --configs configs/train_ricord1a_pspnet_resnet101_fold2.yml
-srun python main.py --configs configs/train_ricord1a_pspnet_resnet101_fold3.yml
-srun python main.py --configs configs/train_ricord1a_pspnet_resnet101_fold4.yml
-srun python main.py --configs configs/train_ricord1a_linknet_resnet101_fold0.yml
-srun python main.py --configs configs/train_ricord1a_linknet_resnet101_fold1.yml
-srun python main.py --configs configs/train_ricord1a_linknet_resnet101_fold2.yml
-srun python main.py --configs configs/train_ricord1a_linknet_resnet101_fold3.yml
-srun python main.py --configs configs/train_ricord1a_linknet_resnet101_fold4.yml
 srun python main.py --configs configs/train_ricord1a_pan_resnet101_fold0.yml
 srun python main.py --configs configs/train_ricord1a_pan_resnet101_fold1.yml
-srun python main.py --configs configs/train_ricord1a_pan_resnet101_fold2.yml
-srun python main.py --configs configs/train_ricord1a_pan_resnet101_fold3.yml
-srun python main.py --configs configs/train_ricord1a_pan_resnet101_fold4.yml
-srun python main.py --configs configs/train_ricord1a_manet_resnet101_fold0.yml
-srun python main.py --configs configs/train_ricord1a_manet_resnet101_fold1.yml
-srun python main.py --configs configs/train_ricord1a_manet_resnet101_fold2.yml
-srun python main.py --configs configs/train_ricord1a_manet_resnet101_fold3.yml
-srun python main.py --configs configs/train_ricord1a_manet_resnet101_fold4.yml
 srun python main.py --configs configs/train_ricord1a_deeplabv3_resnet101_fold0.yml
 srun python main.py --configs configs/train_ricord1a_deeplabv3_resnet101_fold1.yml
 srun python main.py --configs configs/train_ricord1a_deeplabv3_resnet101_fold2.yml
