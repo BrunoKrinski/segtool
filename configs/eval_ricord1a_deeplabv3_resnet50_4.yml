@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/ricord1a/labels.txt
+  test: datasets/ricord1a/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/ricord1a/deeplabv3/resnet50/train_ricord1a_deeplabv3_resnet50_fold0_2021-03-15_17:56:57.745439
+model:
+  batch_size: 8
+  encoder: resnet50
+  height: 256
+  type: best_fscore
+  width: 256

@@ -139,10 +139,10 @@ if __name__ == '__main__':
             'vgg19', 
             'vgg19_bn']
 
-    encoders = ['resnet50/']
+    encoders = ['resnet101/']
     decoders = ['unetplusplus/', 'unet/','fpn/','pspnet/','linknet/', 'pan/', 'manet/', 'deeplabv3/', 'deeplabv3plus/']
     #decoders = ['unet/']
-    datasets = ['medseg/', 'covid19china/']
+    datasets = ['medseg/', 'covid19china/', 'mosmed/', 'covid20cases/']
     #datasets = ['covid19china/']
     runs_path = 'RUNS/'
 

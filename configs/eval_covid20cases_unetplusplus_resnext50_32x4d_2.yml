@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid20cases/labels.txt
+  test: datasets/covid20cases/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid20cases/unetplusplus/resnext50_32x4d/train_covid20cases_unetplusplus_resnext50_32x4d_fold0_2021-03-15_12:49:39.563529
+model:
+  batch_size: 8
+  encoder: resnext50_32x4d
+  height: 256
+  type: best_iou
+  width: 256

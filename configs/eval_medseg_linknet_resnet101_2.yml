@@ -10,5 +10,5 @@ model:
   batch_size: 8
   encoder: resnet101
   height: 256
-  type: best_fscore
+  type: best_iou
   width: 256

@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/ricord1a/labels.txt
+  test: datasets/ricord1a/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/ricord1a/pspnet/resnet50/train_ricord1a_pspnet_resnet50_fold4_2021-03-12_18:40:58.177325
+model:
+  batch_size: 8
+  encoder: resnet50
+  height: 256
+  type: best_fscore
+  width: 256

@@ -340,10 +340,16 @@ if __name__ == '__main__':
         test_epoch = smp.utils.train.ValidEpoch(model=model, loss=loss, metrics=metrics, 
                                                 individual_metrics=individual_metrics, labels=classes, device=device)
         
-        test_logs = test_epoch.run(test_loader)
+        test_init = time.time()
+        test_logs, individual_test_logs  = test_epoch.run(test_loader)
+        test_end = time.time()
+        test_time = (test_end - test_init)
 
+        #print(test_logs)
         logs = {}
-        logs['test'] = [test_logs]
+        logs['test'] = []
+        individual_test_logs['Time'] = test_time
+        logs['test'].append(individual_test_logs)
 
         with open(project_path + '/test_logs_' + configs['model']['type'] + '.json', 'w') as log_file:
             json.dump(logs, log_file, indent=4)
@@ -367,14 +373,43 @@ if __name__ == '__main__':
                                augmentation=get_validation_augmentation(resize_height, resize_width),
                                preprocessing=get_preprocessing(preprocessing_fn), mode='test')
 
+        final_iou = 0
+        final_fscore = 0
+        t_results = {}
+        iou_list = []
+        fscore_list = []
         for i in trange(len(test_dataset)):
             image, gt_mask, image_path, mask_path = test_dataset[i]
-            #gt_mask = gt_mask.squeeze()
-            
+                        
             idx = image_path.replace('.jpg','').split('/')[-1]
             
             x_tensor = torch.from_numpy(image).to(device).unsqueeze(0)
             pr_masks = model.predict(x_tensor)
+            
+            pr_masks_individual = (pr_masks.squeeze().cpu().numpy())
+            
+            eps=1e-7
+            ious = [0.0] * num_classes
+            scores = [0.0] * num_classes
+            for i, pr, gt in zip(range(num_classes), pr_masks_individual, gt_mask):
+
+                intersection = np.sum(pr * gt)
+                union = np.sum(gt) + np.sum(pr) - intersection
+                iou_score = intersection / (union + eps)
+                ious[i] += iou_score
+
+                tp = np.sum(gt * pr)
+                fp = np.sum(pr) - tp
+                fn = np.sum(gt) - tp
+                score = tp / ((tp + ((fp + fn) / 2)) + eps)
+                scores[i] += score
+            
+            #final_iou += sum(ious) / len(ious)
+            #final_fscore += sum(scores) / len(scores)
+
+            iou_list.append(sum(ious) / len(ious))
+            fscore_list.append(sum(scores) / len(scores))
+            
             pr_masks = torch.argmax(pr_masks, dim=1)
             pr_masks = (pr_masks.squeeze().cpu().numpy())
 
@@ -430,3 +465,11 @@ if __name__ == '__main__':
             
             cv2.imwrite(image_path, pred_image)
             cv2.imwrite(mask_path, final_mask)
+
+        t_results['fscores'] = fscore_list
+        t_results['ious'] = iou_list
+        final_iou /= len(test_dataset)
+        final_fscore /= len(test_dataset)
+        
+        with open(project_path + '/individual_logs_' + configs['model']['type'] + '.json', 'w') as log_file:
+            json.dump(t_results, log_file, indent=4)

@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid20cases/labels.txt
+  test: datasets/covid20cases/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid20cases/unet/resnet50/train_covid20cases_unet_resnet50_fold0_2021-03-10_00:37:15.865868
+model:
+  batch_size: 8
+  encoder: resnet50
+  height: 256
+  type: best_iou
+  width: 256
