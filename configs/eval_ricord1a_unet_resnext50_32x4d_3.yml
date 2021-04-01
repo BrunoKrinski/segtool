@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/ricord1a/labels.txt
+  test: datasets/ricord1a/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/ricord1a/unet/resnext50_32x4d/train_ricord1a_unet_resnext50_32x4d_fold1_2021-03-16_19:57:56.517444
+model:
+  batch_size: 8
+  encoder: resnext50_32x4d
+  height: 256
+  type: best_fscore
+  width: 256

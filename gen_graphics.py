@@ -139,10 +139,10 @@ if __name__ == '__main__':
             'vgg19', 
             'vgg19_bn']
 
-    encoders = ['resnet101/']
+    encoders = ['resnet50/','resnet101/','resnext50_32x4d/']
     decoders = ['unetplusplus/', 'unet/','fpn/','pspnet/','linknet/', 'pan/', 'manet/', 'deeplabv3/', 'deeplabv3plus/']
     #decoders = ['unet/']
-    datasets = ['medseg/', 'covid19china/', 'mosmed/', 'covid20cases/']
+    datasets = ['ricord1a/','medseg/', 'covid19china/', 'mosmed/', 'covid20cases/']
     #datasets = ['covid19china/']
     runs_path = 'RUNS/'
 
@@ -157,6 +157,11 @@ if __name__ == '__main__':
                         os.system('rm -rf {}'.format(mean_results_path))
 
                     runs = glob.glob(runspath + '*')
+
+                    if len(runs) != 5:
+                        print('ERROR!!!!')
+                        print(runs)
+                        exit()
 
                     all_train = []
                     all_valid = []

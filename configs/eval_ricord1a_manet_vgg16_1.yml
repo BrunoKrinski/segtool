@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/ricord1a/labels.txt
+  test: datasets/ricord1a/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/ricord1a/manet/vgg16/train_ricord1a_manet_vgg16_fold0_2021-03-30_22:55:07.182923
+model:
+  batch_size: 8
+  encoder: vgg16
+  height: 256
+  type: best_fscore
+  width: 256

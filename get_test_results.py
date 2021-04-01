@@ -1,3 +1,4 @@
+import os
 import csv
 import glob
 import json
@@ -114,9 +115,9 @@ if __name__ == '__main__':
                 'vgg19', 
                 'vgg19_bn']
 
-    encoders = ['resnet50','resnet101']
+    encoders = ['resnet50','resnet101','resnext50_32x4d','resnext101_32x8d','vgg16']
     decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
-    datasets = ['medseg', 'covid20cases', 'covid19china', 'mosmed']
+    datasets = ['medseg', 'covid20cases', 'covid19china', 'mosmed', 'ricord1a']
     runs_path = 'RUNS'
 
     test_files = ['test_logs_last.json','test_logs_best_iou.json','test_logs_best_fscore.json']
@@ -135,7 +136,7 @@ if __name__ == '__main__':
 
             for decoder in decoders:
                 for encoder in encoders:
-                    line = [encoder + ' ' + decoder]
+                    line = [encoder.replace('_','\_') + ' ' + decoder]
                     for dataset in datasets:
                         runspath = runs_path + '/' + experiment + '/'  + dataset + '/'  + decoder + '/'  + encoder + '/' 
                         runs = glob.glob(runspath + '*')
@@ -144,9 +145,11 @@ if __name__ == '__main__':
                         cont = 0
                         for run in runs:
                             if 'graphics' not in run:
-                                cont += 1
                                 #print(run)
                                 tf = run + '/' + test_file
+                                if not os.path.isfile(tf):
+                                    continue
+                                cont += 1
                                 with open(tf) as f:
                                     data = json.load(f)
                                     test_results = data['test'][0]
@@ -170,7 +173,10 @@ if __name__ == '__main__':
                         #print('Encoder: ' + encoder)
                         #print('Test File: ' + test_file)
                         #for key, value in mean_results.items():
-                        line.append(str(mean_results['Fscore'])[:6] + ' / ' + str(mean_results['Iou'])[:6])
+                        if len(mean_results) > 0:
+                            line.append(str(mean_results['Fscore'])[:6] + ' / ' + str(mean_results['Iou'])[:6])
+                        else:
+                            line.append('--/--')
                         #elif key == 'IoU':
                         #    line.append(str(value))
                     result_table.append(line)

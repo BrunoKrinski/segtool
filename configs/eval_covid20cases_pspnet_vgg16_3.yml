@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid20cases/labels.txt
+  test: datasets/covid20cases/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid20cases/pspnet/vgg16/train_covid20cases_pspnet_vgg16_fold3_2021-03-30_00:50:53.849523
+model:
+  batch_size: 8
+  encoder: vgg16
+  height: 256
+  type: best_fscore
+  width: 256

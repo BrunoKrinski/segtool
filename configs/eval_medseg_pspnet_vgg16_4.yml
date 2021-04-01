@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/medseg/labels.txt
+  test: datasets/medseg/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/medseg/pspnet/vgg16/train_medseg_pspnet_vgg16_fold3_2021-03-29_13:53:35.196725
+model:
+  batch_size: 8
+  encoder: vgg16
+  height: 256
+  type: best_fscore
+  width: 256

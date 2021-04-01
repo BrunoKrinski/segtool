@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/mosmed/labels.txt
+  test: datasets/mosmed/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/mosmed/manet/vgg16/train_mosmed_manet_vgg16_fold3_2021-03-29_23:55:26.993541
+model:
+  batch_size: 8
+  encoder: vgg16
+  height: 256
+  type: best_fscore
+  width: 256
