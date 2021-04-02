@@ -1,0 +1,18 @@
+dataset:
+  labels: datasets/mosmed/labels.txt
+  train: datasets/mosmed/train/train_ids3.txt
+  valid: datasets/mosmed/train/valid_ids3.txt
+general:
+  dataset: mosmed
+  experiment: baseline
+  gpu: 1
+  mode: train
+  num_workers: 4
+model:
+  batch_size: 8
+  decoder: unet
+  encoder: timm-res2net50_26w_4s
+  height: 256
+  learning_rate: 0.001
+  num_epochs: 50
+  width: 256

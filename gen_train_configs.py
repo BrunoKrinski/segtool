@@ -117,8 +117,8 @@ encoders = ['timm-res2net50_26w_4s']
 
 nodes = ['vti2-ib', 'vti1-ib', 'pti']
 decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
-datasets = ['ricord1a', 'medseg', 'covid20cases', 'covid19china', 'mosmed']
-datasets = ['covid19china']
+datasets = ['ricord1a', 'medseg', 'covid20cases', 'mosmed', 'covid19china']
+#datasets = ['covid19china']
 
 gpu = 0
 node_num = 0

@@ -1,0 +1,18 @@
+dataset:
+  labels: datasets/medseg/labels.txt
+  train: datasets/medseg/train/train_ids1.txt
+  valid: datasets/medseg/train/valid_ids1.txt
+general:
+  dataset: medseg
+  experiment: baseline
+  gpu: 1
+  mode: train
+  num_workers: 4
+model:
+  batch_size: 8
+  decoder: deeplabv3
+  encoder: timm-res2net50_26w_4s
+  height: 256
+  learning_rate: 0.001
+  num_epochs: 50
+  width: 256

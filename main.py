@@ -292,7 +292,7 @@ if __name__ == '__main__':
             logs['valid'].append(individual_valid_logs)
 
             torch.save(model, '{}/last.pth'.format(checkpoints))
-
+            '''
             if max_fscore < valid_logs['Fscore']:
                 max_fscore = valid_logs['Fscore']
                 torch.save(model, '{}/best_fscore.pth'.format(checkpoints))
@@ -300,6 +300,7 @@ if __name__ == '__main__':
             if max_iscore < valid_logs['Iou']:
                 max_iscore = valid_logs['Iou']
                 torch.save(model, '{}/best_iou.pth'.format(checkpoints))
+            '''
 
             with open(out_dir + '/train_logs.json', 'w') as log_file:
                 json.dump(logs, log_file, indent=4)
