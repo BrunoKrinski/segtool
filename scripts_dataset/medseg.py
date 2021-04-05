@@ -38,7 +38,7 @@ for item in glob.glob(masks_path + '*'):
         mask_name = 'all/masks/' + name + '_' + str(i).zfill(6) + '.png'
 
         #cv2.imwrite(image_name, image)
-        cv2.imwrite(mask_name, np.rot90(mask))
-        pylab.imsave(image_name, np.rot90(image), format='jpg', cmap=cm.Greys_r)
+        cv2.imwrite(mask_name, np.rot90(np.rot90(np.rot90(mask))))
+        pylab.imsave(image_name, np.rot90(np.rot90(np.rot90(image))), format='jpg', cmap=cm.Greys_r)
         #pylab.imsave(mask_name, np.rot90(mask), format='png')
         i += 1

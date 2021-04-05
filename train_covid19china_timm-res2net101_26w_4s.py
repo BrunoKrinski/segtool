@@ -1,0 +1,36 @@
+import os
+
+ls=["python main.py --configs configs/train_covid19china_unetplusplus_timm-res2net101_26w_4s_fold0.yml",
+"python main.py --configs configs/train_covid19china_unetplusplus_timm-res2net101_26w_4s_fold1.yml",
+"python main.py --configs configs/train_covid19china_unetplusplus_timm-res2net101_26w_4s_fold2.yml",
+"python main.py --configs configs/train_covid19china_unetplusplus_timm-res2net101_26w_4s_fold3.yml",
+"python main.py --configs configs/train_covid19china_unetplusplus_timm-res2net101_26w_4s_fold4.yml",
+"python main.py --configs configs/train_covid19china_unet_timm-res2net101_26w_4s_fold0.yml",
+"python main.py --configs configs/train_covid19china_unet_timm-res2net101_26w_4s_fold1.yml",
+"python main.py --configs configs/train_covid19china_unet_timm-res2net101_26w_4s_fold2.yml",
+"python main.py --configs configs/train_covid19china_unet_timm-res2net101_26w_4s_fold3.yml",
+"python main.py --configs configs/train_covid19china_unet_timm-res2net101_26w_4s_fold4.yml",
+"python main.py --configs configs/train_covid19china_fpn_timm-res2net101_26w_4s_fold0.yml",
+"python main.py --configs configs/train_covid19china_fpn_timm-res2net101_26w_4s_fold1.yml",
+"python main.py --configs configs/train_covid19china_fpn_timm-res2net101_26w_4s_fold2.yml",
+"python main.py --configs configs/train_covid19china_fpn_timm-res2net101_26w_4s_fold3.yml",
+"python main.py --configs configs/train_covid19china_fpn_timm-res2net101_26w_4s_fold4.yml",
+"python main.py --configs configs/train_covid19china_pspnet_timm-res2net101_26w_4s_fold0.yml",
+"python main.py --configs configs/train_covid19china_pspnet_timm-res2net101_26w_4s_fold1.yml",
+"python main.py --configs configs/train_covid19china_pspnet_timm-res2net101_26w_4s_fold2.yml",
+"python main.py --configs configs/train_covid19china_pspnet_timm-res2net101_26w_4s_fold3.yml",
+"python main.py --configs configs/train_covid19china_pspnet_timm-res2net101_26w_4s_fold4.yml",
+"python main.py --configs configs/train_covid19china_linknet_timm-res2net101_26w_4s_fold0.yml",
+"python main.py --configs configs/train_covid19china_linknet_timm-res2net101_26w_4s_fold1.yml",
+"python main.py --configs configs/train_covid19china_linknet_timm-res2net101_26w_4s_fold2.yml",
+"python main.py --configs configs/train_covid19china_linknet_timm-res2net101_26w_4s_fold3.yml",
+"python main.py --configs configs/train_covid19china_linknet_timm-res2net101_26w_4s_fold4.yml",
+"python main.py --configs configs/train_covid19china_manet_timm-res2net101_26w_4s_fold0.yml",
+"python main.py --configs configs/train_covid19china_manet_timm-res2net101_26w_4s_fold1.yml",
+"python main.py --configs configs/train_covid19china_manet_timm-res2net101_26w_4s_fold2.yml",
+"python main.py --configs configs/train_covid19china_manet_timm-res2net101_26w_4s_fold3.yml",
+"python main.py --configs configs/train_covid19china_manet_timm-res2net101_26w_4s_fold4.yml",
+]
+
+for l in ls:
+  os.system(l)

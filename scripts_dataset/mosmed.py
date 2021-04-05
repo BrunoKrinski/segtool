@@ -32,6 +32,6 @@ for mask in masks:
         msk_path = 'all/masks/' + name + '_' + str(i).zfill(6) + '.png'
         
         #cv2.imwrite(img_path, img)
-        cv2.imwrite(msk_path, msk)
+        cv2.imwrite(msk_path, np.rot90(msk))
         pylab.imsave(img_path, np.rot90(img), format='jpg', cmap=cm.Greys_r)
         i += 1
