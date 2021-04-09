@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/medseg/labels.txt
+  test: datasets/medseg/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/medseg/unet/resnet101/train_medseg_unet_resnet101_fold4_2021-03-10_17:17:37.295512
+model:
+  batch_size: 8
+  encoder: resnet101
+  height: 256
+  type: last
+  width: 256

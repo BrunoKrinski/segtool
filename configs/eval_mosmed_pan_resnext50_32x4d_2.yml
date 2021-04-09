@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/mosmed/labels.txt
+  test: datasets/mosmed/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/mosmed/pan/resnext50_32x4d/train_mosmed_pan_resnext50_32x4d_fold0_2021-03-18_08:27:05.048391
+model:
+  batch_size: 8
+  encoder: resnext50_32x4d
+  height: 256
+  type: last
+  width: 256

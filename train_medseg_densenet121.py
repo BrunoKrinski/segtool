@@ -1,0 +1,36 @@
+import os
+
+ls=["python main.py --configs configs/train_medseg_unetplusplus_densenet121_fold0.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_densenet121_fold1.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_densenet121_fold2.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_densenet121_fold3.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_densenet121_fold4.yml",
+"python main.py --configs configs/train_medseg_unet_densenet121_fold0.yml",
+"python main.py --configs configs/train_medseg_unet_densenet121_fold1.yml",
+"python main.py --configs configs/train_medseg_unet_densenet121_fold2.yml",
+"python main.py --configs configs/train_medseg_unet_densenet121_fold3.yml",
+"python main.py --configs configs/train_medseg_unet_densenet121_fold4.yml",
+"python main.py --configs configs/train_medseg_fpn_densenet121_fold0.yml",
+"python main.py --configs configs/train_medseg_fpn_densenet121_fold1.yml",
+"python main.py --configs configs/train_medseg_fpn_densenet121_fold2.yml",
+"python main.py --configs configs/train_medseg_fpn_densenet121_fold3.yml",
+"python main.py --configs configs/train_medseg_fpn_densenet121_fold4.yml",
+"python main.py --configs configs/train_medseg_pspnet_densenet121_fold0.yml",
+"python main.py --configs configs/train_medseg_pspnet_densenet121_fold1.yml",
+"python main.py --configs configs/train_medseg_pspnet_densenet121_fold2.yml",
+"python main.py --configs configs/train_medseg_pspnet_densenet121_fold3.yml",
+"python main.py --configs configs/train_medseg_pspnet_densenet121_fold4.yml",
+"python main.py --configs configs/train_medseg_linknet_densenet121_fold0.yml",
+"python main.py --configs configs/train_medseg_linknet_densenet121_fold1.yml",
+"python main.py --configs configs/train_medseg_linknet_densenet121_fold2.yml",
+"python main.py --configs configs/train_medseg_linknet_densenet121_fold3.yml",
+"python main.py --configs configs/train_medseg_linknet_densenet121_fold4.yml",
+"python main.py --configs configs/train_medseg_manet_densenet121_fold0.yml",
+"python main.py --configs configs/train_medseg_manet_densenet121_fold1.yml",
+"python main.py --configs configs/train_medseg_manet_densenet121_fold2.yml",
+"python main.py --configs configs/train_medseg_manet_densenet121_fold3.yml",
+"python main.py --configs configs/train_medseg_manet_densenet121_fold4.yml",
+]
+
+for l in ls:
+  os.system(l)

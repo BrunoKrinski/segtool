@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/mosmed/labels.txt
+  test: datasets/mosmed/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/mosmed/deeplabv3plus/vgg16/train_mosmed_deeplabv3plus_vgg16_fold4_2021-03-30_00:52:51.890504
+model:
+  batch_size: 8
+  encoder: vgg16
+  height: 256
+  type: last
+  width: 256

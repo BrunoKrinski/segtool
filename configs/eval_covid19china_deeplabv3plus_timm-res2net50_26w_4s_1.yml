@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid19china/labels.txt
+  test: datasets/covid19china/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid19china/deeplabv3plus/timm-res2net50_26w_4s/train_covid19china_deeplabv3plus_timm-res2net50_26w_4s_fold4_2021-04-02_18:04:17.859219
+model:
+  batch_size: 8
+  encoder: timm-res2net50_26w_4s
+  height: 256
+  type: last
+  width: 256

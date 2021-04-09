@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid20cases/labels.txt
+  test: datasets/covid20cases/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid20cases/deeplabv3plus/resnet101/train_covid20cases_deeplabv3plus_resnet101_fold1_2021-03-15_09:21:32.226399
+model:
+  batch_size: 8
+  encoder: resnet101
+  height: 256
+  type: last
+  width: 256

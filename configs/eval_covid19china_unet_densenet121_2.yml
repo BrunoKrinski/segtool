@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid19china/labels.txt
+  test: datasets/covid19china/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid19china/unet/densenet121/train_covid19china_unet_densenet121_fold2_2021-04-01_22:39:14.689878
+model:
+  batch_size: 8
+  encoder: densenet121
+  height: 256
+  type: last
+  width: 256

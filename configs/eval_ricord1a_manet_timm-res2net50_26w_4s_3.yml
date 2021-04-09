@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/ricord1a/labels.txt
+  test: datasets/ricord1a/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/ricord1a/manet/timm-res2net50_26w_4s/train_ricord1a_manet_timm-res2net50_26w_4s_fold2_2021-04-04_22:50:37.867740
+model:
+  batch_size: 8
+  encoder: timm-res2net50_26w_4s
+  height: 256
+  type: last
+  width: 256

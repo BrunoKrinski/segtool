@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/medseg/labels.txt
+  test: datasets/medseg/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/medseg/deeplabv3plus/resnet50/train_medseg_deeplabv3plus_resnet50_fold4_2021-03-10_09:04:43.559511
+model:
+  batch_size: 8
+  encoder: resnet50
+  height: 256
+  type: last
+  width: 256

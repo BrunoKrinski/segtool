@@ -1,0 +1,36 @@
+import os
+
+ls=["python main.py --configs configs/eval_medseg_unetplusplus_timm-res2net50_26w_4s_0.yml",
+"python main.py --configs configs/eval_medseg_unetplusplus_timm-res2net50_26w_4s_1.yml",
+"python main.py --configs configs/eval_medseg_unetplusplus_timm-res2net50_26w_4s_2.yml",
+"python main.py --configs configs/eval_medseg_unetplusplus_timm-res2net50_26w_4s_3.yml",
+"python main.py --configs configs/eval_medseg_unetplusplus_timm-res2net50_26w_4s_4.yml",
+"python main.py --configs configs/eval_medseg_unet_timm-res2net50_26w_4s_0.yml",
+"python main.py --configs configs/eval_medseg_unet_timm-res2net50_26w_4s_1.yml",
+"python main.py --configs configs/eval_medseg_unet_timm-res2net50_26w_4s_2.yml",
+"python main.py --configs configs/eval_medseg_unet_timm-res2net50_26w_4s_3.yml",
+"python main.py --configs configs/eval_medseg_unet_timm-res2net50_26w_4s_4.yml",
+"python main.py --configs configs/eval_medseg_fpn_timm-res2net50_26w_4s_0.yml",
+"python main.py --configs configs/eval_medseg_fpn_timm-res2net50_26w_4s_1.yml",
+"python main.py --configs configs/eval_medseg_fpn_timm-res2net50_26w_4s_2.yml",
+"python main.py --configs configs/eval_medseg_fpn_timm-res2net50_26w_4s_3.yml",
+"python main.py --configs configs/eval_medseg_fpn_timm-res2net50_26w_4s_4.yml",
+"python main.py --configs configs/eval_medseg_pspnet_timm-res2net50_26w_4s_0.yml",
+"python main.py --configs configs/eval_medseg_pspnet_timm-res2net50_26w_4s_1.yml",
+"python main.py --configs configs/eval_medseg_pspnet_timm-res2net50_26w_4s_2.yml",
+"python main.py --configs configs/eval_medseg_pspnet_timm-res2net50_26w_4s_3.yml",
+"python main.py --configs configs/eval_medseg_pspnet_timm-res2net50_26w_4s_4.yml",
+"python main.py --configs configs/eval_medseg_linknet_timm-res2net50_26w_4s_0.yml",
+"python main.py --configs configs/eval_medseg_linknet_timm-res2net50_26w_4s_1.yml",
+"python main.py --configs configs/eval_medseg_linknet_timm-res2net50_26w_4s_2.yml",
+"python main.py --configs configs/eval_medseg_linknet_timm-res2net50_26w_4s_3.yml",
+"python main.py --configs configs/eval_medseg_linknet_timm-res2net50_26w_4s_4.yml",
+"python main.py --configs configs/eval_medseg_manet_timm-res2net50_26w_4s_0.yml",
+"python main.py --configs configs/eval_medseg_manet_timm-res2net50_26w_4s_1.yml",
+"python main.py --configs configs/eval_medseg_manet_timm-res2net50_26w_4s_2.yml",
+"python main.py --configs configs/eval_medseg_manet_timm-res2net50_26w_4s_3.yml",
+"python main.py --configs configs/eval_medseg_manet_timm-res2net50_26w_4s_4.yml",
+]
+
+for l in ls:
+  os.system(l)

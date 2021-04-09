@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/mosmed/labels.txt
+  test: datasets/mosmed/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/mosmed/deeplabv3plus/resnet50/train_mosmed_deeplabv3plus_resnet50_fold4_2021-03-14_01:05:28.463271
+model:
+  batch_size: 8
+  encoder: resnet50
+  height: 256
+  type: last
+  width: 256

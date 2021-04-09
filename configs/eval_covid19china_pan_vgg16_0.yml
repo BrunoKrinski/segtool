@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid19china/labels.txt
+  test: datasets/covid19china/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid19china/pan/vgg16/train_covid19china_pan_vgg16_fold2_2021-03-31_13:57:14.159762
+model:
+  batch_size: 8
+  encoder: vgg16
+  height: 256
+  type: last
+  width: 256
