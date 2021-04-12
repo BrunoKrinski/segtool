@@ -1,0 +1,36 @@
+import os
+
+ls=["python main.py --configs configs/train_medseg_unetplusplus_densenet169_fold0.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_densenet169_fold1.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_densenet169_fold2.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_densenet169_fold3.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_densenet169_fold4.yml",
+"python main.py --configs configs/train_medseg_unet_densenet169_fold0.yml",
+"python main.py --configs configs/train_medseg_unet_densenet169_fold1.yml",
+"python main.py --configs configs/train_medseg_unet_densenet169_fold2.yml",
+"python main.py --configs configs/train_medseg_unet_densenet169_fold3.yml",
+"python main.py --configs configs/train_medseg_unet_densenet169_fold4.yml",
+"python main.py --configs configs/train_medseg_fpn_densenet169_fold0.yml",
+"python main.py --configs configs/train_medseg_fpn_densenet169_fold1.yml",
+"python main.py --configs configs/train_medseg_fpn_densenet169_fold2.yml",
+"python main.py --configs configs/train_medseg_fpn_densenet169_fold3.yml",
+"python main.py --configs configs/train_medseg_fpn_densenet169_fold4.yml",
+"python main.py --configs configs/train_medseg_pspnet_densenet169_fold0.yml",
+"python main.py --configs configs/train_medseg_pspnet_densenet169_fold1.yml",
+"python main.py --configs configs/train_medseg_pspnet_densenet169_fold2.yml",
+"python main.py --configs configs/train_medseg_pspnet_densenet169_fold3.yml",
+"python main.py --configs configs/train_medseg_pspnet_densenet169_fold4.yml",
+"python main.py --configs configs/train_medseg_linknet_densenet169_fold0.yml",
+"python main.py --configs configs/train_medseg_linknet_densenet169_fold1.yml",
+"python main.py --configs configs/train_medseg_linknet_densenet169_fold2.yml",
+"python main.py --configs configs/train_medseg_linknet_densenet169_fold3.yml",
+"python main.py --configs configs/train_medseg_linknet_densenet169_fold4.yml",
+"python main.py --configs configs/train_medseg_manet_densenet169_fold0.yml",
+"python main.py --configs configs/train_medseg_manet_densenet169_fold1.yml",
+"python main.py --configs configs/train_medseg_manet_densenet169_fold2.yml",
+"python main.py --configs configs/train_medseg_manet_densenet169_fold3.yml",
+"python main.py --configs configs/train_medseg_manet_densenet169_fold4.yml",
+]
+
+for l in ls:
+  os.system(l)
