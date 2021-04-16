@@ -5,7 +5,7 @@ dataset:
 general:
   dataset: covid19china
   experiment: baseline
-  gpu: 0
+  gpu: 1
   mode: train
   num_workers: 4
 model:
