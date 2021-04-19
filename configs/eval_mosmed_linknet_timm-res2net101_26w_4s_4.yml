@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/mosmed/labels.txt
+  test: datasets/mosmed/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/mosmed/linknet/timm-res2net101_26w_4s/train_mosmed_linknet_timm-res2net101_26w_4s_fold3_2021-04-05_23:54:04.581976
+model:
+  batch_size: 8
+  encoder: timm-res2net101_26w_4s
+  height: 256
+  type: last
+  width: 256

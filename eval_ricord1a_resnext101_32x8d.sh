@@ -39,16 +39,8 @@ srun python main.py --configs configs/eval_ricord1a_linknet_resnext101_32x8d_1.y
 srun python main.py --configs configs/eval_ricord1a_linknet_resnext101_32x8d_2.yml
 srun python main.py --configs configs/eval_ricord1a_linknet_resnext101_32x8d_3.yml
 srun python main.py --configs configs/eval_ricord1a_linknet_resnext101_32x8d_4.yml
-srun python main.py --configs configs/eval_ricord1a_pan_resnext101_32x8d_0.yml
-srun python main.py --configs configs/eval_ricord1a_pan_resnext101_32x8d_1.yml
-srun python main.py --configs configs/eval_ricord1a_pan_resnext101_32x8d_2.yml
-srun python main.py --configs configs/eval_ricord1a_pan_resnext101_32x8d_3.yml
-srun python main.py --configs configs/eval_ricord1a_pan_resnext101_32x8d_4.yml
 srun python main.py --configs configs/eval_ricord1a_manet_resnext101_32x8d_0.yml
 srun python main.py --configs configs/eval_ricord1a_manet_resnext101_32x8d_1.yml
 srun python main.py --configs configs/eval_ricord1a_manet_resnext101_32x8d_2.yml
 srun python main.py --configs configs/eval_ricord1a_manet_resnext101_32x8d_3.yml
 srun python main.py --configs configs/eval_ricord1a_manet_resnext101_32x8d_4.yml
-srun python main.py --configs configs/eval_ricord1a_deeplabv3_resnext101_32x8d_0.yml
-srun python main.py --configs configs/eval_ricord1a_deeplabv3_resnext101_32x8d_1.yml
-srun python main.py --configs configs/eval_ricord1a_deeplabv3_resnext101_32x8d_2.yml

@@ -1,6 +1,36 @@
 import os
 
-ls=[]
+ls=["python main.py --configs configs/eval_mosmed_unetplusplus_densenet121_0.yml",
+"python main.py --configs configs/eval_mosmed_unetplusplus_densenet121_1.yml",
+"python main.py --configs configs/eval_mosmed_unetplusplus_densenet121_2.yml",
+"python main.py --configs configs/eval_mosmed_unetplusplus_densenet121_3.yml",
+"python main.py --configs configs/eval_mosmed_unetplusplus_densenet121_4.yml",
+"python main.py --configs configs/eval_mosmed_unet_densenet121_0.yml",
+"python main.py --configs configs/eval_mosmed_unet_densenet121_1.yml",
+"python main.py --configs configs/eval_mosmed_unet_densenet121_2.yml",
+"python main.py --configs configs/eval_mosmed_unet_densenet121_3.yml",
+"python main.py --configs configs/eval_mosmed_unet_densenet121_4.yml",
+"python main.py --configs configs/eval_mosmed_fpn_densenet121_0.yml",
+"python main.py --configs configs/eval_mosmed_fpn_densenet121_1.yml",
+"python main.py --configs configs/eval_mosmed_fpn_densenet121_2.yml",
+"python main.py --configs configs/eval_mosmed_fpn_densenet121_3.yml",
+"python main.py --configs configs/eval_mosmed_fpn_densenet121_4.yml",
+"python main.py --configs configs/eval_mosmed_pspnet_densenet121_0.yml",
+"python main.py --configs configs/eval_mosmed_pspnet_densenet121_1.yml",
+"python main.py --configs configs/eval_mosmed_pspnet_densenet121_2.yml",
+"python main.py --configs configs/eval_mosmed_pspnet_densenet121_3.yml",
+"python main.py --configs configs/eval_mosmed_pspnet_densenet121_4.yml",
+"python main.py --configs configs/eval_mosmed_linknet_densenet121_0.yml",
+"python main.py --configs configs/eval_mosmed_linknet_densenet121_1.yml",
+"python main.py --configs configs/eval_mosmed_linknet_densenet121_2.yml",
+"python main.py --configs configs/eval_mosmed_linknet_densenet121_3.yml",
+"python main.py --configs configs/eval_mosmed_linknet_densenet121_4.yml",
+"python main.py --configs configs/eval_mosmed_manet_densenet121_0.yml",
+"python main.py --configs configs/eval_mosmed_manet_densenet121_1.yml",
+"python main.py --configs configs/eval_mosmed_manet_densenet121_2.yml",
+"python main.py --configs configs/eval_mosmed_manet_densenet121_3.yml",
+"python main.py --configs configs/eval_mosmed_manet_densenet121_4.yml",
+]
 
 for l in ls:
   os.system(l)

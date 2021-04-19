@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/mosmed/labels.txt
+  test: datasets/mosmed/valid/test_ids.txt
+general:
+  gpu: 0
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/mosmed/unetplusplus/densenet121/train_mosmed_unetplusplus_densenet121_fold0_2021-04-09_18:20:27.453305
+model:
+  batch_size: 8
+  encoder: densenet121
+  height: 256
+  type: last
+  width: 256

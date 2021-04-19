@@ -25,19 +25,11 @@ ls=["python main.py --configs configs/eval_ricord1a_unetplusplus_resnext101_32x8
 "python main.py --configs configs/eval_ricord1a_linknet_resnext101_32x8d_2.yml",
 "python main.py --configs configs/eval_ricord1a_linknet_resnext101_32x8d_3.yml",
 "python main.py --configs configs/eval_ricord1a_linknet_resnext101_32x8d_4.yml",
-"python main.py --configs configs/eval_ricord1a_pan_resnext101_32x8d_0.yml",
-"python main.py --configs configs/eval_ricord1a_pan_resnext101_32x8d_1.yml",
-"python main.py --configs configs/eval_ricord1a_pan_resnext101_32x8d_2.yml",
-"python main.py --configs configs/eval_ricord1a_pan_resnext101_32x8d_3.yml",
-"python main.py --configs configs/eval_ricord1a_pan_resnext101_32x8d_4.yml",
 "python main.py --configs configs/eval_ricord1a_manet_resnext101_32x8d_0.yml",
 "python main.py --configs configs/eval_ricord1a_manet_resnext101_32x8d_1.yml",
 "python main.py --configs configs/eval_ricord1a_manet_resnext101_32x8d_2.yml",
 "python main.py --configs configs/eval_ricord1a_manet_resnext101_32x8d_3.yml",
 "python main.py --configs configs/eval_ricord1a_manet_resnext101_32x8d_4.yml",
-"python main.py --configs configs/eval_ricord1a_deeplabv3_resnext101_32x8d_0.yml",
-"python main.py --configs configs/eval_ricord1a_deeplabv3_resnext101_32x8d_1.yml",
-"python main.py --configs configs/eval_ricord1a_deeplabv3_resnext101_32x8d_2.yml",
 ]
 
 for l in ls:

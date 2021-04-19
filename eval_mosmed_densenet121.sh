@@ -14,3 +14,33 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"
 
 module load libraries/cuda/10.1
 
+srun python main.py --configs configs/eval_mosmed_unetplusplus_densenet121_0.yml
+srun python main.py --configs configs/eval_mosmed_unetplusplus_densenet121_1.yml
+srun python main.py --configs configs/eval_mosmed_unetplusplus_densenet121_2.yml
+srun python main.py --configs configs/eval_mosmed_unetplusplus_densenet121_3.yml
+srun python main.py --configs configs/eval_mosmed_unetplusplus_densenet121_4.yml
+srun python main.py --configs configs/eval_mosmed_unet_densenet121_0.yml
+srun python main.py --configs configs/eval_mosmed_unet_densenet121_1.yml
+srun python main.py --configs configs/eval_mosmed_unet_densenet121_2.yml
+srun python main.py --configs configs/eval_mosmed_unet_densenet121_3.yml
+srun python main.py --configs configs/eval_mosmed_unet_densenet121_4.yml
+srun python main.py --configs configs/eval_mosmed_fpn_densenet121_0.yml
+srun python main.py --configs configs/eval_mosmed_fpn_densenet121_1.yml
+srun python main.py --configs configs/eval_mosmed_fpn_densenet121_2.yml
+srun python main.py --configs configs/eval_mosmed_fpn_densenet121_3.yml
+srun python main.py --configs configs/eval_mosmed_fpn_densenet121_4.yml
+srun python main.py --configs configs/eval_mosmed_pspnet_densenet121_0.yml
+srun python main.py --configs configs/eval_mosmed_pspnet_densenet121_1.yml
+srun python main.py --configs configs/eval_mosmed_pspnet_densenet121_2.yml
+srun python main.py --configs configs/eval_mosmed_pspnet_densenet121_3.yml
+srun python main.py --configs configs/eval_mosmed_pspnet_densenet121_4.yml
+srun python main.py --configs configs/eval_mosmed_linknet_densenet121_0.yml
+srun python main.py --configs configs/eval_mosmed_linknet_densenet121_1.yml
+srun python main.py --configs configs/eval_mosmed_linknet_densenet121_2.yml
+srun python main.py --configs configs/eval_mosmed_linknet_densenet121_3.yml
+srun python main.py --configs configs/eval_mosmed_linknet_densenet121_4.yml
+srun python main.py --configs configs/eval_mosmed_manet_densenet121_0.yml
+srun python main.py --configs configs/eval_mosmed_manet_densenet121_1.yml
+srun python main.py --configs configs/eval_mosmed_manet_densenet121_2.yml
+srun python main.py --configs configs/eval_mosmed_manet_densenet121_3.yml
+srun python main.py --configs configs/eval_mosmed_manet_densenet121_4.yml

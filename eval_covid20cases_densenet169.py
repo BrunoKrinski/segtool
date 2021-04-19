@@ -1,0 +1,36 @@
+import os
+
+ls=["python main.py --configs configs/eval_covid20cases_unetplusplus_densenet169_0.yml",
+"python main.py --configs configs/eval_covid20cases_unetplusplus_densenet169_1.yml",
+"python main.py --configs configs/eval_covid20cases_unetplusplus_densenet169_2.yml",
+"python main.py --configs configs/eval_covid20cases_unetplusplus_densenet169_3.yml",
+"python main.py --configs configs/eval_covid20cases_unetplusplus_densenet169_4.yml",
+"python main.py --configs configs/eval_covid20cases_unet_densenet169_0.yml",
+"python main.py --configs configs/eval_covid20cases_unet_densenet169_1.yml",
+"python main.py --configs configs/eval_covid20cases_unet_densenet169_2.yml",
+"python main.py --configs configs/eval_covid20cases_unet_densenet169_3.yml",
+"python main.py --configs configs/eval_covid20cases_unet_densenet169_4.yml",
+"python main.py --configs configs/eval_covid20cases_fpn_densenet169_0.yml",
+"python main.py --configs configs/eval_covid20cases_fpn_densenet169_1.yml",
+"python main.py --configs configs/eval_covid20cases_fpn_densenet169_2.yml",
+"python main.py --configs configs/eval_covid20cases_fpn_densenet169_3.yml",
+"python main.py --configs configs/eval_covid20cases_fpn_densenet169_4.yml",
+"python main.py --configs configs/eval_covid20cases_pspnet_densenet169_0.yml",
+"python main.py --configs configs/eval_covid20cases_pspnet_densenet169_1.yml",
+"python main.py --configs configs/eval_covid20cases_pspnet_densenet169_2.yml",
+"python main.py --configs configs/eval_covid20cases_pspnet_densenet169_3.yml",
+"python main.py --configs configs/eval_covid20cases_pspnet_densenet169_4.yml",
+"python main.py --configs configs/eval_covid20cases_linknet_densenet169_0.yml",
+"python main.py --configs configs/eval_covid20cases_linknet_densenet169_1.yml",
+"python main.py --configs configs/eval_covid20cases_linknet_densenet169_2.yml",
+"python main.py --configs configs/eval_covid20cases_linknet_densenet169_3.yml",
+"python main.py --configs configs/eval_covid20cases_linknet_densenet169_4.yml",
+"python main.py --configs configs/eval_covid20cases_manet_densenet169_0.yml",
+"python main.py --configs configs/eval_covid20cases_manet_densenet169_1.yml",
+"python main.py --configs configs/eval_covid20cases_manet_densenet169_2.yml",
+"python main.py --configs configs/eval_covid20cases_manet_densenet169_3.yml",
+"python main.py --configs configs/eval_covid20cases_manet_densenet169_4.yml",
+]
+
+for l in ls:
+  os.system(l)

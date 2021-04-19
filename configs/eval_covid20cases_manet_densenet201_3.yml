@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid20cases/labels.txt
+  test: datasets/covid20cases/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid20cases/manet/densenet201/train_covid20cases_manet_densenet201_fold4_2021-04-17_07:49:38.644378
+model:
+  batch_size: 8
+  encoder: densenet201
+  height: 256
+  type: last
+  width: 256

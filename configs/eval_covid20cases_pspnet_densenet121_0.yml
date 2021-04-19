@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/covid20cases/labels.txt
+  test: datasets/covid20cases/valid/test_ids.txt
+general:
+  gpu: 1
+  mode: eval
+  num_workers: 4
+  path: RUNS/baseline/covid20cases/pspnet/densenet121/train_covid20cases_pspnet_densenet121_fold0_2021-04-11_01:58:25.248904
+model:
+  batch_size: 8
+  encoder: densenet121
+  height: 256
+  type: last
+  width: 256

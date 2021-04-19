@@ -1,0 +1,36 @@
+import os
+
+ls=["python main.py --configs configs/eval_medseg_unetplusplus_densenet201_0.yml",
+"python main.py --configs configs/eval_medseg_unetplusplus_densenet201_1.yml",
+"python main.py --configs configs/eval_medseg_unetplusplus_densenet201_2.yml",
+"python main.py --configs configs/eval_medseg_unetplusplus_densenet201_3.yml",
+"python main.py --configs configs/eval_medseg_unetplusplus_densenet201_4.yml",
+"python main.py --configs configs/eval_medseg_unet_densenet201_0.yml",
+"python main.py --configs configs/eval_medseg_unet_densenet201_1.yml",
+"python main.py --configs configs/eval_medseg_unet_densenet201_2.yml",
+"python main.py --configs configs/eval_medseg_unet_densenet201_3.yml",
+"python main.py --configs configs/eval_medseg_unet_densenet201_4.yml",
+"python main.py --configs configs/eval_medseg_fpn_densenet201_0.yml",
+"python main.py --configs configs/eval_medseg_fpn_densenet201_1.yml",
+"python main.py --configs configs/eval_medseg_fpn_densenet201_2.yml",
+"python main.py --configs configs/eval_medseg_fpn_densenet201_3.yml",
+"python main.py --configs configs/eval_medseg_fpn_densenet201_4.yml",
+"python main.py --configs configs/eval_medseg_pspnet_densenet201_0.yml",
+"python main.py --configs configs/eval_medseg_pspnet_densenet201_1.yml",
+"python main.py --configs configs/eval_medseg_pspnet_densenet201_2.yml",
+"python main.py --configs configs/eval_medseg_pspnet_densenet201_3.yml",
+"python main.py --configs configs/eval_medseg_pspnet_densenet201_4.yml",
+"python main.py --configs configs/eval_medseg_linknet_densenet201_0.yml",
+"python main.py --configs configs/eval_medseg_linknet_densenet201_1.yml",
+"python main.py --configs configs/eval_medseg_linknet_densenet201_2.yml",
+"python main.py --configs configs/eval_medseg_linknet_densenet201_3.yml",
+"python main.py --configs configs/eval_medseg_linknet_densenet201_4.yml",
+"python main.py --configs configs/eval_medseg_manet_densenet201_0.yml",
+"python main.py --configs configs/eval_medseg_manet_densenet201_1.yml",
+"python main.py --configs configs/eval_medseg_manet_densenet201_2.yml",
+"python main.py --configs configs/eval_medseg_manet_densenet201_3.yml",
+"python main.py --configs configs/eval_medseg_manet_densenet201_4.yml",
+]
+
+for l in ls:
+  os.system(l)
