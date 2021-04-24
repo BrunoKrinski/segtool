@@ -1,0 +1,18 @@
+dataset:
+  labels: datasets/covid20cases/labels.txt
+  train: datasets/covid20cases/train/train_ids0.txt
+  valid: datasets/covid20cases/train/valid_ids0.txt
+general:
+  dataset: covid20cases
+  experiment: baseline
+  gpu: 1
+  mode: train
+  num_workers: 4
+model:
+  batch_size: 8
+  decoder: unet
+  encoder: se_resnet101
+  height: 256
+  learning_rate: 0.001
+  num_epochs: 50
+  width: 256

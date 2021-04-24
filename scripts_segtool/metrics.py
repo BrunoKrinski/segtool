@@ -24,7 +24,6 @@ class IoU(base.Metric):
             num_classes=self.num_classes
         )
 
-
 class Fscore(base.Metric):
     __name__ = 'Fscore'
 
@@ -48,7 +47,6 @@ class Fscore(base.Metric):
             num_classes=self.num_classes
         )
 
-
 class Accuracy(base.Metric):
 
     def __init__(self, threshold=0.5, activation=None, ignore_channels=None, **kwargs):
@@ -65,15 +63,15 @@ class Accuracy(base.Metric):
             ignore_channels=self.ignore_channels,
         )
 
-
 class Recall(base.Metric):
 
-    def __init__(self, eps=1e-7, threshold=0.5, activation=None, ignore_channels=None, **kwargs):
+    def __init__(self, eps=1e-7, threshold=0.5, activation=None, ignore_channels=None, num_classes=None, **kwargs):
         super().__init__(**kwargs)
         self.eps = eps
         self.threshold = threshold
         self.activation = Activation(activation)
         self.ignore_channels = ignore_channels
+        self.num_classes = num_classes
 
     def forward(self, y_pr, y_gt):
         y_pr = self.activation(y_pr)
@@ -82,17 +80,18 @@ class Recall(base.Metric):
             eps=self.eps,
             threshold=self.threshold,
             ignore_channels=self.ignore_channels,
+            num_classes=self.num_classes
         )
-
 
 class Precision(base.Metric):
 
-    def __init__(self, eps=1e-7, threshold=0.5, activation=None, ignore_channels=None, **kwargs):
+    def __init__(self, eps=1e-7, threshold=0.5, activation=None, ignore_channels=None, num_classes=None, **kwargs):
         super().__init__(**kwargs)
         self.eps = eps
         self.threshold = threshold
         self.activation = Activation(activation)
         self.ignore_channels = ignore_channels
+        self.num_classes = num_classes
 
     def forward(self, y_pr, y_gt):
         y_pr = self.activation(y_pr)
@@ -101,4 +100,5 @@ class Precision(base.Metric):
             eps=self.eps,
             threshold=self.threshold,
             ignore_channels=self.ignore_channels,
+            num_classes=self.num_classes,
         )

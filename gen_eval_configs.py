@@ -114,6 +114,15 @@ encoders = ['resnet18',
             'vgg19', 
             'vgg19_bn']
 
+#encoders = ['resnet50']
+#encoders = ['resnet101']
+#encoders = ['resnext50_32x4d']
+#encoders = ['resnext101_32x8d']
+#encoders = ['timm-res2net50_26w_4s']
+#encoders = ['timm-res2net101_26w_4s']
+#encoders = ['vgg16']
+#encoders = ['densenet121']
+#encoders = ['densenet169']
 encoders = ['densenet201']
 nodes = ['vti1-ib', 'pti', 'vti2-ib']
 #decoders = ['unetplusplus','unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']

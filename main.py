@@ -182,7 +182,15 @@ if __name__ == '__main__':
 
     metrics = [smp.utils.metrics.Fscore(threshold=0.9), smp.utils.metrics.IoU(threshold=0.9)] 
     individual_metrics = [smp.utils.metrics.Fscore(threshold=0.9, num_classes=num_classes),
-                          smp.utils.metrics.IoU(threshold=0.9, num_classes=num_classes)] 
+                          smp.utils.metrics.IoU(threshold=0.9, num_classes=num_classes)]
+
+    test_metrics = [smp.utils.metrics.Fscore(threshold=0.9), smp.utils.metrics.IoU(threshold=0.9),
+                    smp.utils.metrics.Precision(threshold=0.9), smp.utils.metrics.Recall(threshold=0.9)] 
+
+    test_individual_metrics = [smp.utils.metrics.Fscore(threshold=0.9, num_classes=num_classes),
+                               smp.utils.metrics.IoU(threshold=0.9, num_classes=num_classes),
+                               smp.utils.metrics.Precision(threshold=0.9, num_classes=num_classes),
+                               smp.utils.metrics.Recall(threshold=0.9, num_classes=num_classes)] 
     
     torch.cuda.set_device(gpu)
     #============================== TRAIN ==============================#
@@ -338,8 +346,8 @@ if __name__ == '__main__':
         
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
-        test_epoch = smp.utils.train.ValidEpoch(model=model, loss=loss, metrics=metrics, 
-                                                individual_metrics=individual_metrics, labels=classes, device=device)
+        test_epoch = smp.utils.train.ValidEpoch(model=model, loss=loss, metrics=test_metrics, 
+                                                individual_metrics=test_individual_metrics, labels=classes, device=device)
         
         test_init = time.time()
         test_logs, individual_test_logs  = test_epoch.run(test_loader)
