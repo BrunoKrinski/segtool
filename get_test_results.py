@@ -115,8 +115,10 @@ if __name__ == '__main__':
                 'vgg19', 
                 'vgg19_bn']
 
-    encoders = ['resnet50','resnet101','resnext50_32x4d','resnext101_32x8d','vgg16']
-    decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
+    encoders = ['resnet50','resnet101','resnext50_32x4d','resnext101_32x8d',
+                'timm-res2net50_26w_4s','timm-res2net101_26w_4s','vgg16','densenet121',
+                'densenet169','densenet201']
+    decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'manet']
     datasets = ['medseg', 'covid20cases', 'covid19china', 'mosmed', 'ricord1a']
     runs_path = 'RUNS'
 

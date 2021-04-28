@@ -1,0 +1,36 @@
+import os
+
+ls=["python main.py --configs configs/train_medseg_unetplusplus_se_resnext50_32x4d_fold0.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_se_resnext50_32x4d_fold1.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_se_resnext50_32x4d_fold2.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_se_resnext50_32x4d_fold3.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_se_resnext50_32x4d_fold4.yml",
+"python main.py --configs configs/train_medseg_unet_se_resnext50_32x4d_fold0.yml",
+"python main.py --configs configs/train_medseg_unet_se_resnext50_32x4d_fold1.yml",
+"python main.py --configs configs/train_medseg_unet_se_resnext50_32x4d_fold2.yml",
+"python main.py --configs configs/train_medseg_unet_se_resnext50_32x4d_fold3.yml",
+"python main.py --configs configs/train_medseg_unet_se_resnext50_32x4d_fold4.yml",
+"python main.py --configs configs/train_medseg_fpn_se_resnext50_32x4d_fold0.yml",
+"python main.py --configs configs/train_medseg_fpn_se_resnext50_32x4d_fold1.yml",
+"python main.py --configs configs/train_medseg_fpn_se_resnext50_32x4d_fold2.yml",
+"python main.py --configs configs/train_medseg_fpn_se_resnext50_32x4d_fold3.yml",
+"python main.py --configs configs/train_medseg_fpn_se_resnext50_32x4d_fold4.yml",
+"python main.py --configs configs/train_medseg_pspnet_se_resnext50_32x4d_fold0.yml",
+"python main.py --configs configs/train_medseg_pspnet_se_resnext50_32x4d_fold1.yml",
+"python main.py --configs configs/train_medseg_pspnet_se_resnext50_32x4d_fold2.yml",
+"python main.py --configs configs/train_medseg_pspnet_se_resnext50_32x4d_fold3.yml",
+"python main.py --configs configs/train_medseg_pspnet_se_resnext50_32x4d_fold4.yml",
+"python main.py --configs configs/train_medseg_linknet_se_resnext50_32x4d_fold0.yml",
+"python main.py --configs configs/train_medseg_linknet_se_resnext50_32x4d_fold1.yml",
+"python main.py --configs configs/train_medseg_linknet_se_resnext50_32x4d_fold2.yml",
+"python main.py --configs configs/train_medseg_linknet_se_resnext50_32x4d_fold3.yml",
+"python main.py --configs configs/train_medseg_linknet_se_resnext50_32x4d_fold4.yml",
+"python main.py --configs configs/train_medseg_manet_se_resnext50_32x4d_fold0.yml",
+"python main.py --configs configs/train_medseg_manet_se_resnext50_32x4d_fold1.yml",
+"python main.py --configs configs/train_medseg_manet_se_resnext50_32x4d_fold2.yml",
+"python main.py --configs configs/train_medseg_manet_se_resnext50_32x4d_fold3.yml",
+"python main.py --configs configs/train_medseg_manet_se_resnext50_32x4d_fold4.yml",
+]
+
+for l in ls:
+  os.system(l)
