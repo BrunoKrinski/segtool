@@ -1,0 +1,36 @@
+import os
+
+ls=["python main.py --configs configs/train_mosmed_unetplusplus_timm-regnetx_006_fold0.yml",
+"python main.py --configs configs/train_mosmed_unetplusplus_timm-regnetx_006_fold1.yml",
+"python main.py --configs configs/train_mosmed_unetplusplus_timm-regnetx_006_fold2.yml",
+"python main.py --configs configs/train_mosmed_unetplusplus_timm-regnetx_006_fold3.yml",
+"python main.py --configs configs/train_mosmed_unetplusplus_timm-regnetx_006_fold4.yml",
+"python main.py --configs configs/train_mosmed_unet_timm-regnetx_006_fold0.yml",
+"python main.py --configs configs/train_mosmed_unet_timm-regnetx_006_fold1.yml",
+"python main.py --configs configs/train_mosmed_unet_timm-regnetx_006_fold2.yml",
+"python main.py --configs configs/train_mosmed_unet_timm-regnetx_006_fold3.yml",
+"python main.py --configs configs/train_mosmed_unet_timm-regnetx_006_fold4.yml",
+"python main.py --configs configs/train_mosmed_fpn_timm-regnetx_006_fold0.yml",
+"python main.py --configs configs/train_mosmed_fpn_timm-regnetx_006_fold1.yml",
+"python main.py --configs configs/train_mosmed_fpn_timm-regnetx_006_fold2.yml",
+"python main.py --configs configs/train_mosmed_fpn_timm-regnetx_006_fold3.yml",
+"python main.py --configs configs/train_mosmed_fpn_timm-regnetx_006_fold4.yml",
+"python main.py --configs configs/train_mosmed_pspnet_timm-regnetx_006_fold0.yml",
+"python main.py --configs configs/train_mosmed_pspnet_timm-regnetx_006_fold1.yml",
+"python main.py --configs configs/train_mosmed_pspnet_timm-regnetx_006_fold2.yml",
+"python main.py --configs configs/train_mosmed_pspnet_timm-regnetx_006_fold3.yml",
+"python main.py --configs configs/train_mosmed_pspnet_timm-regnetx_006_fold4.yml",
+"python main.py --configs configs/train_mosmed_linknet_timm-regnetx_006_fold0.yml",
+"python main.py --configs configs/train_mosmed_linknet_timm-regnetx_006_fold1.yml",
+"python main.py --configs configs/train_mosmed_linknet_timm-regnetx_006_fold2.yml",
+"python main.py --configs configs/train_mosmed_linknet_timm-regnetx_006_fold3.yml",
+"python main.py --configs configs/train_mosmed_linknet_timm-regnetx_006_fold4.yml",
+"python main.py --configs configs/train_mosmed_manet_timm-regnetx_006_fold0.yml",
+"python main.py --configs configs/train_mosmed_manet_timm-regnetx_006_fold1.yml",
+"python main.py --configs configs/train_mosmed_manet_timm-regnetx_006_fold2.yml",
+"python main.py --configs configs/train_mosmed_manet_timm-regnetx_006_fold3.yml",
+"python main.py --configs configs/train_mosmed_manet_timm-regnetx_006_fold4.yml",
+]
+
+for l in ls:
+  os.system(l)

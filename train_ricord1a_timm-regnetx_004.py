@@ -1,0 +1,36 @@
+import os
+
+ls=["python main.py --configs configs/train_ricord1a_unetplusplus_timm-regnetx_004_fold0.yml",
+"python main.py --configs configs/train_ricord1a_unetplusplus_timm-regnetx_004_fold1.yml",
+"python main.py --configs configs/train_ricord1a_unetplusplus_timm-regnetx_004_fold2.yml",
+"python main.py --configs configs/train_ricord1a_unetplusplus_timm-regnetx_004_fold3.yml",
+"python main.py --configs configs/train_ricord1a_unetplusplus_timm-regnetx_004_fold4.yml",
+"python main.py --configs configs/train_ricord1a_unet_timm-regnetx_004_fold0.yml",
+"python main.py --configs configs/train_ricord1a_unet_timm-regnetx_004_fold1.yml",
+"python main.py --configs configs/train_ricord1a_unet_timm-regnetx_004_fold2.yml",
+"python main.py --configs configs/train_ricord1a_unet_timm-regnetx_004_fold3.yml",
+"python main.py --configs configs/train_ricord1a_unet_timm-regnetx_004_fold4.yml",
+"python main.py --configs configs/train_ricord1a_fpn_timm-regnetx_004_fold0.yml",
+"python main.py --configs configs/train_ricord1a_fpn_timm-regnetx_004_fold1.yml",
+"python main.py --configs configs/train_ricord1a_fpn_timm-regnetx_004_fold2.yml",
+"python main.py --configs configs/train_ricord1a_fpn_timm-regnetx_004_fold3.yml",
+"python main.py --configs configs/train_ricord1a_fpn_timm-regnetx_004_fold4.yml",
+"python main.py --configs configs/train_ricord1a_pspnet_timm-regnetx_004_fold0.yml",
+"python main.py --configs configs/train_ricord1a_pspnet_timm-regnetx_004_fold1.yml",
+"python main.py --configs configs/train_ricord1a_pspnet_timm-regnetx_004_fold2.yml",
+"python main.py --configs configs/train_ricord1a_pspnet_timm-regnetx_004_fold3.yml",
+"python main.py --configs configs/train_ricord1a_pspnet_timm-regnetx_004_fold4.yml",
+"python main.py --configs configs/train_ricord1a_linknet_timm-regnetx_004_fold0.yml",
+"python main.py --configs configs/train_ricord1a_linknet_timm-regnetx_004_fold1.yml",
+"python main.py --configs configs/train_ricord1a_linknet_timm-regnetx_004_fold2.yml",
+"python main.py --configs configs/train_ricord1a_linknet_timm-regnetx_004_fold3.yml",
+"python main.py --configs configs/train_ricord1a_linknet_timm-regnetx_004_fold4.yml",
+"python main.py --configs configs/train_ricord1a_manet_timm-regnetx_004_fold0.yml",
+"python main.py --configs configs/train_ricord1a_manet_timm-regnetx_004_fold1.yml",
+"python main.py --configs configs/train_ricord1a_manet_timm-regnetx_004_fold2.yml",
+"python main.py --configs configs/train_ricord1a_manet_timm-regnetx_004_fold3.yml",
+"python main.py --configs configs/train_ricord1a_manet_timm-regnetx_004_fold4.yml",
+]
+
+for l in ls:
+  os.system(l)

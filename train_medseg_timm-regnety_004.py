@@ -1,0 +1,36 @@
+import os
+
+ls=["python main.py --configs configs/train_medseg_unetplusplus_timm-regnety_004_fold0.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_timm-regnety_004_fold1.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_timm-regnety_004_fold2.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_timm-regnety_004_fold3.yml",
+"python main.py --configs configs/train_medseg_unetplusplus_timm-regnety_004_fold4.yml",
+"python main.py --configs configs/train_medseg_unet_timm-regnety_004_fold0.yml",
+"python main.py --configs configs/train_medseg_unet_timm-regnety_004_fold1.yml",
+"python main.py --configs configs/train_medseg_unet_timm-regnety_004_fold2.yml",
+"python main.py --configs configs/train_medseg_unet_timm-regnety_004_fold3.yml",
+"python main.py --configs configs/train_medseg_unet_timm-regnety_004_fold4.yml",
+"python main.py --configs configs/train_medseg_fpn_timm-regnety_004_fold0.yml",
+"python main.py --configs configs/train_medseg_fpn_timm-regnety_004_fold1.yml",
+"python main.py --configs configs/train_medseg_fpn_timm-regnety_004_fold2.yml",
+"python main.py --configs configs/train_medseg_fpn_timm-regnety_004_fold3.yml",
+"python main.py --configs configs/train_medseg_fpn_timm-regnety_004_fold4.yml",
+"python main.py --configs configs/train_medseg_pspnet_timm-regnety_004_fold0.yml",
+"python main.py --configs configs/train_medseg_pspnet_timm-regnety_004_fold1.yml",
+"python main.py --configs configs/train_medseg_pspnet_timm-regnety_004_fold2.yml",
+"python main.py --configs configs/train_medseg_pspnet_timm-regnety_004_fold3.yml",
+"python main.py --configs configs/train_medseg_pspnet_timm-regnety_004_fold4.yml",
+"python main.py --configs configs/train_medseg_linknet_timm-regnety_004_fold0.yml",
+"python main.py --configs configs/train_medseg_linknet_timm-regnety_004_fold1.yml",
+"python main.py --configs configs/train_medseg_linknet_timm-regnety_004_fold2.yml",
+"python main.py --configs configs/train_medseg_linknet_timm-regnety_004_fold3.yml",
+"python main.py --configs configs/train_medseg_linknet_timm-regnety_004_fold4.yml",
+"python main.py --configs configs/train_medseg_manet_timm-regnety_004_fold0.yml",
+"python main.py --configs configs/train_medseg_manet_timm-regnety_004_fold1.yml",
+"python main.py --configs configs/train_medseg_manet_timm-regnety_004_fold2.yml",
+"python main.py --configs configs/train_medseg_manet_timm-regnety_004_fold3.yml",
+"python main.py --configs configs/train_medseg_manet_timm-regnety_004_fold4.yml",
+]
+
+for l in ls:
+  os.system(l)

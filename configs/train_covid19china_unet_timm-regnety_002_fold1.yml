@@ -1,0 +1,18 @@
+dataset:
+  labels: datasets/covid19china/labels.txt
+  train: datasets/covid19china/train/train_ids1.txt
+  valid: datasets/covid19china/train/valid_ids1.txt
+general:
+  dataset: covid19china
+  experiment: baseline
+  gpu: 0
+  mode: train
+  num_workers: 4
+model:
+  batch_size: 8
+  decoder: unet
+  encoder: timm-regnety_002
+  height: 256
+  learning_rate: 0.001
+  num_epochs: 50
+  width: 256
