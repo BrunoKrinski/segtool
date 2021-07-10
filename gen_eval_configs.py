@@ -123,7 +123,18 @@ encoders = ['resnet18',
 #encoders = ['vgg16']
 #encoders = ['densenet121']
 #encoders = ['densenet169']
-encoders = ['densenet201']
+#encoders = ['densenet201']
+#encoders = ['se_resnet50']
+#encoders = ['se_resnet101']
+#encoders = ['se_resnext50_32x4d']
+#encoders = ['se_resnext101_32x4d']
+#encoders = ['timm-regnetx_002']
+#encoders = ['timm-regnetx_004']
+#encoders = ['timm-regnetx_006']
+#encoders = ['timm-regnety_002']
+#encoders = ['timm-regnety_004']
+encoders = ['timm-regnety_006']
+
 nodes = ['vti1-ib', 'pti', 'vti2-ib']
 #decoders = ['unetplusplus','unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 decoders = ['unetplusplus','unet','fpn','pspnet','linknet', 'manet']
@@ -182,10 +193,10 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/
                         yaml.dump(configs, config_file)
                     py_cmds.append("python main.py --configs {}".format(configs_name))
                     sh_cmds.append("srun python main.py --configs {}".format(configs_name))
-    gpu += 1
-    if gpu == 2:
-        gpu = 0
-    
+    #gpu += 1
+    #if gpu == 2:
+    #    gpu = 0
+    gpu = 0
     for sh_cmd in sh_cmds:
         sh += sh_cmd + '\n'
 

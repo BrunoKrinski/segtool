@@ -26,6 +26,14 @@ if __name__ == '__main__':
             color.append(int(item))
         colors.append(color)
     print(colors)
+    
+    #c = []
+    #for i, color in enumerate(colors):
+    #    if i == 0:
+    #        c.append([0, 0, 0])
+    #    else:
+    #        c.append(colors[1])
+    #colors = c
 
     #for i in range(args.num_classes):
     #    if i == 0:

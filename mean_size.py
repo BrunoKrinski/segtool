@@ -20,8 +20,8 @@ if __name__ == '__main__':
     for idx in ids:
         mask = cv2.imread(masks_path + idx + '.png', 0)
         height, width = mask.shape
-        heights.append(height)
-        widths.append(width)
+        #heights.append(height)
+        #widths.append(width)
 
         size = height * width
 
@@ -32,18 +32,23 @@ if __name__ == '__main__':
         masks = masks.transpose(2, 0, 1)
 
         for i, mask in zip(range(args.num_classes), masks):
+            #print(i)
             r = np.count_nonzero(mask)
+            #print(r)
             p = r / size
+            #print(p)
+            #print('--------')
             proportions[i] += p
     
-    print(proportions)
-    props = [1-i/len(ids) for i in proportions]
-    print(props)
+    #print(proportions)
+    #print(len(ids))
+    #props = [i/len(ids) for i in proportions]
+    #print(props)
 
-    norm = [float(i)/sum(props) for i in props]
+    norm = [float(i)/sum(proportions) for i in proportions]
     print(norm)    
 
-    mean_height = sum(heights) / len(heights)
-    mean_width = sum(widths) / len(widths)
+    #mean_height = sum(heights) / len(heights)
+    #mean_width = sum(widths) / len(widths)
 
-    print(mean_height, mean_width)
+    #print(mean_height, mean_width)

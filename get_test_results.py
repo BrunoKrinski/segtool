@@ -2,6 +2,7 @@ import os
 import csv
 import glob
 import json
+import numpy as np
 
 def init_results(test_results):
     
@@ -12,7 +13,7 @@ def init_results(test_results):
 
 if __name__ == '__main__':
 
-    experiments = ['baseline/']
+    experiments = ['baseline']
     
     encoders = ['resnet18', 
                 'resnet34', 
@@ -117,13 +118,122 @@ if __name__ == '__main__':
 
     encoders = ['resnet50','resnet101','resnext50_32x4d','resnext101_32x8d',
                 'timm-res2net50_26w_4s','timm-res2net101_26w_4s','vgg16','densenet121',
-                'densenet169','densenet201']
+                'densenet169','densenet201', 'se_resnet50', 'se_resnet101',
+                'se_resnext50_32x4d', 'se_resnext101_32x4d',
+                'timm-regnetx_002', 'timm-regnetx_004', 'timm-regnetx_006',
+                'timm-regnety_002', 'timm-regnety_004', 'timm-regnety_006']
+                
     decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'manet']
-    datasets = ['medseg', 'covid20cases', 'covid19china', 'mosmed', 'ricord1a']
+    datasets = ['covid19china', 'medseg', 'mosmed', 'ricord1a', 'covid20cases']
     runs_path = 'RUNS'
 
-    test_files = ['test_logs_last.json','test_logs_best_iou.json','test_logs_best_fscore.json']
+    test_files = ['test_logs_last.json']
 
+    '''
+        \makecell{}&
+        \makecell{}&
+        \makecell{}&
+        \makecell{}&
+        \makecell{}&
+        \makecell{}&
+        \makecell{}&
+        \makecell{}&
+        \makecell{}&
+        \makecell{}
+    '''
+
+    for experiment in experiments:
+        for decoder in decoders:
+            print(decoder)
+            print('------------------------------------------------------')
+            for dataset in datasets:
+                output_fscore = ''
+                output_iou = ''
+                output_fscore += '\makecell{'
+                output_iou += '\makecell{'
+
+                fscores = []
+                ious = []
+                for e, encoder in enumerate(encoders):
+                    path = 'RUNS/{}/{}/{}/{}/'.format(experiment, dataset, decoder, encoder)
+                    runs = glob.glob(path + '*')
+                    init = True
+                    cont = 0
+                    for run in runs:
+                        #print(run)
+                        if 'graphics' not in run:
+                            test_result_path = run + '/test_logs_last.json'
+                            with open(test_result_path) as f:
+                                data = json.load(f)
+                                test_results = data['test'][0]
+
+                                if init:
+                                    mean_results = init_results(test_results)
+                                    init = False
+                                else:
+                                    for key, value in test_results.items():
+                                        mean_results[key] += value
+                            cont += 1
+                    for key, value in mean_results.items():
+                        mean_results[key] = mean_results[key] / cont
+
+                    fscores.append(mean_results['Fscore'])
+                    ious.append(mean_results['Iou'])
+
+                find = np.argmax(fscores)
+                iind = np.argmax(ious)
+
+                str_fscores = []
+                for fscore in fscores:
+                    str_fscores.append(str(fscore)[:6])
+                
+                str_ious = []
+                for iou in ious:
+                    str_ious.append(str(iou)[:6])
+
+                max_fscore = str_fscores[find]
+                max_iou = str_ious[iind]
+
+                for i, (fscore, iou) in enumerate(zip(str_fscores, str_ious)):
+                    if (i < len(fscores) - 1):
+                        if fscore == max_fscore:
+                            output_fscore += '\\textbf{\\textcolor{blue}{' + str(fscore)[:6] + '}}\\\\'
+                        else:
+                            output_fscore += str(fscore)[:6] + '\\\\'
+
+                        if iou == max_iou:
+                            output_iou += '\\textbf{\\textcolor{red}{' + str(iou)[:6] + '}}\\\\'
+                        else:
+                            output_iou += str(iou)[:6] + '\\\\'
+                    else:
+                        if fscore == max_fscore:
+                            output_fscore += '\\textbf{\\textcolor{blue}{' + str(fscore)[:6] + '}}}&'
+                        else:
+                            output_fscore += str(fscore)[:6] + '}&'
+
+                        if iou == max_iou:
+                            output_iou += '\\textbf{\\textcolor{red}{' + str(iou)[:6] + '}}}&'
+                        else:
+                            output_iou += str(iou)[:6] + '}&'
+
+
+                #if e < len(encoders)-1:
+                #    output_fscore += str(fscore)[:6] + '\\\\'
+                #    output_iou += str(iou)[:6] + '\\\\'
+                #else:
+                #    output_fscore += str(fscore)[:6] + '}&'
+                #    output_iou += str(iou)[:6] + '}&'
+                #print(decoder)
+                #print(dataset)
+                print(output_fscore)
+                print(output_iou)
+
+                                
+                            
+
+
+
+'''
     for experiment in experiments:
         for test_file in test_files:
             result_table = []
@@ -137,8 +247,22 @@ if __name__ == '__main__':
             result_table.append(dts2)
 
             for decoder in decoders:
+                dec = ''
+                if decoder == 'unetplusplus':
+                    dec = 'Unet++'
+                elif decoder == 'unet':
+                    dec = 'Unet'
+                elif decoder == 'fpn':
+                    dec = 'FPN'
+                elif decoder == 'pspnet':
+                    dec = 'PSPNet'
+                elif decoder == 'linknet':
+                    dec = 'LinkNet'
+                elif decoder == 'manet':
+                    dec = 'MA-Net'
                 for encoder in encoders:
-                    line = [encoder.replace('_','\_') + ' ' + decoder]
+                    line = [dec]
+                    line.append(encoder.capitalize().replace('_','\_'))
                     for dataset in datasets:
                         runspath = runs_path + '/' + experiment + '/'  + dataset + '/'  + decoder + '/'  + encoder + '/' 
                         runs = glob.glob(runspath + '*')
@@ -147,6 +271,7 @@ if __name__ == '__main__':
                         cont = 0
                         for run in runs:
                             if 'graphics' not in run:
+                                print(run)
                                 #print(run)
                                 tf = run + '/' + test_file
                                 if not os.path.isfile(tf):
@@ -155,7 +280,7 @@ if __name__ == '__main__':
                                 with open(tf) as f:
                                     data = json.load(f)
                                     test_results = data['test'][0]
-                                    #print(test_results)
+                                    print(test_results)
                                     
                                     if init:
                                         mean_results = init_results(test_results)
@@ -185,8 +310,4 @@ if __name__ == '__main__':
             with open(test_file.replace('.json','.csv'), 'w', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerows(result_table)
-
-
-                        
-                    
-                    
+'''
