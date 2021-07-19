@@ -71,57 +71,60 @@ class Dataset(BaseDataset):
         return len(self.ids)
 
 ############################## AUGMENTATION ##############################
-def get_training_augmentation(height=256, width=256):
+def get_training_augmentation(height=256, width=256, augmentations, prob):
     if (height > width):
         max_size = height
     else:
         max_size = width
     
     train_transform = [
-        #albu.Resize(height, width, interpolation=cv2.INTER_NEAREST, p=1),
-        #albu.RandomCrop(p=0.5, height=200, width=200),
         albu.LongestMaxSize(max_size, interpolation=cv2.INTER_NEAREST, p=1),
         albu.PadIfNeeded(min_height=height, min_width=width, always_apply=True, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0),
-        #albu.GaussianBlur(p=0.3)
-        #albu.RandomBrightnessContrast(p=0.5),
-        #albu.CoarseDropout(p=0.5, max_holes=100),
-        #albu.CLAHE(p=0.5, tile_grid_size=(64, 64)),
-        #albu.HorizontalFlip(p=0.5),
-
-        #albu.ShiftScaleRotate(scale_limit=0.5, rotate_limit=0, shift_limit=0.1, p=1, border_mode=0),
-
-        #albu.PadIfNeeded(min_height=image_size, min_width=image_size, always_apply=True, border_mode=0),
-        #albu.RandomCrop(height=image_size, width=image_size, always_apply=True),
-
-        #albu.IAAAdditiveGaussianNoise(p=0.2),
-        #albu.IAAPerspective(p=0.5),
-
-        #albu.OneOf(
-        #    [
-        #        albu.CLAHE(p=1),
-        #        albu.RandomBrightness(p=1),
-        #        albu.RandomGamma(p=1),
-        #    ],
-        #    p=0.9,
-        #),
-
-        #albu.OneOf(
-        #    [
-        #        albu.IAASharpen(p=1),
-        #        albu.Blur(blur_limit=3, p=1),
-        #        albu.MotionBlur(blur_limit=3, p=1),
-        #    ],
-        #    p=0.9,
-        #),
-
-        #albu.OneOf(
-        #    [
-        #        albu.RandomContrast(p=1),
-        #        albu.HueSaturationValue(p=1),
-        #    ],
-        #    p=0.9,
-        #),
     ]
+
+    for augmentation in augmentations:
+        if augmentation == 'chahe':
+            train_transform.append(albu.CLAHE(p=prob))
+        elif augmentation == 'emboss':
+            train_transform.append(albu.Emboss(p=prob))
+        elif augmentation == 'gaussian_blur':
+            train_transform.append(albu.GaussianBlur(p=prob))
+        elif augmentation == 'compression':
+            train_transform.append(albu.ImageCompression(p=prob, quality_lower=70, quality_upper=100))
+        elif augmentation == 'median_blur':
+            train_transform.append(albu.MedianBlur(p=prob))
+        elif augmentation == 'posterize':
+            train_transform.append(albu.Posterize(p=prob))
+        elif augmentation == 'random_brightness_contrast':
+            train_transform.append(albu.RandomBrightnessContrast(p=prob))
+        elif augmentation == 'random_gamma':
+            train_transform.append(albu.RandomGamma(p=prob))
+        elif augmentation == 'random_snow':
+            train_transform.append(albu.RandomSnow(p=prob))
+        elif augmentation == 'sharpen':
+            train_transform.append(albu.Sharpen(p=prob))
+        
+        elif augmentation == 'coarse_dropout':
+            train_transform.append(albu.CoarseDropout(p=prob, max_holes=200))
+        elif augmentation == 'elastic_transform':
+            train_transform.append(albu.ElasticTransform(p=prob, interpolation=cv2.INTER_NEAREST, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0))
+        elif augmentation == 'flip':
+            train_transform.append(albu.Flip(p=prob))    
+        elif augmentation == 'grid_distortion':
+            train_transform.append(albu.GridDistortion(p=prob, interpolation=cv2.INTER_NEAREST, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0))
+        elif augmentation == 'grid_dropout':
+            train_transform.append(albu.GridDropout(p=prob))
+        elif augmentation == 'optical_distortion':
+            train_transform.append(albu.OpticalDistortion(p=prob, distort_limit=0.2, shift_limit=0.2, interpolation=cv2.INTER_NEAREST, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0))
+        elif augmentation == 'piecewise_affine':
+            train_transform.append(albu.PiecewiseAffine(p=prob, interpolation=1, mask_interpolation=1, cval=0, cval_mask=0, mode='constant'))
+        elif augmentation == 'random_crop':
+            train_transform.append(albu.RandomCrop(p=prob, width=max_size, height=max_size))
+        elif augmentation == 'rotate':
+            train_transform.append(albu.Rotate(p=prob, limit=180, interpolation=cv2.INTER_NEAREST, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0))
+        elif augmentation == 'shift_scale_rotate':
+            train_transform.append(albu.ShiftScaleRotate(p=prob, interpolation=cv2.INTER_NEAREST, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0))
+
     return albu.Compose(train_transform)
 
 def get_validation_augmentation(height=256, width=256):
@@ -203,6 +206,9 @@ if __name__ == '__main__':
         num_epochs = configs['model']['num_epochs']
         learning_rate = configs['model']['learning_rate']
 
+        augmentations = configs['augmentation']['augmentations']
+        augmentation_prob = configs['augmentation']['augmentation_prob']
+
         runs_dir = 'RUNS/'
         os.makedirs(runs_dir, exist_ok='True')
 
@@ -253,7 +259,7 @@ if __name__ == '__main__':
         #model = torch.nn.DataParallel(model, device_ids=gpus, dim=0)
         
         train_dataset = Dataset(configs['dataset']['train'], num_classes,
-                                augmentation=get_training_augmentation(resize_height, resize_width),
+                                augmentation=get_training_augmentation(resize_height, resize_width, augmentations, augmentation_prob),
                                 preprocessing=get_preprocessing(preprocessing_fn))
         valid_dataset = Dataset(configs['dataset']['valid'], num_classes,
                                 augmentation=get_validation_augmentation(resize_height, resize_width),
