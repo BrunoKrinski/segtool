@@ -1,7 +1,8 @@
 augmentation:
   augmentation_prob: 0.3
   augmentations:
-  - ''
+  - emboss
+  - clahe
 dataset:
   labels: datasets/ricord1a/labels.txt
   train: datasets/ricord1a/train/train_ids3.txt

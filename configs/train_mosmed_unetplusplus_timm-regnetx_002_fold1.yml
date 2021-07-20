@@ -1,7 +1,8 @@
 augmentation:
   augmentation_prob: 0.3
   augmentations:
-  - ''
+  - emboss
+  - clahe
 dataset:
   labels: datasets/mosmed/labels.txt
   train: datasets/mosmed/train/train_ids1.txt

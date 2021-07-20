@@ -121,7 +121,7 @@ decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
 datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
 #datasets = ['medseg']
 augmentations = ["emboss","clahe"]
-augmentations = [""]
+#augmentations = [""]
 augmentation_prob = 0.3
 
 gpu = 0
