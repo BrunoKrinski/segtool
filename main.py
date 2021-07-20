@@ -71,7 +71,7 @@ class Dataset(BaseDataset):
         return len(self.ids)
 
 ############################## AUGMENTATION ##############################
-def get_training_augmentation(height=256, width=256, augmentations, prob):
+def get_training_augmentation(augmentations, prob, height=256, width=256):
     if (height > width):
         max_size = height
     else:
@@ -83,7 +83,7 @@ def get_training_augmentation(height=256, width=256, augmentations, prob):
     ]
 
     for augmentation in augmentations:
-        if augmentation == 'chahe':
+        if augmentation == 'clahe':
             train_transform.append(albu.CLAHE(p=prob))
         elif augmentation == 'emboss':
             train_transform.append(albu.Emboss(p=prob))
@@ -124,7 +124,8 @@ def get_training_augmentation(height=256, width=256, augmentations, prob):
             train_transform.append(albu.Rotate(p=prob, limit=180, interpolation=cv2.INTER_NEAREST, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0))
         elif augmentation == 'shift_scale_rotate':
             train_transform.append(albu.ShiftScaleRotate(p=prob, interpolation=cv2.INTER_NEAREST, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0))
-
+    print('Data Augmentations applied:')
+    print(train_transform)
     return albu.Compose(train_transform)
 
 def get_validation_augmentation(height=256, width=256):
@@ -209,6 +210,9 @@ if __name__ == '__main__':
         augmentations = configs['augmentation']['augmentations']
         augmentation_prob = configs['augmentation']['augmentation_prob']
 
+        #print(augmentations)
+        #print(augmentation_prob)
+
         runs_dir = 'RUNS/'
         os.makedirs(runs_dir, exist_ok='True')
 
@@ -259,7 +263,7 @@ if __name__ == '__main__':
         #model = torch.nn.DataParallel(model, device_ids=gpus, dim=0)
         
         train_dataset = Dataset(configs['dataset']['train'], num_classes,
-                                augmentation=get_training_augmentation(resize_height, resize_width, augmentations, augmentation_prob),
+                                augmentation=get_training_augmentation(augmentations, augmentation_prob, resize_height, resize_width),
                                 preprocessing=get_preprocessing(preprocessing_fn))
         valid_dataset = Dataset(configs['dataset']['valid'], num_classes,
                                 augmentation=get_validation_augmentation(resize_height, resize_width),

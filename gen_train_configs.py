@@ -10,7 +10,7 @@ num_workers = 4
 learning_rate = 0.001
 
 mode = 'train'
-experiment = 'baseline'
+experiment = 'teste'
 
 encoders = ['resnet18', 
             'resnet34', 
@@ -113,13 +113,16 @@ encoders = ['resnet18',
             'vgg19', 
             'vgg19_bn']
 
-encoders = ['timm-regnety_006']
+encoders = ['timm-regnetx_002']
 
 nodes = ['vti2-ib', 'vti1-ib', 'pti']
 #decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
-decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'manet']
-#datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
-datasets = ['medseg']
+decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
+datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
+#datasets = ['medseg']
+augmentations = ["emboss","clahe"]
+augmentations = [""]
+augmentation_prob = 0.3
 
 gpu = 0
 node_num = 0
@@ -167,7 +170,12 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/
 
                     "dataset": {"train": "datasets/{}/train/train_ids{}.txt".format(dataset, fold),
                                 "valid": "datasets/{}/train/valid_ids{}.txt".format(dataset, fold),
-                                "labels": "datasets/{}/labels.txt".format(dataset)}
+                                "labels": "datasets/{}/labels.txt".format(dataset)},
+
+                    "augmentation": {
+                            "augmentations": augmentations,
+                            "augmentation_prob": augmentation_prob
+                    } 
                 }
                 configs_name = 'configs/train_' + dataset + '_' + decoder + '_' + encoder + '_fold' + str(fold) + '.yml'
                 with open(configs_name, 'w') as config_file:
