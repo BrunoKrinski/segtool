@@ -1,15 +1,14 @@
 augmentation:
-  augmentation_prob: 0.3
+  augmentation_prob: 0.1
   augmentations:
-  - emboss
-  - clahe
+  - coarse_dropout
 dataset:
   labels: datasets/ricord1a/labels.txt
   train: datasets/ricord1a/train/train_ids4.txt
   valid: datasets/ricord1a/train/valid_ids4.txt
 general:
   dataset: ricord1a
-  experiment: teste
+  experiment: CoarseDropout
   gpu: 0
   mode: train
   num_workers: 4

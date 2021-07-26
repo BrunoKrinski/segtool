@@ -1,15 +1,14 @@
 augmentation:
-  augmentation_prob: 0.3
+  augmentation_prob: 0.1
   augmentations:
-  - emboss
-  - clahe
+  - coarse_dropout
 dataset:
   labels: datasets/mosmed/labels.txt
   train: datasets/mosmed/train/train_ids3.txt
   valid: datasets/mosmed/train/valid_ids3.txt
 general:
   dataset: mosmed
-  experiment: teste
+  experiment: CoarseDropout
   gpu: 0
   mode: train
   num_workers: 4
