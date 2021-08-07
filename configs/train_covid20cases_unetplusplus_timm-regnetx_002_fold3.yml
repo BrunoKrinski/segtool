@@ -1,14 +1,14 @@
 augmentation:
-  augmentation_prob: 0.1
+  augmentation_prob: 0.2
   augmentations:
-  - coarse_dropout
+  - emboss
 dataset:
   labels: datasets/covid20cases/labels.txt
   train: datasets/covid20cases/train/train_ids3.txt
   valid: datasets/covid20cases/train/valid_ids3.txt
 general:
   dataset: covid20cases
-  experiment: CoarseDropout
+  experiment: Emboss
   gpu: 1
   mode: train
   num_workers: 4

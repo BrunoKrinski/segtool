@@ -10,7 +10,7 @@ num_workers = 4
 learning_rate = 0.001
 
 mode = 'train'
-experiment = 'CoarseDropout'
+experiment = 'Emboss'
 
 encoders = ['resnet18', 
             'resnet34', 
@@ -120,9 +120,9 @@ nodes = ['vti2-ib', 'vti1-ib', 'pti']
 decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
 datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
 #datasets = ['medseg']
-augmentations = ["coarse_dropout"]
+augmentations = ["emboss"]
 #augmentations = [""]
-augmentation_prob = 0.1
+augmentation_prob = 0.2
 
 gpu = 0
 node_num = 0

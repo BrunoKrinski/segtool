@@ -1,14 +1,14 @@
 augmentation:
-  augmentation_prob: 0.1
+  augmentation_prob: 0.2
   augmentations:
-  - coarse_dropout
+  - emboss
 dataset:
   labels: datasets/ricord1a/labels.txt
   train: datasets/ricord1a/train/train_ids0.txt
   valid: datasets/ricord1a/train/valid_ids0.txt
 general:
   dataset: ricord1a
-  experiment: CoarseDropout
+  experiment: Emboss
   gpu: 0
   mode: train
   num_workers: 4

@@ -124,6 +124,9 @@ def get_training_augmentation(augmentations, prob, height=256, width=256):
             train_transform.append(albu.Rotate(p=prob, limit=180, interpolation=cv2.INTER_NEAREST, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0))
         elif augmentation == 'shift_scale_rotate':
             train_transform.append(albu.ShiftScaleRotate(p=prob, interpolation=cv2.INTER_NEAREST, border_mode=cv2.BORDER_CONSTANT, value=0, mask_value=0))
+        else:
+            print('Unknown data augmentation')
+            exit()
     print('Data Augmentations applied:')
     print(train_transform)
     return albu.Compose(train_transform)

@@ -1,14 +1,14 @@
 augmentation:
-  augmentation_prob: 0.1
+  augmentation_prob: 0.2
   augmentations:
-  - coarse_dropout
+  - emboss
 dataset:
   labels: datasets/medseg/labels.txt
   train: datasets/medseg/train/train_ids1.txt
   valid: datasets/medseg/train/valid_ids1.txt
 general:
   dataset: medseg
-  experiment: CoarseDropout
+  experiment: Emboss
   gpu: 1
   mode: train
   num_workers: 4
