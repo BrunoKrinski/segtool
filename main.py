@@ -89,7 +89,7 @@ def get_training_augmentation(augmentations, prob, height=256, width=256):
             train_transform.append(albu.Emboss(p=prob))
         elif augmentation == 'gaussian_blur':
             train_transform.append(albu.GaussianBlur(p=prob))
-        elif augmentation == 'compression':
+        elif augmentation == 'image_compression':
             train_transform.append(albu.ImageCompression(p=prob, quality_lower=70, quality_upper=100))
         elif augmentation == 'median_blur':
             train_transform.append(albu.MedianBlur(p=prob))
@@ -326,7 +326,7 @@ if __name__ == '__main__':
             with open(out_dir + '/train_logs.json', 'w') as log_file:
                 json.dump(logs, log_file, indent=4)
         
-            if i > 0 and (i % 10 == 0):
+            if i > 0 and (i % 25 == 0):
                 print('Learning rate decreased!')
                 optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] / 10
                 #torch.save(model, '{}/epoch{}.pth'.format(checkpoints, i))

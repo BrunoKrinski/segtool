@@ -5,12 +5,12 @@ width = 256
 height = 256
 num_folds = 5
 batch_size = 8
-num_epochs = 50
+num_epochs = 100
 num_workers = 4
 learning_rate = 0.001
 
 mode = 'train'
-experiment = 'Emboss'
+experiment = 'Rotate'
 
 encoders = ['resnet18', 
             'resnet34', 
@@ -120,7 +120,8 @@ nodes = ['vti2-ib', 'vti1-ib', 'pti']
 decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
 datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
 #datasets = ['medseg']
-augmentations = ["emboss"]
+augmentations = ["rotate"]
+aug_name = "rotate"
 #augmentations = [""]
 augmentation_prob = 0.2
 
@@ -145,10 +146,13 @@ for dataset in datasets:
     node_count += 1
     print(nodes[node_num])
 
-    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 4\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_log.out\n\
-#SBATCH --job-name={}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
-#SBATCH --nodelist={}\n#SBATCH --gres=gpu:2\n#SBATCH -e /home/bakrinski/segtool/logs/{}_{}_error.out\n\n\
-export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, encoders[0], dataset, encoders[0], nodes[node_num], dataset, encoders[0])
+    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 4\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_{}_log.out\n\
+#SBATCH --job-name={}_{}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
+#SBATCH --nodelist={}\n#SBATCH --gres=gpu:2\n#SBATCH -e /home/bakrinski/segtool/logs/{}_{}_{}_error.out\n\n\
+export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, encoders[0], aug_name, 
+                                                                                                 dataset, encoders[0], aug_name, 
+                                                                                                 nodes[node_num], 
+                                                                                                 dataset, encoders[0], aug_name)
 
     for decoder in decoders:
         for encoder in encoders:    
@@ -177,7 +181,7 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/
                             "augmentation_prob": augmentation_prob
                     } 
                 }
-                configs_name = 'configs/train_' + dataset + '_' + decoder + '_' + encoder + '_fold' + str(fold) + '.yml'
+                configs_name = 'configs/train_' + dataset + '_' + decoder + '_' + encoder + '_fold' + str(fold) + '_' + aug_name + '.yml'
                 with open(configs_name, 'w') as config_file:
                     yaml.dump(configs, config_file)
 
@@ -191,7 +195,7 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/
     for sh_cmd in sh_cmds:
         sh += sh_cmd + '\n'
 
-    sh_file = 'train_' + dataset + '_' + encoders[0] + '.sh'
+    sh_file = 'train_' + dataset + '_' + encoders[0] + '_' + aug_name + '.sh'
     with open(sh_file,'w') as shf:
         shf.write(sh)
     
@@ -200,6 +204,6 @@ export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/
         py += '"' + py_cmd + '",\n'
     py += ']\n\nfor l in ls:\n  os.system(l)'
 
-    py_file = 'train_' + dataset + '_' + encoders[0] + '.py'
+    py_file = 'train_' + dataset + '_' + encoders[0] + '_' + aug_name + '.py'
     with open(py_file,'w') as pyf:
         pyf.write(py)
