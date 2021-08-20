@@ -1,0 +1,22 @@
+augmentation:
+  augmentation_prob: 0.1
+  augmentations:
+  - random_gamma
+dataset:
+  labels: datasets/mosmed/labels.txt
+  train: datasets/mosmed/train/train_ids0.txt
+  valid: datasets/mosmed/train/valid_ids0.txt
+general:
+  dataset: mosmed
+  experiment: RandomGamma
+  gpu: 1
+  mode: train
+  num_workers: 4
+model:
+  batch_size: 8
+  decoder: unetplusplus
+  encoder: timm-regnetx_002
+  height: 256
+  learning_rate: 0.0001
+  num_epochs: 100
+  width: 256
