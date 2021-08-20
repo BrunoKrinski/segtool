@@ -21,7 +21,7 @@ for dataset in datasets:
         json_result = r + '/train_logs.json'
         with open(json_result) as json_file:
             result = json.load(json_file)
-        fscore += result['valid'][49]['Fscore'] / 5
+        fscore += result['valid'][99]['Fscore'] / 5
     row.append(round(fscore,3))
 writer.writerow(row)
 
@@ -29,12 +29,13 @@ das = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/',
        'GaussianBlur/', 'GridDistortion/', 'GridDropout/', 'ImageCompression/', 'MedianBlur/',
        'OpticalDistortion/', 'PiecewiseAffine/', 'Posterize/', 'RandomBrightnessContrast/', 'RandomCrop/',
        'RandomGamma/', 'RandomSnow/', 'Rotate/', 'Sharpen/', 'ShiftScaleRotate/']
-
-super_runs = ['0p1/', '0p2/']
+das = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/',
+        'GaussianBlur/', 'GridDistortion/', 'MedianBlur/', 'OpticalDistortion/', 'ShiftScaleRotate/']
+super_runs = ['0p1_100e/']
 
 for da in das:
     for super_run in super_runs:
-        if super_run == '0p1/':
+        if '0p1' in super_run:
             row = [da.replace('/','') + ' P=0.1']
         else:
             row = [da.replace('/','') + ' P=0.2']
@@ -48,7 +49,7 @@ for da in das:
                 json_result = r + '/train_logs.json'
                 with open(json_result) as json_file:
                     result = json.load(json_file)
-                fscore += result['valid'][49]['Fscore'] / 5
+                fscore += result['valid'][99]['Fscore'] / 5
             row.append(round(fscore,3))       
         writer.writerow(row)
         

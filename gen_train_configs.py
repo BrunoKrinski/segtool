@@ -7,11 +7,111 @@ num_folds = 5
 batch_size = 8
 num_epochs = 100
 num_workers = 4
-learning_rate = 0.001
+learning_rate = 0.0001
 
 mode = 'train'
-experiment = 'Rotate'
+experiment = 'ShiftScaleRotate'
 
+encoders = ['timm-regnetx_002']
+
+#nodes = ['vti2-ib', 'vti1-ib', 'pti']
+#nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
+#nodes = ['vti1-ib', 'vti1-ib', 'vti1-ib']
+nodes = ['pti', 'pti', 'pti']
+#nodes = ['vti2-ib']
+#decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
+decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
+datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
+#datasets = ['medseg']
+augmentations = ["shift_scale_rotate"]
+aug_name = "shift_scale_rotate"
+#augmentations = [""]
+augmentation_prob = 0.1
+
+gpu = 1
+node_num = 0
+node_count = 0
+node_usage = 2
+
+if node_usage * len(nodes) < len(datasets):
+    print('Little node usage!')
+    exit()
+
+for dataset in datasets:
+
+    sh_cmds = []
+    py_cmds = []
+
+    if node_count >= node_usage:
+        node_num += 1
+        node_count = 0
+    
+    node_count += 1
+    print(nodes[node_num])
+
+    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 4\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_{}_log.out\n\
+#SBATCH --job-name={}_{}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
+#SBATCH --nodelist={}\n#SBATCH --gres=gpu:2\n#SBATCH -e /home/bakrinski/segtool/logs/{}_{}_{}_error.out\n\n\
+export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, encoders[0], aug_name, 
+                                                                                                 dataset, encoders[0], aug_name, 
+                                                                                                 nodes[node_num], 
+                                                                                                 dataset, encoders[0], aug_name)
+
+    for decoder in decoders:
+        for encoder in encoders:    
+            for fold in range(num_folds):
+                configs = {
+                    "general": {"mode": mode, 
+                                "num_workers": num_workers,
+                                "experiment": experiment, 
+                                "dataset": dataset,
+                                "gpu": gpu},
+                    
+                    "model": {"encoder": encoder, 
+                              "decoder": decoder, 
+                              "batch_size": batch_size,
+                              "num_epochs": num_epochs, 
+                              "learning_rate": learning_rate,
+                              "height": height, 
+                              "width": width},
+
+                    "dataset": {"train": "datasets/{}/train/train_ids{}.txt".format(dataset, fold),
+                                "valid": "datasets/{}/train/valid_ids{}.txt".format(dataset, fold),
+                                "labels": "datasets/{}/labels.txt".format(dataset)},
+
+                    "augmentation": {
+                            "augmentations": augmentations,
+                            "augmentation_prob": augmentation_prob
+                    } 
+                }
+                configs_name = 'configs/train_' + dataset + '_' + decoder + '_' + encoder + '_fold' + str(fold) + '_' + aug_name + '.yml'
+                with open(configs_name, 'w') as config_file:
+                    yaml.dump(configs, config_file)
+
+                py_cmds.append("python main.py --configs {}".format(configs_name))
+                sh_cmds.append("srun python main.py --configs {}".format(configs_name))
+
+    #gpu += 1
+    #if gpu == 2:
+    #    gpu = 0
+
+    for sh_cmd in sh_cmds:
+        sh += sh_cmd + '\n'
+
+    sh_file = 'train_' + dataset + '_' + encoders[0] + '_' + aug_name + '.sh'
+    with open(sh_file,'w') as shf:
+        shf.write(sh)
+    
+    py = 'import os\n\nls=['
+    for py_cmd in py_cmds:
+        py += '"' + py_cmd + '",\n'
+    py += ']\n\nfor l in ls:\n  os.system(l)'
+
+    py_file = 'train_' + dataset + '_' + encoders[0] + '_' + aug_name + '.py'
+    with open(py_file,'w') as pyf:
+        pyf.write(py)
+
+'''
 encoders = ['resnet18', 
             'resnet34', 
             'resnet50', 
@@ -112,98 +212,4 @@ encoders = ['resnet18',
             'vgg16_bn',
             'vgg19', 
             'vgg19_bn']
-
-encoders = ['timm-regnetx_002']
-
-nodes = ['vti2-ib', 'vti1-ib', 'pti']
-#decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
-decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
-datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
-#datasets = ['medseg']
-augmentations = ["rotate"]
-aug_name = "rotate"
-#augmentations = [""]
-augmentation_prob = 0.2
-
-gpu = 0
-node_num = 0
-node_count = 0
-node_usage = 2
-
-if node_usage * len(nodes) < len(datasets):
-    print('Little node usage!')
-    exit()
-
-for dataset in datasets:
-
-    sh_cmds = []
-    py_cmds = []
-
-    if node_count >= node_usage:
-        node_num += 1
-        node_count = 0
-    
-    node_count += 1
-    print(nodes[node_num])
-
-    sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 4\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_{}_log.out\n\
-#SBATCH --job-name={}_{}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
-#SBATCH --nodelist={}\n#SBATCH --gres=gpu:2\n#SBATCH -e /home/bakrinski/segtool/logs/{}_{}_{}_error.out\n\n\
-export PATH="/home/bakrinski/anaconda3/bin:$PATH"\n\nmodule load libraries/cuda/10.1\n\n'.format(dataset, encoders[0], aug_name, 
-                                                                                                 dataset, encoders[0], aug_name, 
-                                                                                                 nodes[node_num], 
-                                                                                                 dataset, encoders[0], aug_name)
-
-    for decoder in decoders:
-        for encoder in encoders:    
-            for fold in range(num_folds):
-                configs = {
-                    "general": {"mode": mode, 
-                                "num_workers": num_workers,
-                                "experiment": experiment, 
-                                "dataset": dataset,
-                                "gpu": gpu},
-                    
-                    "model": {"encoder": encoder, 
-                              "decoder": decoder, 
-                              "batch_size": batch_size,
-                              "num_epochs": num_epochs, 
-                              "learning_rate": learning_rate,
-                              "height": height, 
-                              "width": width},
-
-                    "dataset": {"train": "datasets/{}/train/train_ids{}.txt".format(dataset, fold),
-                                "valid": "datasets/{}/train/valid_ids{}.txt".format(dataset, fold),
-                                "labels": "datasets/{}/labels.txt".format(dataset)},
-
-                    "augmentation": {
-                            "augmentations": augmentations,
-                            "augmentation_prob": augmentation_prob
-                    } 
-                }
-                configs_name = 'configs/train_' + dataset + '_' + decoder + '_' + encoder + '_fold' + str(fold) + '_' + aug_name + '.yml'
-                with open(configs_name, 'w') as config_file:
-                    yaml.dump(configs, config_file)
-
-                py_cmds.append("python main.py --configs {}".format(configs_name))
-                sh_cmds.append("srun python main.py --configs {}".format(configs_name))
-
-    gpu += 1
-    if gpu == 2:
-        gpu = 0
-
-    for sh_cmd in sh_cmds:
-        sh += sh_cmd + '\n'
-
-    sh_file = 'train_' + dataset + '_' + encoders[0] + '_' + aug_name + '.sh'
-    with open(sh_file,'w') as shf:
-        shf.write(sh)
-    
-    py = 'import os\n\nls=['
-    for py_cmd in py_cmds:
-        py += '"' + py_cmd + '",\n'
-    py += ']\n\nfor l in ls:\n  os.system(l)'
-
-    py_file = 'train_' + dataset + '_' + encoders[0] + '_' + aug_name + '.py'
-    with open(py_file,'w') as pyf:
-        pyf.write(py)
+'''
