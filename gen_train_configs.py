@@ -23,8 +23,8 @@ nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
 decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
 datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
 #datasets = ['medseg']
-augmentations = ["Random_brightness_contrast"]
-aug_name = "Random_brightness_contrast"
+augmentations = ["random_brightness_contrast"]
+aug_name = "random_brightness_contrast"
 #augmentations = [""]
 augmentation_prob = 0.1
 
