@@ -2,7 +2,7 @@ import csv
 import glob
 import json
 
-run = 'noda'
+run = '0p1_100elr4/noda'
 datasets = ['covid19china','covid20cases','mosmed','medseg','ricord1a']
 
 csv_file = open('da_results.csv','w')
@@ -28,10 +28,10 @@ writer.writerow(row)
 das = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/', 
        'GaussianBlur/', 'GridDistortion/', 'GridDropout/', 'ImageCompression/', 'MedianBlur/',
        'OpticalDistortion/', 'PiecewiseAffine/', 'Posterize/', 'RandomBrightnessContrast/', 'RandomCrop/',
-       'RandomGamma/', 'RandomSnow/', 'Rotate/', 'Sharpen/', 'ShiftScaleRotate/']
-das = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/',
-        'GaussianBlur/', 'GridDistortion/', 'MedianBlur/', 'OpticalDistortion/', 'ShiftScaleRotate/']
-super_runs = ['0p1_100e/']
+       'RandomGamma/', 'RandomSnow/', 'Rotate/']#, 'Sharpen/', 'ShiftScaleRotate/']
+#das = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/',
+#        'GaussianBlur/', 'GridDistortion/', 'MedianBlur/', 'OpticalDistortion/', 'ShiftScaleRotate/']
+super_runs = ['0p1_100elr4/']
 
 for da in das:
     for super_run in super_runs:

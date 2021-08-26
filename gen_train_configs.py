@@ -10,7 +10,7 @@ num_workers = 4
 learning_rate = 0.0001
 
 mode = 'train'
-experiment = 'noda'
+experiment = 'RandomBrightnessContrast'
 
 encoders = ['timm-regnetx_002']
 
@@ -23,10 +23,10 @@ nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
 decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
 datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
 #datasets = ['medseg']
-augmentations = ["noda"]
-aug_name = "noda"
+augmentations = ["Random_brightness_contrast"]
+aug_name = "Random_brightness_contrast"
 #augmentations = [""]
-augmentation_prob = 0.0
+augmentation_prob = 0.1
 
 gpu = 0
 node_num = 0
