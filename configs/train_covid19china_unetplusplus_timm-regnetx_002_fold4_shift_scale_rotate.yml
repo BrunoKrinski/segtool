@@ -9,7 +9,7 @@ dataset:
 general:
   dataset: covid19china
   experiment: ShiftScaleRotate
-  gpu: 1
+  gpu: 0
   mode: train
   num_workers: 4
 model:

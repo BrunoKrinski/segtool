@@ -9,7 +9,7 @@ dataset:
 general:
   dataset: medseg
   experiment: ShiftScaleRotate
-  gpu: 1
+  gpu: 0
   mode: train
   num_workers: 4
 model:

@@ -10,7 +10,7 @@ num_workers = 4
 learning_rate = 0.0001
 
 mode = 'train'
-experiment = 'RandomBrightnessContrast'
+experiment = 'ShiftScaleRotate'
 
 encoders = ['timm-regnetx_002']
 
@@ -23,8 +23,8 @@ nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
 decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
 datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
 #datasets = ['medseg']
-augmentations = ["random_brightness_contrast"]
-aug_name = "random_brightness_contrast"
+augmentations = ["shift_scale_rotate"]
+aug_name = "shift_scale_rotate"
 #augmentations = [""]
 augmentation_prob = 0.1
 
