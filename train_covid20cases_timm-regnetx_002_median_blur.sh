@@ -6,7 +6,7 @@
 #SBATCH -n 1 #NUM_DE_PROCESSOS
 #SBATCH -p 7d
 #SBATCH -N 1 #NUM_NODOS_NECESSARIOS
-#SBATCH --nodelist=vti1-ib
+#SBATCH --nodelist=vti2-ib
 #SBATCH --gres=gpu:2
 #SBATCH -e /home/bakrinski/segtool/logs/covid20cases_timm-regnetx_002_median_blur_error.out
 

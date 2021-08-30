@@ -328,7 +328,7 @@ if __name__ == '__main__':
             with open(out_dir + '/train_logs.json', 'w') as log_file:
                 json.dump(logs, log_file, indent=4)
         
-            if i > 0 and (i % 25 == 0):
+            if i > 0 and (i % 20 == 0):
                 print('Learning rate decreased!')
                 optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] / 10
                 #torch.save(model, '{}/epoch{}.pth'.format(checkpoints, i))

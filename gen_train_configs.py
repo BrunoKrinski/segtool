@@ -7,10 +7,10 @@ num_folds = 5
 batch_size = 8
 num_epochs = 100
 num_workers = 4
-learning_rate = 0.0001
+learning_rate = 0.001
 
 mode = 'train'
-experiment = 'ShiftScaleRotate'
+experiment = 'noda'
 
 encoders = ['timm-regnetx_002']
 
@@ -23,10 +23,12 @@ nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
 decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
 datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
 #datasets = ['medseg']
-augmentations = ["shift_scale_rotate"]
-aug_name = "shift_scale_rotate"
+augmentations = ["noda"]
+aug_name = "noda"
 #augmentations = [""]
-augmentation_prob = 0.1
+augmentation_prob = 0.0
+
+print(aug_name)
 
 gpu = 0
 node_num = 0
@@ -47,7 +49,7 @@ for dataset in datasets:
         node_count = 0
     
     node_count += 1
-    print(nodes[node_num])
+    #print(nodes[node_num])
 
     sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 4\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_{}_log.out\n\
 #SBATCH --job-name={}_{}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
