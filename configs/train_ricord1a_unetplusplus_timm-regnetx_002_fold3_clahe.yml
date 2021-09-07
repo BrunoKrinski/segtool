@@ -1,5 +1,5 @@
 augmentation:
-  augmentation_prob: 0.1
+  augmentation_prob: 0.2
   augmentations:
   - clahe
 dataset:
