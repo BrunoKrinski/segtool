@@ -10,21 +10,21 @@ num_workers = 4
 learning_rate = 0.001
 
 mode = 'train'
-experiment = 'Rotate'
+experiment = 'ShiftScaleRotate'
 
 encoders = ['timm-regnetx_002']
 
 #nodes = ['vti2-ib', 'vti1-ib', 'pti']
-#nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
-nodes = ['vti1-ib', 'vti1-ib', 'vti1-ib']
+nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
+#nodes = ['vti1-ib', 'vti1-ib', 'vti1-ib']
 #nodes = ['pti', 'pti', 'pti']
 #nodes = ['vti2-ib']
 #decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
 datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
 #datasets = ['medseg']
-augmentations = ["rotate"]
-aug_name = "rotate"
+augmentations = ["shift_scale_rotate"]
+aug_name = "shift_scale_rotate"
 #augmentations = [""]
 augmentation_prob = 0.2
 
