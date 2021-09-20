@@ -7,7 +7,7 @@ num_folds = 5
 batch_size = 8
 num_epochs = 100
 num_workers = 4
-learning_rate = 0.001
+learning_rate = 0.0001
 
 mode = 'train'
 experiment = 'ShiftScaleRotate'
