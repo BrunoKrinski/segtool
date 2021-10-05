@@ -5,14 +5,14 @@ width = 256
 height = 256
 num_folds = 5
 batch_size = 8
-num_epochs = 100
+num_epochs = 50
 num_workers = 4
-learning_rate = 0.0001
+learning_rate = 0.001
 
 mode = 'train'
-experiment = 'ShiftScaleRotate'
+experiment = 'LungSeg'
 
-encoders = ['timm-regnetx_002']
+encoders = ['vgg16']
 
 #nodes = ['vti2-ib', 'vti1-ib', 'pti']
 nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
@@ -21,16 +21,18 @@ nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
 #nodes = ['vti2-ib']
 #decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
-datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
+#datasets = ['ricord1a', 'covid20cases', 'mosmed', 'medseg', 'covid19china']
+datasets = ['lungseg']
 #datasets = ['medseg']
-augmentations = ["shift_scale_rotate"]
-aug_name = "shift_scale_rotate"
-#augmentations = [""]
-augmentation_prob = 0.2
+#augmentations = ["shift_scale_rotate"]
+#aug_name = "shift_scale_rotate"
+augmentations = ["noda"]
+aug_name = "noda"
+augmentation_prob = 0
 
-print(aug_name)
+#print(aug_name)
 
-gpu = 0
+gpu = 1
 node_num = 0
 node_count = 0
 node_usage = 2

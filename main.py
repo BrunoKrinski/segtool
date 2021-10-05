@@ -328,7 +328,7 @@ if __name__ == '__main__':
             with open(out_dir + '/train_logs.json', 'w') as log_file:
                 json.dump(logs, log_file, indent=4)
         
-            if i > 0 and (i % 25 == 0):
+            if i > 0 and (i % 20 == 0):
                 print('Learning rate decreased!')
                 optimizer.param_groups[0]['lr'] = optimizer.param_groups[0]['lr'] / 10
                 #torch.save(model, '{}/epoch{}.pth'.format(checkpoints, i))
@@ -411,12 +411,13 @@ if __name__ == '__main__':
             pr_masks = model.predict(x_tensor)
             
             pr_masks_individual = (pr_masks.squeeze().cpu().numpy())
-            
+
             eps=1e-7
             ious = [0.0] * num_classes
             scores = [0.0] * num_classes
+            #print(num_classes)
             for i, pr, gt in zip(range(num_classes), pr_masks_individual, gt_mask):
-
+                
                 intersection = np.sum(pr * gt)
                 union = np.sum(gt) + np.sum(pr) - intersection
                 iou_score = intersection / (union + eps)
@@ -444,7 +445,7 @@ if __name__ == '__main__':
                 max_size = resize_height
             else:
                 max_size = resize_width
-            
+
             transform = albu.LongestMaxSize(max_size, interpolation=cv2.INTER_NEAREST, p=1)
             image = transform(image=original_image)['image']
             
