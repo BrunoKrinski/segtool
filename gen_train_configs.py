@@ -12,7 +12,7 @@ learning_rate = 0.001
 mode = 'train'
 experiment = 'LungSeg'
 
-encoders = ['vgg16']
+encoders = ['timm-regnetx_002']
 
 #nodes = ['vti2-ib', 'vti1-ib', 'pti']
 nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
@@ -32,7 +32,7 @@ augmentation_prob = 0
 
 #print(aug_name)
 
-gpu = 1
+gpu = 0
 node_num = 0
 node_count = 0
 node_usage = 2

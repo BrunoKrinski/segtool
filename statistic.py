@@ -23,7 +23,7 @@ encoders = ['densenet121', 'resnet101', 'resnext50_32x4d', 'se_resnext101_32x4d'
             'se_resnext50_32x4d', 'timm-regnetx_006', 'timm-regnety_006', 'vgg16', 'densenet201',
             'resnext101_32x8d',  'se_resnet50', 'timm-regnetx_002', 'timm-regnety_002', 'timm-res2net101_26w_4s']
 
-RUNS = 'RUNS/baseline/'
+RUNS = 'RUNS/paper1/'
 
 final_result = []
 for decoder in decoders:
@@ -32,7 +32,7 @@ for decoder in decoders:
     decoder_result = []
 
     for encoder in encoders:
-        print(encoder)
+        #print(encoder)
         encoder_result = []
 
         for dataset in datasets:
@@ -47,16 +47,19 @@ for decoder in decoders:
                     with open(individual_logs_path) as f:
                         data = json.load(f)
                         data = data['fscores']
-                        #data = [round(i, 3) for i in data]
+                        #print(len(data))
+                        data = [round(i*100) for i in data]
                         #print(data)
                         if len(data) == 0:
                             print('ERRO ERRO ERRO ERRO ERRO ERRO!!!!!!')
                     results_runs.append(data)
+            #print(len(results_runs))
             dataset_result = [sum(x) / len(x) for x in zip(*results_runs)]
-            dataset_result = [round(i, 2) for i in dataset_result]
+            #print(len(dataset_result))
+            dataset_result = [round(i) for i in dataset_result]
 
             #print('Mean for dataset:')
-            #print_list(dataset_result)
+            #print_list(dataset_result[0:10])
 
             encoder_result.extend(dataset_result)
         

@@ -1,0 +1,14 @@
+dataset:
+  labels: datasets/lungseg/labels.txt # List of labels
+  test: datasets/lungseg/ricord/ids.txt # List of images and masks path
+  test_path: datasets/lungseg/ricord/
+general:
+  gpu: 0
+  mode: test
+  num_workers: 4
+  path: RUNS/LungSeg/lungseg/unetplusplus/timm-regnetx_002/train_lungseg_unetplusplus_timm-regnetx_002_fold0_noda_2022-01-31_10:00:19.888576/
+model:
+  batch_size: 8
+  encoder: timm-regnetx_002
+  height: 256
+  width: 256

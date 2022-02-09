@@ -57,13 +57,13 @@ if __name__ == '__main__':
     root = 'RUNS/'
 
     super_runs = ['0p1/', '0p2/']
-    super_runs = ['50e/']
+    super_runs = ['/']
     
     experiments = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/', 
                    'GaussianBlur/', 'GridDistortion/', 'GridDropout/', 'ImageCompression/', 'MedianBlur/',
                    'OpticalDistortion/', 'PiecewiseAffine/', 'Posterize/', 'RandomBrightnessContrast/', 'RandomCrop/',
                    'RandomGamma/', 'RandomSnow/', 'Rotate/', 'Sharpen/', 'ShiftScaleRotate/']
-    experiments = ['noda/']
+    experiments = ['LungSeg/']
     #encoders = ['resnet50/','resnet101/','resnext50_32x4d/','resnext101_32x8d/',
     #            'timm-res2net50_26w_4s/','timm-res2net101_26w_4s/','vgg16/','densenet121/',
     #            'densenet169/','densenet201/', 'se_resnext50_32x4d/', 'se_resnext101_32x4d/',
@@ -76,6 +76,7 @@ if __name__ == '__main__':
     decoders = ['unetplusplus/']
 
     datasets = ['covid19china/', 'medseg/', 'mosmed/', 'ricord1a/', 'covid20cases/',]
+    datasets = ['lungseg/']
 
     for super_run in super_runs:
 
@@ -211,6 +212,8 @@ if __name__ == '__main__':
                         elif dataset == 'ricord1a/':
                             title = 'Ricord1a'
                             p, e = 70, 100
+                        elif dataset == 'lungseg/':
+                            p, e = 94, 100
                         #print(p, e)
 
                         if decoder == 'unetplusplus/':
@@ -232,7 +235,7 @@ if __name__ == '__main__':
                         else:
                             ylabel = key
 
-                        yticks = [p/100 for p in range(p, e, 5)]
+                        yticks = [p/100 for p in range(p, e, 1)]
                         xticks = [p for p in range(0, len(train)+5, 5)]
                         #plt.figure(figsize=[10.4, 6.8])
                         #plt.rc('font', size=20)

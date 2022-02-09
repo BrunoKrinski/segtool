@@ -12,10 +12,8 @@ def init_results(test_results):
     return results
 
 if __name__ == '__main__':
-
-    experiments = ['paper1']
     
-    encoders = ['resnet18', 
+    '''encoders = ['resnet18', 
                 'resnet34', 
                 'resnet50', 
                 'resnet101', 
@@ -114,21 +112,7 @@ if __name__ == '__main__':
                 'vgg16', 
                 'vgg16_bn',
                 'vgg19', 
-                'vgg19_bn']
-
-    encoders = ['resnet50','resnet101','resnext50_32x4d','resnext101_32x8d',
-                'timm-res2net50_26w_4s','timm-res2net101_26w_4s','vgg16','densenet121',
-                'densenet169','densenet201', 'se_resnet50', 'se_resnet101',
-                'se_resnext50_32x4d', 'se_resnext101_32x4d',
-                'timm-regnetx_002', 'timm-regnetx_004', 'timm-regnetx_006',
-                'timm-regnety_002', 'timm-regnety_004', 'timm-regnety_006']
-                
-    decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'manet']
-    datasets = ['covid19china', 'medseg', 'mosmed', 'ricord1a', 'covid20cases']
-    runs_path = 'RUNS'
-
-    test_files = ['test_logs_last.json']
-
+                'vgg19_bn']'''
     '''
         \makecell{}&
         \makecell{}&
@@ -142,96 +126,109 @@ if __name__ == '__main__':
         \makecell{}
     '''
 
-    for experiment in experiments:
-        for decoder in decoders:
-            print(decoder)
-            print('------------------------------------------------------')
-            for dataset in datasets:
-                output_fscore = ''
-                output_iou = ''
-                output_fscore += '\makecell{'
-                output_iou += '\makecell{'
-
-                fscores = []
-                ious = []
-                for e, encoder in enumerate(encoders):
-                    path = 'RUNS/{}/{}/{}/{}/'.format(experiment, dataset, decoder, encoder)
-                    runs = glob.glob(path + '*')
-                    init = True
-                    cont = 0
-                    for run in runs:
-                        #print(run)
-                        if 'graphics' not in run:
-                            test_result_path = run + '/test_logs_last.json'
-                            with open(test_result_path) as f:
-                                data = json.load(f)
-                                test_results = data['test'][0]
-
-                                if init:
-                                    mean_results = init_results(test_results)
-                                    init = False
-                                else:
-                                    for key, value in test_results.items():
-                                        mean_results[key] += value
-                            cont += 1
-                    for key, value in mean_results.items():
-                        mean_results[key] = mean_results[key] / cont
-
-                    fscores.append(mean_results['Fscore'])
-                    ious.append(mean_results['Iou'])
-
-                find = np.argmax(fscores)
-                iind = np.argmax(ious)
-
-                str_fscores = []
-                for fscore in fscores:
-                    str_fscores.append(str(fscore)[:6])
+    runs_path = 'RUNS'
+    experiments = ['0p1_100elr4','0p2_100elr4']
+    encoders = ['timm-regnetx_002']
                 
-                str_ious = []
-                for iou in ious:
-                    str_ious.append(str(iou)[:6])
+    decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
+    datasets = ['covid19china', 'medseg', 'mosmed', 'ricord1a', 'covid20cases']
 
-                max_fscore = str_fscores[find]
-                max_iou = str_ious[iind]
+    das = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/', 
+           'GaussianBlur/', 'GridDistortion/', 'GridDropout/', 'ImageCompression/', 'MedianBlur/',
+           'OpticalDistortion/', 'PiecewiseAffine/', 'Posterize/', 'RandomBrightnessContrast/', 'RandomCrop/',
+           'RandomGamma/', 'RandomSnow/', 'Rotate/', 'Sharpen/', 'ShiftScaleRotate/']
+    #das = ['noda/']
 
-                for i, (fscore, iou) in enumerate(zip(str_fscores, str_ious)):
-                    if (i < len(fscores) - 1):
-                        if fscore == max_fscore:
-                            output_fscore += '\\textbf{\\textcolor{blue}{' + str(fscore)[:6] + '}}\\\\'
-                        else:
-                            output_fscore += str(fscore)[:6] + '\\\\'
+    test_files = ['test_logs_last.json']
 
-                        if iou == max_iou:
-                            output_iou += '\\textbf{\\textcolor{red}{' + str(iou)[:6] + '}}\\\\'
-                        else:
-                            output_iou += str(iou)[:6] + '\\\\'
+    for experiment in experiments:
+        print(experiment)
+        print('---------------------------------------------------------------------')
+        for dataset in datasets:
+            #print(dataset)
+            fscores = []
+            ious = []
+            output_fscore = ''
+            output_iou = ''
+            output_fscore += '\makecell{'
+            output_iou += '\makecell{'
+            for da in das:
+                #print(da)
+                if '0p2' in experiment and da == 'noda/':
+                    continue
+                else:
+                    for decoder in decoders:
+                        #print(decoder)
+                        for e, encoder in enumerate(encoders):
+                            path = 'RUNS/{}/{}/{}/{}/{}/'.format(experiment, da, dataset, decoder, encoder)
+                            runs = glob.glob(path + '*')
+                            init = True
+                            cont = 0
+                            for run in runs:
+                                #print(run)
+                                if 'graphics' not in run:
+                                    test_result_path = run + '/test_logs_last.json'
+                                    with open(test_result_path) as f:
+                                        data = json.load(f)
+                                        test_results = data['test'][0]
+
+                                        if init:
+                                            mean_results = init_results(test_results)
+                                            init = False
+                                        else:
+                                            for key, value in test_results.items():
+                                                mean_results[key] += value
+                                    cont += 1
+                            for key, value in mean_results.items():
+                                mean_results[key] = mean_results[key] / cont
+
+                            fscores.append(mean_results['Fscore'])
+                            ious.append(mean_results['Iou'])
+                
+            find = np.argmax(fscores)
+            iind = np.argmax(ious)
+            str_fscores = []
+            for fscore in fscores:
+                str_fscores.append(str(fscore)[:6])
+            str_ious = []
+            for iou in ious:
+                str_ious.append(str(iou)[:6])
+            max_fscore = str_fscores[find]
+            max_iou = str_ious[iind]
+
+            for i, (fscore, iou) in enumerate(zip(str_fscores, str_ious)):
+                if (i < len(fscores) - 1):
+                    if fscore == max_fscore:
+                        output_fscore += '\\textbf{\\textcolor{blue}{' + str(fscore)[:6] + '}}\\\\'
                     else:
-                        if fscore == max_fscore:
-                            output_fscore += '\\textbf{\\textcolor{blue}{' + str(fscore)[:6] + '}}}&'
-                        else:
-                            output_fscore += str(fscore)[:6] + '}&'
-
-                        if iou == max_iou:
-                            output_iou += '\\textbf{\\textcolor{red}{' + str(iou)[:6] + '}}}&'
-                        else:
-                            output_iou += str(iou)[:6] + '}&'
-
-
-                #if e < len(encoders)-1:
-                #    output_fscore += str(fscore)[:6] + '\\\\'
-                #    output_iou += str(iou)[:6] + '\\\\'
-                #else:
-                #    output_fscore += str(fscore)[:6] + '}&'
-                #    output_iou += str(iou)[:6] + '}&'
-                #print(decoder)
-                #print(dataset)
-                print(output_fscore)
-                print(output_iou)
-
-                                
-                            
+                        output_fscore += str(fscore)[:6] + '\\\\'
+                    if iou == max_iou:
+                        output_iou += '\\textbf{\\textcolor{red}{' + str(iou)[:6] + '}}\\\\'
+                    else:
+                        output_iou += str(iou)[:6] + '\\\\'
+                else:
+                    if fscore == max_fscore:
+                        output_fscore += '\\textbf{\\textcolor{blue}{' + str(fscore)[:6] + '}}}&'
+                    else:
+                        output_fscore += str(fscore)[:6] + '}&'
+                    if iou == max_iou:
+                        output_iou += '\\textbf{\\textcolor{red}{' + str(iou)[:6] + '}}}&'
+                    else:
+                        output_iou += str(iou)[:6] + '}&'
+            print(output_fscore)
+            print(output_iou)
 
 
+                    #if e < len(encoders)-1:
+                    #    output_fscore += str(fscore)[:6] + '\\\\'
+                    #    output_iou += str(iou)[:6] + '\\\\'
+                    #else:
+                    #    output_fscore += str(fscore)[:6] + '}&'
+                    #    output_iou += str(iou)[:6] + '}&'
+                    #print(decoder)
+                    #print(dataset)
+                    
+                    
 
 '''
     for experiment in experiments:

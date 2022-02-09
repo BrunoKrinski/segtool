@@ -28,7 +28,7 @@ writer.writerow(row)
 das = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/', 
        'GaussianBlur/', 'GridDistortion/', 'GridDropout/', 'ImageCompression/', 'MedianBlur/',
        'OpticalDistortion/', 'PiecewiseAffine/', 'Posterize/', 'RandomBrightnessContrast/', 'RandomCrop/',
-       'RandomGamma/', 'RandomSnow/', 'Rotate/']#, 'Sharpen/', 'ShiftScaleRotate/']
+       'RandomGamma/', 'RandomSnow/', 'Rotate/', 'Sharpen/', 'ShiftScaleRotate/']
 #das = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/',
 #        'GaussianBlur/', 'GridDistortion/', 'MedianBlur/', 'OpticalDistortion/', 'ShiftScaleRotate/']
 super_runs = ['0p1_100elr4/']

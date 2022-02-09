@@ -12,7 +12,7 @@ type = 'last'
 #type = 'best_iou'
 #type = 'best_fscore'
 #experiment = 'baseline'
-experiment = '0p2_100elr4'
+experiment = 'LungSeg'
 
 encoders = ['resnet18', 
             'resnet34', 
@@ -142,7 +142,8 @@ nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
 #nodes = ['pti', 'pti', 'pti']
 #decoders = ['unetplusplus','unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 decoders = ['unetplusplus']#,'unet','fpn','pspnet','linknet', 'manet']
-datasets = ['medseg', 'covid20cases', 'mosmed', 'covid19china', 'ricord1a']
+#datasets = ['medseg', 'covid20cases', 'mosmed', 'covid19china', 'ricord1a']
+datasets = ['lungseg']
 
 gpu = 0
 node_num = 0
@@ -156,6 +157,8 @@ if node_usage * len(nodes) < len(datasets):
 augmentations = ['Clahe', 'Emboss', 'GridDistortion', 'MedianBlur', 'Posterize', 'RandomGamma', 'Sharpen',
                  'CoarseDropout', 'Flip', 'GridDropout', 'OpticalDistortion', 'RandomBrightnessContrast', 'RandomSnow', 'ShiftScaleRotate',
                  'ElasticTransform', 'GaussianBlur', 'ImageCompression', 'PiecewiseAffine', 'RandomCrop', 'Rotate', 'noda']
+
+augmentations = ['']
 
 for augmentation in augmentations:
     for dataset in datasets:
