@@ -126,18 +126,21 @@ if __name__ == '__main__':
         \makecell{}
     '''
 
-    runs_path = 'RUNS'
-    experiments = ['0p1_100elr4','0p2_100elr4']
+    runs_path = 'RUNS/das5/'
+    #experiments = ['0p05',  '0p1', '0p15',  '0p2']
+    experiments = ['0p3']#, '0p5']
     encoders = ['timm-regnetx_002']
                 
     decoders = ['unetplusplus']#, 'unet','fpn','pspnet','linknet', 'manet']
     datasets = ['covid19china', 'medseg', 'mosmed', 'ricord1a', 'covid20cases']
+    #datasets = ['mosmed']
 
     das = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/', 
            'GaussianBlur/', 'GridDistortion/', 'GridDropout/', 'ImageCompression/', 'MedianBlur/',
            'OpticalDistortion/', 'PiecewiseAffine/', 'Posterize/', 'RandomBrightnessContrast/', 'RandomCrop/',
-           'RandomGamma/', 'RandomSnow/', 'Rotate/', 'Sharpen/', 'ShiftScaleRotate/']
-    #das = ['noda/']
+           'RandomGamma/', 'RandomSnow/', 'Rotate/', 'Sharpen/', 'ShiftScaleRotate/']#,
+    #das = ['StarganNoFlip/', 'StarganFlip/', 'StyleganNoFlip/', 'StyleganFlip/']
+    das = ['ElasticTransform/']
 
     test_files = ['test_logs_last.json']
 
@@ -154,24 +157,27 @@ if __name__ == '__main__':
             output_iou += '\makecell{'
             for da in das:
                 #print(da)
-                if '0p2' in experiment and da == 'noda/':
+                if ('0p2' in experiment or '0p1' in experiment or '0p15' in experiment or '0p25' in experiment or '0p3' in experiment) and da == 'noda/':
                     continue
                 else:
                     for decoder in decoders:
                         #print(decoder)
                         for e, encoder in enumerate(encoders):
-                            path = 'RUNS/{}/{}/{}/{}/{}/'.format(experiment, da, dataset, decoder, encoder)
+                            path = 'RUNS/das5/{}/{}/{}/{}/{}/'.format(experiment, da, dataset, decoder, encoder)
+                            #print(path)
                             runs = glob.glob(path + '*')
+                            #print(runs)
                             init = True
                             cont = 0
                             for run in runs:
                                 #print(run)
                                 if 'graphics' not in run:
                                     test_result_path = run + '/test_logs_last.json'
+                                    #print(test_result_path)
                                     with open(test_result_path) as f:
                                         data = json.load(f)
                                         test_results = data['test'][0]
-
+                                        
                                         if init:
                                             mean_results = init_results(test_results)
                                             init = False
@@ -199,22 +205,22 @@ if __name__ == '__main__':
             for i, (fscore, iou) in enumerate(zip(str_fscores, str_ious)):
                 if (i < len(fscores) - 1):
                     if fscore == max_fscore:
-                        output_fscore += '\\textbf{\\textcolor{blue}{' + str(fscore)[:6] + '}}\\\\'
+                        output_fscore += '\\colorbox{white}{\makebox(21,2){\\textbf{\\textcolor{blue}{' + str(fscore)[:6] + '}}}}\\\\\n'
                     else:
-                        output_fscore += str(fscore)[:6] + '\\\\'
+                        output_fscore += '\\colorbox{white}{\makebox(21,2){' + str(fscore)[:6] + '}}\\\\\n'
                     if iou == max_iou:
-                        output_iou += '\\textbf{\\textcolor{red}{' + str(iou)[:6] + '}}\\\\'
+                        output_iou += '\\colorbox{white}{\makebox(21,2){\\textbf{\\textcolor{red}{' + str(iou)[:6] + '}}}}\\\\\n'
                     else:
-                        output_iou += str(iou)[:6] + '\\\\'
+                        output_iou += '\\colorbox{white}{\makebox(21,2){' + str(iou)[:6] + '}}\\\\\n'
                 else:
                     if fscore == max_fscore:
-                        output_fscore += '\\textbf{\\textcolor{blue}{' + str(fscore)[:6] + '}}}&'
+                        output_fscore += '\\colorbox{white}{\makebox(21,2){\\textbf{\\textcolor{blue}{' + str(fscore)[:6] + '}}}}}&'
                     else:
-                        output_fscore += str(fscore)[:6] + '}&'
+                        output_fscore += '\\colorbox{white}{\makebox(21,2){' + str(fscore)[:6] + '}}}&'
                     if iou == max_iou:
-                        output_iou += '\\textbf{\\textcolor{red}{' + str(iou)[:6] + '}}}&'
+                        output_iou += '\\colorbox{white}{\makebox(21,2){\\textbf{\\textcolor{red}{' + str(iou)[:6] + '}}}}}&'
                     else:
-                        output_iou += str(iou)[:6] + '}&'
+                        output_iou += '\\colorbox{white}{\makebox(21,2){' + str(iou)[:6] + '}}}&'
             print(output_fscore)
             print(output_iou)
 

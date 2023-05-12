@@ -13,7 +13,7 @@ def init_results(test_results):
 
 if __name__ == '__main__':
 
-    experiments = ['paper1']
+    experiments = ['bio/noda']
     
     encoders = ['resnet18', 
                 'resnet34', 
@@ -116,15 +116,17 @@ if __name__ == '__main__':
                 'vgg19', 
                 'vgg19_bn']
 
-    encoders = ['resnet50','resnet101','resnext50_32x4d','resnext101_32x8d',
-                'timm-res2net50_26w_4s','timm-res2net101_26w_4s','vgg16','densenet121',
-                'densenet169','densenet201', 'se_resnet50', 'se_resnet101',
-                'se_resnext50_32x4d', 'se_resnext101_32x4d',
-                'timm-regnetx_002', 'timm-regnetx_004', 'timm-regnetx_006',
-                'timm-regnety_002', 'timm-regnety_004', 'timm-regnety_006']
+    encoders = ['resnet50','resnet101','resnext50_32x4d','resnext101_32x8d', 'vgg16', 'mobilenet_v2']
+                #'timm-res2net50_26w_4s','timm-res2net101_26w_4s',,'densenet121',
+                #'densenet169','densenet201', 'se_resnet50', 'se_resnet101',
+                #'se_resnext50_32x4d', 'se_resnext101_32x4d',
+                #'timm-regnetx_002', 'timm-regnetx_004', 'timm-regnetx_006',
+                #'timm-regnety_002', 'timm-regnety_004', 'timm-regnety_006']
                 
-    decoders = ['unetplusplus', 'unet','fpn','pspnet','linknet', 'manet']
-    datasets = ['covid19china', 'medseg', 'mosmed', 'ricord1a', 'covid20cases']
+    decoders = ['pspnet']#, 'unet','fpn','pspnet','linknet', 'manet']
+    #datasets = ['covid19china', 'medseg', 'mosmed', 'ricord1a', 'covid20cases']
+    datasets = ['dutomron','duts','ecssd','hkuis','msra10k']
+
     runs_path = 'RUNS'
 
     test_files = ['test_logs_last.json']
@@ -156,6 +158,7 @@ if __name__ == '__main__':
                 ious = []
                 for e, encoder in enumerate(encoders):
                     path = 'RUNS/{}/{}/{}/{}/'.format(experiment, dataset, decoder, encoder)
+                    #print(path)
                     runs = glob.glob(path + '*')
                     init = True
                     cont = 0

@@ -2,8 +2,10 @@ import os
 import cv2
 import numpy as np
 
+datasets_path = 'datasets/'
+'''
 datasets = ['covid19china', 'covid20cases', 'medseg', 'mosmed', 'ricord1a']
-datasets = ['ricord1a']
+#datasets = ['ricord1a']
 
 datasets_path = 'datasets/'
 
@@ -20,7 +22,7 @@ for dataset in datasets:
 
         empty_images_path = spath + 'empty_images/'
         empty_masks_path = spath + 'empty_masks/'
-
+        
         if os.path.isdir(empty_images_path):
             os.system('rm -r ' + empty_images_path)
         os.mkdir(empty_images_path)
@@ -28,7 +30,7 @@ for dataset in datasets:
         if os.path.isdir(empty_masks_path):
             os.system('rm -r ' + empty_masks_path)
         os.mkdir(empty_masks_path)
-
+        
         with open(ids_path) as ids_file:
             lines = ids_file.readlines()
 
@@ -41,6 +43,12 @@ for dataset in datasets:
 
             #print(msk_path)
             mask = cv2.imread(msk_path, 0)
+
+            if dataset == 'covid19china':
+                mask = np.where(mask == 1, 0, mask)
+            if dataset == 'covid20cases':
+                mask = np.where(mask == 1, 0, mask)
+                mask = np.where(mask == 2, 0, mask)
 
             uniques = np.unique(mask)
 
@@ -60,7 +68,7 @@ for dataset in datasets:
 '''
 datasets = ['lungseg']
 for dataset in datasets:
-    dataset_path = datasets_path + dataset + '/test_stylegan/'
+    dataset_path = datasets_path + dataset + '/ricord1b_gan/'
 
     ids_path = dataset_path + 'ids.txt'
 
@@ -117,4 +125,3 @@ for dataset in datasets:
             os.system(mv_img)
             os.system(mv_msk)
             os.system(mv_sgm)
-'''

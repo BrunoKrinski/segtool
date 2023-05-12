@@ -38,12 +38,65 @@ encoders = ['timm-regnetx_002']
 das = ['Clahe/', 'CoarseDropout/', 'ElasticTransform/', 'Emboss/', 'Flip/', 
        'GaussianBlur/', 'GridDistortion/', 'GridDropout/', 'ImageCompression/', 'MedianBlur/',
        'OpticalDistortion/', 'PiecewiseAffine/', 'Posterize/', 'RandomBrightnessContrast/', 'RandomCrop/',
-       'RandomGamma/', 'RandomSnow/', 'Rotate/', 'Sharpen/', 'ShiftScaleRotate/']#, 'Stargan/', 'StarganFlip/','Stylegan/','StyleganFlip/']
-#das = ['StarganNoFlip/', 'StarganFlip/', 'StyleganNoFlip/', 'StyleganFlip/']
-RUNS = ['RUNS/das5/0p3/']#, 'RUNS/das5/0p5/'] #, 'RUNS/das5/0p15/', 'RUNS/das5/0p2/'] 
-#RUNS = ['RUNS/das4/0p2/']
-#RUNS = ['RUNS/0p2_100elr4/']
+       'RandomGamma/', 'RandomSnow/', 'Rotate/', 'Sharpen/', 'ShiftScaleRotate/','noda/']#, 'Stargan/', 'StarganFlip/','Stylegan/','StyleganFlip/']
+#das = ['StarganNoFlip/','StyleganNoFlip/']
 
+RUN4 = ['RUNS/das4/0p45/', 'RUNS/das4/0p5/']#, 'RUNS/das4/0p15/', 'RUNS/das4/0p2/']
+RUN5 = ['RUNS/das5/0p45/', 'RUNS/das5/0p5/']#, 'RUNS/das5/0p15/', 'RUNS/das5/0p2/']
+
+for run4, run5 in zip(RUN4, RUN5):
+    print('-------------------------------------------------------------------')
+    print(run4)
+    print(run5)
+    print('-------------------------------------------------------------------')
+    for dataset in datasets:
+        print('-------------------------------------------------------------------')
+        print(dataset)
+        print('-------------------------------------------------------------------')
+        for da_i, da in enumerate(das):
+            #print(da)
+            runs_path4 = run4 + da + dataset + '/' + decoders[0] + '/' + encoders[0]
+            runs_path5 = run5 + da + dataset + '/' + decoders[0] + '/' + encoders[0]
+
+            runs4 = glob.glob(runs_path4 + '/*')
+            runs5 = glob.glob(runs_path5 + '/*')
+            
+            results_runs4 = []
+            for run in runs4:
+                if 'graphics' not in run:
+                    individual_logs_path = run + '/individual_logs_last.json'
+                    #print(individual_logs_path)
+                    with open(individual_logs_path) as f:
+                        data = json.load(f)
+                        data = data['fscores']
+                        #data = [round(i*100) for i in data]
+                        if len(data) == 0:
+                            print('ERRO ERRO ERRO ERRO ERRO ERRO!!!!!!')
+                    results_runs4.append(data)
+            da_result4 = [sum(x) / len(x) for x in zip(*results_runs4)]
+            da_result4 = [round(i*100) for i in da_result4]
+
+            results_runs5 = []
+            for run in runs5:
+                if 'graphics' not in run:
+                    individual_logs_path = run + '/individual_logs_last.json'
+                    #print(individual_logs_path)
+                    with open(individual_logs_path) as f:
+                        data = json.load(f)
+                        data = data['fscores']
+                        #data = [round(i*100) for i in data]
+                        if len(data) == 0:
+                            print('ERRO ERRO ERRO ERRO ERRO ERRO!!!!!!')
+                    results_runs5.append(data)
+            da_result5 = [sum(x) / len(x) for x in zip(*results_runs5)]
+            da_result5 = [round(i*100) for i in da_result5]
+
+            wilcoxon_result = stats.wilcoxon(da_result4, da_result5,alternative='less')
+            if wilcoxon_result.pvalue < 0.05:
+                print(da_i+1, da)
+
+
+'''
 for r in RUNS:
     print()
     print(r)
@@ -120,87 +173,4 @@ for r in RUNS:
         #                          da_results[10], da_results[11],da_results[12],da_results[13],da_results[14],
         #                          da_results[15], da_results[16],da_results[17],da_results[18],da_results[19])
         #print(friedman, format(friedman.pvalue, ".60f"))
-
-'''
-final_result = []
-for decoder in decoders:
-    print(decoder)
-    decoder_list = []
-    decoder_result = []
-
-    for encoder in encoders:
-        print(encoder)
-        encoder_result = []
-
-        for dataset in datasets:
-            #print(dataset)
-            
-            runs_path = RUNS + dataset + '/' + decoder + '/' + encoder
-            runs = glob.glob(runs_path + '/*')
-            results_runs = []
-            for run in runs:
-                if 'graphics' not in run:
-                    individual_logs_path = run + '/individual_logs_last.json'
-                    with open(individual_logs_path) as f:
-                        data = json.load(f)
-                        data = data['fscores']
-                        #data = [round(i, 3) for i in data]
-                        #print(data)
-                        if len(data) == 0:
-                            print('ERRO ERRO ERRO ERRO ERRO ERRO!!!!!!')
-                    results_runs.append(data)
-            print(len(results_runs))
-            dataset_result = [sum(x) / len(x) for x in zip(*results_runs)]
-            print(len(dataset_result))
-            dataset_result = [round(i, 2) for i in dataset_result]
-
-            #print('Mean for dataset:')
-            #print_list(dataset_result)
-
-            encoder_result.extend(dataset_result)
-        
-        #print('Encoder result:')
-        #print_list(encoder_result)
-        #print('Size: ' + str(len(encoder_result)))
-
-        shapiro_test = stats.shapiro(encoder_result)
-        #print(shapiro_test)
-        #print(shapiro_test, format(shapiro_test.pvalue, ".60f"))
-        #print('\n\n')
-        
-        decoder_list.append(encoder_result)
-        #print('Decoder list: ' + str(len(decoder_list)))
-    
-    #### Fazer comparação de encoders para decoder
-    friedman = stats.f_oneway(decoder_list[0],decoder_list[1],decoder_list[2],decoder_list[3],decoder_list[4],
-                                       decoder_list[5], decoder_list[6],decoder_list[7],decoder_list[8],decoder_list[9],
-                                       decoder_list[10], decoder_list[11],decoder_list[12],decoder_list[13],decoder_list[14],
-                                       decoder_list[15], decoder_list[16],decoder_list[17],decoder_list[18],decoder_list[19])
-    #print(decoder_list[0])
-    #print(decoder_list[1])
-    #print(decoder_list[2])
-    #print(decoder_list[3])
-    #friedman = stats.f_oneway(decoder_list[0],decoder_list[1],decoder_list[2],decoder_list[3],decoder_list[4])
-
-    print('----------------------------------------------')
-    print('Decoder:' + decoder)
-    print('Encoder comparison: ')                                   
-    print(friedman, format(friedman.pvalue, ".60f"))
-    print('----------------------------------------------')
-    print('\n\n')
-
-    #----------------
-    for item in decoder_list:
-        decoder_result.extend(item)
-    final_result.append(decoder_result)
-    #print('Final result: ' + str(len(final_result)))
-
-#### Fazer comparação de decoders
-friedman = stats.f_oneway(final_result[0],final_result[1],final_result[2],final_result[3],final_result[4], final_result[5])
-
-print('----------------------------------------------')
-print('Decoder comparison: ')
-print(friedman)
-print('----------------------------------------------')
-print('\n\n')
 '''

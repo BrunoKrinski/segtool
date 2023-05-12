@@ -2,8 +2,8 @@ import os
 import yaml
 import glob
 
-width = 256
-height = 256
+width = 512
+height = 512
 batch_size = 8
 num_workers = 4
 
@@ -12,7 +12,7 @@ type = 'last'
 #type = 'best_iou'
 #type = 'best_fscore'
 #experiment = 'baseline'
-experiment = 'LungSeg'
+experiment = '0p3'
 
 encoders = ['resnet18', 
             'resnet34', 
@@ -135,6 +135,7 @@ encoders = ['resnet18',
 #encoders = ['timm-regnety_002']
 #encoders = ['timm-regnety_004']
 encoders = ['timm-regnetx_002']
+#encoders = ['mobilenet_v2','resnet101','resnet50','resnext50_32x4d','vgg16','resnext101_32x8d']
 
 #nodes = ['vti2-ib', 'vti1-ib', 'pti']
 nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
@@ -142,8 +143,9 @@ nodes = ['vti2-ib', 'vti2-ib', 'vti2-ib']
 #nodes = ['pti', 'pti', 'pti']
 #decoders = ['unetplusplus','unet','fpn','pspnet','linknet', 'pan', 'manet', 'deeplabv3', 'deeplabv3plus']
 decoders = ['unetplusplus']#,'unet','fpn','pspnet','linknet', 'manet']
-#datasets = ['medseg', 'covid20cases', 'mosmed', 'covid19china', 'ricord1a']
-datasets = ['lungseg']
+datasets = ['medseg', 'covid20cases', 'mosmed', 'covid19china', 'ricord1a']
+#datasets = ['dutomron','duts','ecssd','hkuis','msra10k']
+
 
 gpu = 0
 node_num = 0
@@ -156,22 +158,24 @@ if node_usage * len(nodes) < len(datasets):
 
 augmentations = ['Clahe', 'Emboss', 'GridDistortion', 'MedianBlur', 'Posterize', 'RandomGamma', 'Sharpen',
                  'CoarseDropout', 'Flip', 'GridDropout', 'OpticalDistortion', 'RandomBrightnessContrast', 'RandomSnow', 'ShiftScaleRotate',
-                 'ElasticTransform', 'GaussianBlur', 'ImageCompression', 'PiecewiseAffine', 'RandomCrop', 'Rotate', 'noda']
+                 'ElasticTransform', 'GaussianBlur', 'ImageCompression', 'PiecewiseAffine', 'RandomCrop', 'Rotate']#, 'noda']]
+#augmentations = ['Rotate', 'Sharpen', 'ShiftScaleRotate']
+augmentations = ['ElasticTransform']
+#augmentations = ['StarganFlip', 'StyleganFlip']
+#augmentations = ['noda']
 
-augmentations = ['']
+#augmentations = ['StarganNoFlip', 'StyleganNoFlip']
+#augmentations = ['']
 
 for augmentation in augmentations:
     for dataset in datasets:
-
-        sh_cmds = []
-        py_cmds = []
 
         if node_count >= node_usage:
             #node_num += 1
             node_count = 0
         
         node_count += 1
-        print(nodes[node_num])
+        #print(nodes[node_num])
 
         sh = '#!/bin/sh\n#SBATCH -t 7-00:00:00\n#SBATCH -c 4\n#SBATCH -o /home/bakrinski/segtool/logs/{}_{}_log.out\n\
     #SBATCH --job-name={}_{}\n#SBATCH -n 1 #NUM_DE_PROCESSOS\n#SBATCH -p 7d\n#SBATCH -N 1 #NUM_NODOS_NECESSARIOS\n\
@@ -180,7 +184,11 @@ for augmentation in augmentations:
 
         for decoder in decoders:
             for encoder in encoders:
-                path = 'RUNS/' + experiment + '/' + augmentation + '/' + dataset + '/' + decoder + '/' + encoder + '/'
+                sh_cmds = []
+                py_cmds = []
+
+                path = 'RUNS/das5/' + experiment + '/' + augmentation + '/' + dataset + '/' + decoder + '/' + encoder + '/'
+                #print(path)
                 runs = glob.glob(path + '*')
                 r = 0
                 for run in runs:
@@ -190,6 +198,7 @@ for augmentation in augmentations:
                                         "num_workers": num_workers,
                                         "path": run,
                                         "gpu": gpu},
+                                        #"epoch_decay": 10},
                             "model": {"encoder": encoder, 
                                     "batch_size": batch_size,
                                     "height": height, 
@@ -199,28 +208,21 @@ for augmentation in augmentations:
                                         "labels": "datasets/{}/labels.txt".format(dataset)}
                         }
                         
-                        configs_name = 'configs/eval_' + dataset + '_' + decoder + '_' + encoder + '_' + str(r) + '_' + augmentation + '.yml'
+                        configs_name = 'configs/eval_' + dataset + '_' + decoder + '_' + encoder + '_' + str(r) + '_' + augmentation + '_' + experiment + '.yml'
                         r += 1
                         with open(configs_name, 'w') as config_file:
                             yaml.dump(configs, config_file)
                         py_cmds.append("python main.py --configs {}".format(configs_name))
                         sh_cmds.append("srun python main.py --configs {}".format(configs_name))
-        #gpu += 1
-        #if gpu == 2:
-        #    gpu = 0
-        gpu = 0
-        for sh_cmd in sh_cmds:
-            sh += sh_cmd + '\n'
+                gpu = 0
+                for sh_cmd in sh_cmds:
+                    sh += sh_cmd + '\n'
 
-        sh_file = 'eval_' + dataset + '_' + encoders[0] + '_' + augmentation + '.sh'
-        with open(sh_file,'w') as shf:
-            shf.write(sh)
-        
-        py = 'import os\n\nls=['
-        for py_cmd in py_cmds:
-            py += '"' + py_cmd + '",\n'
-        py += ']\n\nfor l in ls:\n  os.system(l)'
+                py = 'import os\n\nls=['
+                for py_cmd in py_cmds:
+                    py += '"' + py_cmd + '",\n'
+                py += ']\n\nfor l in ls:\n  os.system(l)'
 
-        py_file = 'eval_' + dataset + '_' + encoders[0] + '_' + augmentation + '.py'
-        with open(py_file,'w') as pyf:
-            pyf.write(py)
+                py_file = 'eval_' + dataset + '_' + encoder + '_' + augmentation + '_' + experiment + '.py'
+                with open(py_file,'w') as pyf:
+                    pyf.write(py)

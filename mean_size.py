@@ -20,8 +20,9 @@ if __name__ == '__main__':
     for idx in ids:
         mask = cv2.imread(masks_path + idx + '.png', 0)
         height, width = mask.shape
-        #heights.append(height)
-        #widths.append(width)
+        print(height, width)
+        heights.append(height)
+        widths.append(width)
 
         size = height * width
 
@@ -50,5 +51,12 @@ if __name__ == '__main__':
 
     #mean_height = sum(heights) / len(heights)
     #mean_width = sum(widths) / len(widths)
-
     #print(mean_height, mean_width)
+
+    heights.sort()
+    print(heights[0])
+    print(heights[-1])
+
+    widths.sort()
+    print(widths[0])
+    print(widths[-1])

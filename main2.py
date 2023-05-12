@@ -18,8 +18,6 @@ from tqdm import trange, tqdm
 from datetime import datetime
 from torch.utils.data import DataLoader
 from torch.utils.data import Dataset as BaseDataset
-#from pthflops import count_ops
-from fvcore.nn import FlopCountAnalysis
 
 ############################## DATASET ##############################
 class Dataset(BaseDataset):
@@ -35,6 +33,7 @@ class Dataset(BaseDataset):
 
         if self.have_mask:
             for idx in self.ids:
+                #print(idx)
                 image_path, mask_path = idx.split(' ')
                 self.images.append(image_path)
                 self.masks.append(mask_path)
@@ -280,8 +279,6 @@ if __name__ == '__main__':
             model = smp.DeepLabV3(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
         elif decoder == 'deeplabv3plus':
             model = smp.DeepLabV3Plus(encoder_name=encoder, classes=num_classes, encoder_weights='imagenet', activation=activation)
-                
-        #count_ops(model, inp)
         
         #model = torch.nn.DataParallel(model, device_ids=gpus, dim=0)
         
@@ -302,12 +299,6 @@ if __name__ == '__main__':
 
         valid_epoch = smp.utils.train.ValidEpoch(model, loss=loss, metrics=metrics, individual_metrics=individual_metrics, 
                                                  labels=classes, device=device, verbose=True,)
-
-        image, gt_mask = train_dataset[0]
-        x_tensor = torch.from_numpy(image).to(device).unsqueeze(0)
-        
-        flops = FlopCountAnalysis(model, x_tensor)
-        print(flops.total())
 
         checkpoints = out_dir + '/checkpoints'
         os.mkdir(checkpoints)
@@ -653,3 +644,4 @@ if __name__ == '__main__':
             
             cv2.imwrite(image_path, pred_image)
             cv2.imwrite(mask_path, final_mask)
+
