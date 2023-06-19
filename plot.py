@@ -9,17 +9,20 @@ def read_json(fname):
         data = json.load(fin)
     return data
 
-root_path = "/home/bakrinski/nobackup/segtool/RUNS/baseline/"
+root_path = "/home/bakrinski/nobackup/segtool/RUNS/LungSeg/"
 datasets = os.listdir(root_path)
 
 metric = "Fscore"
 # metric = "Weighted mean of: dice_loss and jaccard_loss)"
 
 for dataset in datasets[:1]:
+    print(dataset)
     decoders = os.listdir(root_path+"/"+dataset)
     for decoder in decoders:
+        print(decoder)
         encoders = os.listdir(root_path+"/"+dataset+"/"+decoder)
         for encoder in encoders:
+            print(encoder)
             folders = os.listdir(root_path+"/"+dataset+"/"+decoder+"/"+encoder)
             if("graphics" in folders):
                 folders.remove("graphics")
@@ -27,9 +30,10 @@ for dataset in datasets[:1]:
             x_train = []
             x_valid = []
             for fold in folders:
+                print(fold)
                 # data = json.load("train_logs.json")
                 data = read_json(root_path+"/"+dataset+"/"+decoder+"/"+encoder+"/"+fold+"/train_logs.json")
-
+                #print(data)
                 x_fold_train = []
                 x_fold_valid = []
                 for epoch in range(len(data["train"])):
@@ -39,7 +43,8 @@ for dataset in datasets[:1]:
 
                 x_train.append(x_fold_train)
                 x_valid.append(x_fold_valid)
-
+            
+            #print(x_train)
             x_train = np.array(x_train)
             x_train = np.mean(x_train,axis=0)
 
